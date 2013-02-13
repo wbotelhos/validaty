@@ -1,0 +1,26 @@
+.demo form { float: left; margin-bottom: 15px; width: 200px }
+
+.demo label { color: #222; font-size: 1.7em; letter-spacing: .7px; margin-left: 3px }
+
+.demo input,
+.demo textarea,
+.demo select { border: 1px solid #999; border-radius: 5px; color: #333; font-size: 1.5em; height: 27px; margin-bottom: 12px; padding: 3px; width: 200px }
+
+.demo textarea { height: 80px }
+
+.demo input[type="checkbox"] { display: block; height: 16px; width: 16px }
+.demo input[type="radio"] { margin-right: 10px; width: auto }
+
+   .demo input:focus,
+.demo textarea:focus,
+  .demo select:focus { border: 1px solid #95BDD4 }
+
+   .demo input:hover,
+.demo textarea:hover,
+  .demo select:hover { border: 1px solid #BDBDBD }
+
+.demo input[type="submit"] { float: right; margin-right: -6px; margin-top: 5px; width: 100px }
+
+/* Custom */
+
+.demo { float: left; margin-top: 20px }

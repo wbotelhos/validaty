@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width; initial-scale=1; maximum-scale=1" name="viewport">
+
+  <title>JQuery Validaty</title>
+
+  <meta content="Washington Botelho" name="author">
+  <meta content="jQuery Validaty - A Validation Plugin" name="description">
+  <meta content="jquery,plugin,validation,validator" name="keywords">
+
+	<link type="text/css" rel="stylesheet" href="demo/css/application.css">
+  <link type="text/css" rel="stylesheet" href="lib/jquery.validaty.css" />
+
+  <script type="text/javascript" src="demo/js/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/jquery.validaty.js"></script>
+  <script type="text/javascript" src="lib/jquery.validaty.validators.js"></script>
+
+	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+</head>
+<body>
+	<div id="wrapper">
+		<header role="banner">
+			<div id="logo">
+				<h1><a href="http://wbotelhos.com/validaty" title="jQuery Validaty">jQuery Validaty</a></h1>
+				<p>A Validation Plugin</p>
+			</div>
+
+			<nav role="navigation">
+			  <ul>
+			    <li><a href="http://github.com/wbotelhos/validaty/archive/0.1.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.1.0</a></li>
+          <li><a href="http://github.com/wbotelhos/validaty" title="Github" target="_blank"><i class="icon-github icon-large"></i>Github</a></li>
+          <li><a href="http://wbotelhos.com/labs" title="yLab" target="_blank"><i class="icon-beaker icon-large"></i>yLab</a></li>
+          <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=X8HEP2878NDEG&amp;item_name=jQuery%20Validaty" title="Donate" target="_blank"><i class="icon-heart-empty icon-large"></i>Donate</a></li>
+			  </ul>
+			</nav>
+		</header>
+
+    <div id="container">
+      <section role="main">
+        <article>
+          <h2 id="form">
+            <a href="#form">Form Bind</a>
+          </h2>
+
+          <p>Bind the form and all fields inside it with <code>data-validaty</code> will be validated.</p>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">();</span>
+</pre>
+</div>
+
+          <h3 id="required">
+            <a href="#required">Required</a>
+          </h3>
+
+          <p>You must fill, select or check the fields.</p>
+
+          <div class="demo">
+            <form id="required-demo">
+              <input type="text" data-validaty="required" />
+              <input type="checkbox" data-validaty="required" />
+
+              <input type="radio" name="radio" data-validaty="required" />
+              <input type="radio" name="radio" data-validaty="required" />
+
+              <select data-validaty="required">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+
+              <input type="submit" value="Send" />
+            </form>
+          </div>
+
+<div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"required"</span>
+</pre>
+</div>
+
+          <h3 id="number">
+            <a href="#number">Number</a>
+          </h3>
+
+          <p>You must fill a number.</p>
+
+          <div class="demo">
+            <form id="number-demo">
+              <input type="text" data-validaty="required number" />
+              <input type="submit" value="Send" />
+            </form>
+          </div>
+
+<div class="highlight">
+<pre>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">data-validaty=</span><span class="s">"number"</span> <span class="nt">/&gt;</span>
+</pre>
+</div>
+
+          <h3 id="email">
+            <a href="#email">E-mail</a>
+          </h3>
+
+          <p>You must fill a valid e-mail.</p>
+
+          <div class="demo">
+            <form id="email-demo">
+              <input type="email" data-validaty="required email" />
+              <input type="submit" value="Send" />
+            </form>
+          </div>
+
+<div class="highlight">
+<pre>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">data-validaty=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+</pre>
+</div>
+
+          <h2 id="global">
+            <a href="#global">Changing the settings globally:</a>
+          </h2>
+
+          <p>
+            You can change any option mentioning the scope <code>$.fn.validaty.defaults.</code> + <i>option_name</i>. It must be called before you bind the plugin.
+          </p>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validaty</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">fade</span> <span class="o">=</span> <span class="s1">false</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validaty</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">ignore</span> <span class="o">=</span> <span class="s1">':hidden'</span><span class="p">;</span>
+</pre>
+</div>
+
+          <h2 id="options">
+            <a href="#options">Options:</a>
+          </h2>
+fade       : true,
+    ignore     : ':submit, :reset, :image, :disabled',
+    speed      : 200,
+    validators : {}
+          <div id="fade" class="option">
+            <div>fade: <span>true</span></div>
+            <p>Enables the fade on balloons message on mouseover and mouseout.</p>
+          </div>
+
+          <div id="ignore" class="option">
+            <div>ignore: <span>':submit, :reset, :image, :disabled'</span></div>
+            <p>Fields to be ignored during the validation.</p>
+          </div>
+
+          <div id="speed" class="option">
+            <div>speed: <span>200</span></div>
+            <p>The speed of the <a href="#fade">fade</a> option</p>
+          </div>
+
+          <div id="validators" class="option">
+            <div>validators: <span>{}</span></div>
+            <p>Object to hold the injected validators functions from <code>jquery.validaty.validators.js</code> file.</p>
+          </div>
+
+          <h2 id="functions">
+            <a href="#functions">Functions:</a>
+          </h2>
+
+<div id="destroy-function" class="function">
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'helper'</span><span class="p">);</span>
+</pre>
+</div>
+
+              <p>Gives you the internal <a href="#helper-demo">helpers</a>.</p>
+            </div>
+
+<div id="destroy-function" class="function">
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'validator'</span><span class="p">);</span>
+</pre>
+</div>
+
+              <p>Gives you a <a href="#validator-demo">validator</a>.</p>
+            </div>
+
+<div id="destroy-function" class="function">
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'destroy'</span><span class="p">);</span>
+</pre>
+</div>
+
+              <p>Destroy the Validaty's bind and gives you the raw element before it.</p>
+            </div>
+
+
+
+          <h2 id="tests">
+            <a href="#tests">Tests:</a>
+          </h2>
+
+          <p>
+            This plugin is tested to work better.
+            <a href="http://wbotelhos.com/validaty/spec/run.html" target="_blank">Check it out!</a>
+          </p>
+
+        </article>
+      </section>
+
+      <div class="author">
+        <img title="Washington Botelho" src="http://www.gravatar.com/avatar/00c9b483d3c58a12c5f256cf2770d0b8?d=mm" alt="">
+        <div class="biography">
+          <p>
+            Ruby, Java and Python Developer in <a href="http://r7.com" title="R7.com" target="_blank">R7.com</a> Portal.<br />
+            Bachelor's in Information Systems and certified OCJA 1.0 and OCJP 6.<br />
+            Helper and learner of the open source community, and designer adventurer.<br />
+            Also has a passion for dance, skate, jiu-jitsu and Counter Strike Source. (:
+          </p>
+        </div>
+
+        <div class="social">
+          <a href="http://github.com/wbotelhos" title="http://github.com/wbotelhos" target="_blank" class="github"></a>
+          <a href="http://linkedin.com/in/wbotelhos" title="http://linkedin.com/in/wbotelhos" target="_blank" class="linkedin"></a>
+          <a href="http://twitter.com/wbotelhos" title="http://twitter.com/wbotelhos" target="_blank" class="twitter"></a>
+          <a href="http://facebook.com/wbotelhos" title="http://facebook.com/wbotelhos" target="_blank" class="facebook"></a>
+        </div>
+      </div>
+    </div>
+
+    <footer role="contentinfo">
+      &copy; 2012 <a href="http://wbotelhos.com" title="wbotelhos.com">wbotelhos.com</a>
+    </footer>
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+      $('form').validaty();
+    });
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-719499234-17']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>
