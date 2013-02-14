@@ -61,7 +61,6 @@ function select(validations, number, toSelect) {
 function clear() {
   if (isClear) {
     $('form').remove();
-    $('.validaty-balloon').remove();
   }
 };
 
@@ -89,7 +88,7 @@ describe('Validaty', function() {
     describe('generic situation', function() {
       beforeEach(function() { form(input('text', 'required') + input('text', 'number', 'letter')); });
 
-      it ('is created', function() {
+      it ('is created inside the form', function() {
         // given
         var self = $('form').validaty();
 
@@ -97,7 +96,7 @@ describe('Validaty', function() {
         self.submit();
 
         // then
-        expect($('.validaty-balloon')).toExist();
+        expect(self.children('.validaty-balloon')).toExist();
       });
 
       it ('receives two items', function() {
@@ -108,7 +107,7 @@ describe('Validaty', function() {
         self.submit();
 
         // then
-        expect($('.validaty-balloon').length).toEqual(2);
+        expect(self.children('.validaty-balloon').length).toEqual(2);
       });
 
       it ('write two messages', function() {
@@ -119,7 +118,7 @@ describe('Validaty', function() {
         self.submit();
 
         // then
-        var messages = $('.validaty-balloon').find('li'),
+        var messages = self.children('.validaty-balloon').find('li'),
             opt      = $.fn.validaty.defaults;
 
         expect(messages.eq(0)).toHaveHtml(opt.validators.required.message.text);
@@ -134,14 +133,14 @@ describe('Validaty', function() {
         self.submit().submit();
 
         // then
-        expect($('.validaty-balloon').length).toEqual(2);
+        expect(self.children('.validaty-balloon').length).toEqual(2);
       });
 
       context('on mouseover', function() {
         xit ('faded out the others', function() {
           // given
           var self     = $('form').validaty().submit(),
-              balloons = $('.validaty-balloon');
+              balloons = self.children('.validaty-balloon');
 
           // when
           balloons.eq(0).mouseenter();
@@ -164,7 +163,7 @@ describe('Validaty', function() {
         self.submit();
 
         // then
-        expect($('.validaty-balloon').length).toEqual(1);
+        expect(self.children('.validaty-balloon').length).toEqual(1);
       });
     });
 
@@ -179,7 +178,7 @@ describe('Validaty', function() {
         self.submit();
 
         // then
-        expect($('.validaty-balloon').length).toEqual(1);
+        expect(self.children('.validaty-balloon').length).toEqual(1);
       });
     });
   });
@@ -242,7 +241,7 @@ describe('Validaty', function() {
           self.append(input('text', 'required')).submit();
 
           // then
-          expect($('.validaty-balloon').length).toEqual(2);
+          expect(self.children('.validaty-balloon').length).toEqual(2);
         });
       });
 
@@ -474,7 +473,7 @@ describe('Validaty', function() {
               self.submit();
 
               // then
-              var message = $('.validaty-balloon').find('li');
+              var message = self.children('.validaty-balloon').find('li');
 
               expect(message).toHaveHtml($.fn.validaty.defaults.validators.mock.message.someType);
             });
@@ -494,7 +493,7 @@ describe('Validaty', function() {
               self.submit();
 
               // then
-              var message = $('.validaty-balloon').find('li');
+              var message = self.children('.validaty-balloon').find('li');
 
               expect(message).toHaveHtml($.fn.validaty.defaults.validators.mock.message.select);
             });
@@ -514,7 +513,7 @@ describe('Validaty', function() {
             self.submit();
 
             // then
-            var message = $('.validaty-balloon').find('li');
+            var message = self.children('.validaty-balloon').find('li');
 
             expect(message).toHaveHtml('Message type missing!');
           });
