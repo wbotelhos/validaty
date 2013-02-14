@@ -9,3 +9,4 @@
 + Helper methods inside the plugin;
 + Separated file to criate the validators;
 + Validation for required, e-mail and numbers;
++ Option to choose which field will be focused when validation fails.

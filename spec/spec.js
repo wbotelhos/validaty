@@ -17,9 +17,17 @@ function input(type, validations, value) {
   return '<input type="' + type + '" data-validaty="' + validations + '" ' + value + ' />';
 };
 
-function checkbox(validations, checked) {
-  var content = checked ? 'checked="checked"' : '';
-  return '<input type="checkbox" data-validaty="' + validations + '" ' + content + ' />';
+function checkbox(validations, number, toSelect) {
+  var content = '',
+      html    = '';
+
+  for (var i = 1; i <= number; i++) {
+    content = (i === toSelect) ? 'checked="checked"' : '';
+
+    html += '<input type="checkbox" name="checkbox" data-validaty="' + validations + '" ' + content + ' />';
+  }
+
+  return html;
 };
 
 function radio(validations, number, toSelect) {
@@ -114,8 +122,8 @@ describe('Validaty', function() {
         var messages = $('.validaty-balloon').find('li'),
             opt      = $.fn.validaty.defaults;
 
-        expect(messages.eq(0)).toHaveHtml(opt.validators.number.message);
-        expect(messages.eq(1)).toHaveHtml(opt.validators.required.message.text);
+        expect(messages.eq(0)).toHaveHtml(opt.validators.required.message.text);
+        expect(messages.eq(1)).toHaveHtml(opt.validators.number.message);
       });
 
       it ('removes the last one', function() {
@@ -145,8 +153,23 @@ describe('Validaty', function() {
       });
     });
 
-    context('for radio field', function() {
+    context('for radio field with same name', function() {
       beforeEach(function() { form(radio('required', 2)); });
+
+      it ('created just one balloon', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        self.submit();
+
+        // then
+        expect($('.validaty-balloon').length).toEqual(1);
+      });
+    });
+
+    context('for checkbox field with same name', function() {
+      beforeEach(function() { form(checkbox('required', 2)); });
 
       it ('created just one balloon', function() {
         // given
@@ -234,7 +257,7 @@ describe('Validaty', function() {
           self.submit();
 
           // then
-          expect(self.children('input:first')).toBeFocused();
+          expect(self.children(':input:first')).toBeFocused();
         });
 
         context('when invalid', function() {
@@ -440,7 +463,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('for radio field', function() {
+      context('for radio field with same name', function() {
         beforeEach(function() {
           form(radio('required', 2, 1));
 
@@ -450,9 +473,27 @@ describe('Validaty', function() {
           this.input     = this.form.children('input');
         });
 
-        context('with the first (last to be validated) checked', function() {
+        context('with the last (last to be validated) checked', function() {
           it ('pass', function() {
-            this.input.first().click();
+            this.input.last().click();
+            expect(validate(this)).toBeTruthy();
+          });
+        });
+      });
+
+      context('for checkbox field with same name', function() {
+        beforeEach(function() {
+          form(checkbox('required', 2, 1));
+
+          this.form      = $('form').validaty(),
+          this.validator = this.form.validaty('validator', 'required'),
+          this.helper    = this.form.validaty('helper'),
+          this.input     = this.form.children('input');
+        });
+
+        context('with the last (last to be validated) checked', function() {
+          it ('pass', function() {
+            this.input.last().click();
             expect(validate(this)).toBeTruthy();
           });
         });

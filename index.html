@@ -99,7 +99,7 @@
 
 <div class="highlight">
 <pre>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">data-validaty=</span><span class="s">"number"</span> <span class="nt">/&gt;</span>
+<span class="na">data-validaty=</span><span class="s">"number"</span>
 </pre>
 </div>
 
@@ -118,7 +118,7 @@
 
 <div class="highlight">
 <pre>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">data-validaty=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+<span class="na">data-validaty=</span><span class="s">"email"</span>
 </pre>
 </div>
 
@@ -140,13 +140,15 @@
           <h2 id="options">
             <a href="#options">Options:</a>
           </h2>
-fade       : true,
-    ignore     : ':submit, :reset, :image, :disabled',
-    speed      : 200,
-    validators : {}
+
           <div id="fade" class="option">
             <div>fade: <span>true</span></div>
             <p>Enables the fade on balloons message on mouseover and mouseout.</p>
+          </div>
+
+          <div id="focus" class="option">
+            <div>focus: <span>'first'</span></div>
+            <p>Chooses if the first, the last or none of these field will be focused when validation fails. Options: <code>undefined</code>, <code>'first'</code> or <code>'last'</code>.</p>
           </div>
 
           <div id="ignore" class="option">

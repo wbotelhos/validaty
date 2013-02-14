@@ -22,6 +22,7 @@ jQuery Validaty is a form validation plugin based on jQuery Validation and jQuer
 
 ```js
 fade       : true       // Enables the fade on balloons message.
+focus      : 'first'    // Field to be focused when validation fails.
 ignore     : ':submit'  // Fields to be ignored.
 speed      : 200        // The speed of the fade option.
 validators : {}         // Object to hold the validators functions.
@@ -53,7 +54,7 @@ $('form').validaty('destroy');   // Destroy the Validaty's bind.
 
 This file contains all validators and you can include your own.
 It was separated from `jquery.validaty.js` to be more flexible and easy to edit and add more.
-By default it comes with thw following validators:
+By default it comes with the following validators:
 
 + E-mail
 + Number
