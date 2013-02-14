@@ -48,6 +48,8 @@ $('form').validaty('helper');    // Gives you the internal helpers.
 $('form').validaty('validator'); // Gives you a validator.
 
 $('form').validaty('destroy');   // Destroy the Validaty's bind.
+
+$('form').validaty('validate');  // Execute the validation over the form.
 ```
 
 ## Validators.js

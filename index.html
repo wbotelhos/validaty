@@ -76,7 +76,9 @@
                 <option value="2">2</option>
               </select>
 
-              <input type="submit" value="Send" />
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
             </form>
           </div>
 
@@ -90,12 +92,15 @@
             <a href="#number">Number</a>
           </h3>
 
-          <p>You must fill a number.</p>
+          <p>You must fill a number. It can be a negative number or a float number.</p>
 
           <div class="demo">
             <form id="number-demo">
               <input type="text" data-validaty="required number" />
-              <input type="submit" value="Send" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
             </form>
           </div>
 
@@ -113,8 +118,11 @@
 
           <div class="demo">
             <form id="email-demo">
-              <input type="email" data-validaty="required email" />
-              <input type="submit" value="Send" />
+              <input type="text" data-validaty="required email" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
             </form>
           </div>
 
@@ -150,7 +158,7 @@
 
           <div id="focus" class="option">
             <div>focus: <span>'first'</span></div>
-            <p>Chooses if the first, the last or none of these field will be focused when validation fails. Options: <code>undefined</code>, <code>'first'</code> or <code>'last'</code>.</p>
+            <p>Chooses if the first, the last or none of these field will be focused when validation fails. Options: <code>null</code>, <code>'first'</code> or <code>'last'</code>.</p>
           </div>
 
           <div id="ignore" class="option">
@@ -202,7 +210,15 @@
               <p>Destroy the Validaty's bind and gives you the raw element before it.</p>
             </div>
 
+<div id="validate-function" class="function">
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'validate'</span><span class="p">);</span>
+</pre>
+</div>
 
+              <p>Execute the validation over the <b>form</b>.</p>
+            </div>
 
           <h2 id="tests">
             <a href="#tests">Tests:</a>
@@ -244,6 +260,10 @@
   <script type="text/javascript">
     $(function() {
       $('form').validaty();
+
+      $('.button').on('click', function() {
+        $(this).closest('form').validaty('validate');
+      });
     });
 
     var _gaq = _gaq || [];

@@ -249,18 +249,7 @@ describe('Validaty', function() {
       context('with more than one invalid field', function() {
         beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
 
-        it ('focus the first one', function() {
-          // given
-          var self = $('form').validaty();
-
-          // when
-          self.submit();
-
-          // then
-          expect(self.children(':input:first')).toBeFocused();
-        });
-
-        context('when invalid', function() {
+        context('on validatio fails', function() {
           it ('receives the invalid class', function() {
             // given
             var self   = $('form').validaty(),
@@ -283,14 +272,93 @@ describe('Validaty', function() {
             self.submit()
 
             // when
-            inputs.eq(0).val('valid');
+            inputs.val('valid');
 
             self.submit();
 
             // then
-            expect(inputs.eq(0)).not.toHaveClass('invalid');
-            expect(inputs.eq(1)).toHaveClass('invalid');
+            expect(inputs).not.toHaveClass('invalid');
           });
+        });
+      });
+
+      context('when it is valid', function() {
+        beforeEach(function() { form(input('text', 'required', 'filled')); });
+
+        it ('receives the valid class', function() {
+          // given
+          var self  = $('form').validaty(),
+              input = self.children('input');
+
+          // when
+          self.validaty('validate');
+
+          // then
+          expect(input).toHaveClass('valid');
+        });
+
+        context('when becomes valid', function() {
+          it ('lost the valid class', function() {
+            // given
+            var self  = $('form').validaty(),
+                input = self.children('input');
+
+            self.submit()
+
+            // when
+            input.val('');
+
+            self.submit();
+
+            // then
+            expect(input).not.toHaveClass('valid');
+          });
+        });
+      });
+    });
+  });
+
+  describe('options', function() {
+    describe('focus', function() {
+      beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
+
+      context('as "first"', function() {
+        it ('focus the first one', function() {
+          // given
+          var self = $('form').validaty({ focus: 'first' });
+
+          // when
+          self.submit();
+
+          // then
+          expect(self.children(':input:first')).toBeFocused();
+        });
+      });
+
+      context('as "last"', function() {
+        it ('focus the last one', function() {
+          // given
+          var self = $('form').validaty({ focus: 'last' });
+
+          // when
+          self.submit();
+
+          // then
+          expect(self.children(':input:last')).toBeFocused();
+        });
+      });
+
+      context('as "null"', function() {
+        it ('focus no one', function() {
+          // given
+          var self = $('form').validaty({ focus: null });
+
+          // when
+          self.submit();
+
+          // then
+          expect(self.children(':input:first')).not.toBeFocused();
+          expect(self.children(':input:last')).not.toBeFocused();
         });
       });
     });

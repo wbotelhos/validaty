@@ -7,6 +7,7 @@
 + Balloon message to show the erros;
 + Bind via form.
 + Helper methods inside the plugin;
++ Highlight for valid and invalid fields;
 + Method to call the validation on form;
 + Method to destroy the Validaty's bind;
 + Method to get the validators;
