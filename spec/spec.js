@@ -5,10 +5,9 @@ function context(description, spec) {
 };
 
 function form(fields, id) {
-  var id      = id     || 'element' ,
-      content = fields || '';
+  var content = fields || '';
 
-  $('body').append('<form id="' + id + '" onsubmit="return false;">' + fields + '</form>');
+  $('body').append('<form onsubmit="return false;">' + fields + '</form>');
 };
 
 function input(type, validations, value) {
@@ -71,19 +70,6 @@ function validate(el) {
 describe('Validaty', function() {
   afterEach(function() { clear(); });
 
-  it ('has the right value options', function() {
-    // given
-    var validaty = $.fn.validaty
-
-    // when
-    var opt = validaty.defaults
-
-    // then
-    expect(opt.fade).toEqual(true);
-    expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
-    expect(opt.speed).toEqual(200);
-  });
-
   describe('balloon', function() {
     describe('generic situation', function() {
       beforeEach(function() { form(input('text', 'required') + input('text', 'number', 'letter')); });
@@ -136,18 +122,32 @@ describe('Validaty', function() {
         expect(self.children('.validaty-balloon').length).toEqual(2);
       });
 
-      context('on mouseover', function() {
-        xit ('faded out the others', function() {
+      context('on mouseover one balloon', function() {
+        it ('fades out the others', function() {
           // given
-          var self     = $('form').validaty().submit(),
-              balloons = self.children('.validaty-balloon');
+          var self     = $('form').validaty({ speed: 0 }),
+              balloons = undefined;
+
+          runs(function() {
+            self.submit();
+
+            balloons = self.children('.validaty-balloon');
+          });
+
+          waits(400);
 
           // when
-          balloons.eq(0).mouseenter();
+          runs(function() {
+            balloons.first().mouseover();
+          });
+
+          waits(400);
 
           // then
-          expect(balloons.eq(0)).toHaveCss({ opacity: 1 });
-          expect(balloons.eq(1)).toHaveClass({ opacity: .3 });
+          runs(function() {
+            expect(balloons.first().css('opacity')).toEqual('1');
+            expect(balloons.last().css('opacity')).toEqual('0.2');
+          });
         });
       });
     });
@@ -179,6 +179,59 @@ describe('Validaty', function() {
 
         // then
         expect(self.children('.validaty-balloon').length).toEqual(1);
+      });
+    });
+
+    context('with balloons on the first form', function() {
+      beforeEach(function() {
+        form(input('text', 'required') + input('text', 'required'));
+        form(input('text', 'required'));
+      });
+
+      context('if a second one fails', function() {
+        it ('keeps the on first form', function() {
+          // given
+          var self = $('form').validaty();
+
+          self.eq(0).submit();
+
+          // when
+          self.eq(1).submit();
+
+          // then
+          expect(self.eq(0).children('.validaty-balloon').length).toEqual(2);
+          expect(self.eq(1).children('.validaty-balloon').length).toEqual(1);
+        });
+      });
+
+      context('on mouseover balloon on second form', function() {
+        it ('does not fades the balloons of the first form', function() {
+          // given
+          var self      = $('form').validaty({ speed: 0 }),
+              balloons1 = undefined,
+              balloons2 = undefined;
+
+          runs(function() {
+            self.submit();
+
+            balloons1 = self.first().children('.validaty-balloon');
+            balloons2 = self.last().children('.validaty-balloon');
+          });
+
+          waits(400);
+
+          // when
+          runs(function() {
+            balloons2.first().mouseover();
+          });
+
+          waits(400);
+
+          // then
+          runs(function() {
+            expect(balloons1.css('opacity')).toEqual('1');
+          });
+        });
       });
     });
   });
@@ -318,6 +371,19 @@ describe('Validaty', function() {
   });
 
   describe('options', function() {
+    it ('has the right value options', function() {
+      // given
+      var validaty = $.fn.validaty
+
+      // when
+      var opt = validaty.defaults
+
+      // then
+      expect(opt.fade).toEqual(true);
+      expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
+      expect(opt.speed).toEqual(200);
+    });
+
     describe('focus', function() {
       beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
 
