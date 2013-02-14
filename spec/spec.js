@@ -336,6 +336,22 @@ describe('Validaty', function() {
       });
     });
 
+    describe('#validate', function() {
+      beforeEach(function() { form(input('text', 'required')); });
+
+      it ('validates the field', function() {
+        // given
+        var self  = $('form').validaty(),
+            input = self.children('input');
+
+        // when
+        self.validaty('validate');
+
+        // then
+        expect(input).toHaveClass('invalid');
+      });
+    });
+
     describe('#validator', function() {
       beforeEach(function() { form(); });
 

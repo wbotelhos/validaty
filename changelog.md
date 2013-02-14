@@ -7,6 +7,9 @@
 + Balloon message to show the erros;
 + Bind via form.
 + Helper methods inside the plugin;
-+ Separated file to criate the validators;
-+ Validation for required, e-mail and numbers;
-+ Option to choose which field will be focused when validation fails.
++ Method to call the validation on form;
++ Method to destroy the Validaty's bind;
++ Method to get the validators;
++ Option to choose which field will be focused when validation fails;
++ Separated file to create the validators;
++ Validation for required, e-mail and numbers.
