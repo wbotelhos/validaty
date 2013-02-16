@@ -71,7 +71,7 @@ describe('Validaty', function() {
   afterEach(function() { clear(); });
 
   describe('balloon', function() {
-    describe('generic situation', function() {
+    describe('behavior', function() {
       beforeEach(function() { form(input('text', 'required') + input('text', 'number', 'letter')); });
 
       it ('is created inside the form', function() {
@@ -82,10 +82,10 @@ describe('Validaty', function() {
         self.submit();
 
         // then
-        expect(self.children('.validaty-balloon')).toExist();
+        expect($('.validaty-balloon')).toExist();
       });
 
-      it ('receives two items', function() {
+      it ('is created two times', function() {
         // given
         var self = $('form').validaty();
 
@@ -96,7 +96,7 @@ describe('Validaty', function() {
         expect(self.children('.validaty-balloon').length).toEqual(2);
       });
 
-      it ('write two messages', function() {
+      it ('receives two messages', function() {
         // given
         var self = $('form').validaty();
 
@@ -111,7 +111,7 @@ describe('Validaty', function() {
         expect(messages.eq(1)).toHaveHtml(opt.validators.number.message);
       });
 
-      it ('removes the last one', function() {
+      it ('is destroy before the validation', function() {
         // given
         var self = $('form').validaty();
 
@@ -122,8 +122,8 @@ describe('Validaty', function() {
         expect(self.children('.validaty-balloon').length).toEqual(2);
       });
 
-      context('on mouseover one balloon', function() {
-        it ('fades out the others', function() {
+      context('mouseover', function() {
+        it ('keeps visible and fades the others', function() {
           // given
           var self     = $('form').validaty({ speed: 0 }),
               balloons = undefined;
@@ -152,44 +152,14 @@ describe('Validaty', function() {
       });
     });
 
-    context('for radio field with same name', function() {
-      beforeEach(function() { form(radio('required', 2)); });
-
-      it ('created just one balloon', function() {
-        // given
-        var self = $('form').validaty();
-
-        // when
-        self.submit();
-
-        // then
-        expect(self.children('.validaty-balloon').length).toEqual(1);
-      });
-    });
-
-    context('for checkbox field with same name', function() {
-      beforeEach(function() { form(checkbox('required', 2)); });
-
-      it ('created just one balloon', function() {
-        // given
-        var self = $('form').validaty();
-
-        // when
-        self.submit();
-
-        // then
-        expect(self.children('.validaty-balloon').length).toEqual(1);
-      });
-    });
-
-    context('with balloons on the first form', function() {
+    context('on another form', function() {
       beforeEach(function() {
         form(input('text', 'required') + input('text', 'required'));
         form(input('text', 'required'));
       });
 
-      context('if a second one fails', function() {
-        it ('keeps the on first form', function() {
+      context('on validation', function() {
+        it ('keeps alive', function() {
           // given
           var self = $('form').validaty();
 
@@ -200,12 +170,11 @@ describe('Validaty', function() {
 
           // then
           expect(self.eq(0).children('.validaty-balloon').length).toEqual(2);
-          expect(self.eq(1).children('.validaty-balloon').length).toEqual(1);
         });
       });
 
-      context('on mouseover balloon on second form', function() {
-        it ('does not fades the balloons of the first form', function() {
+      context('on mouseover', function() {
+        it ('keeps visible', function() {
           // given
           var self      = $('form').validaty({ speed: 0 }),
               balloons1 = undefined,
@@ -236,8 +205,166 @@ describe('Validaty', function() {
     });
   });
 
+  describe('fields', function() {
+    context('insided elements', function() {
+      beforeEach(function() { form('<p>' + input('text', 'required') + '</p>'); });
+
+      it ('is finded to be binded', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        self.submit();
+
+        // then
+        expect(self.find('input')).toHaveClass('invalid');
+      });
+    });
+
+    describe('text', function() {
+      context('with more than one', function() {
+        beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
+
+        context('invalid', function() {
+          it ('receives the same number of balloons', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children('.validaty-balloon').length).toEqual(2);
+          });
+
+          it ('receives the invalid and the other too', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children('input')).toHaveClass('invalid');
+          });
+        });
+      });
+    });
+
+    describe('checkbox', function() {
+      context('with more than one', function() {
+        beforeEach(function() { form(checkbox('required', 2)); });
+
+        context('invalid', function() {
+          it ('created just one balloon', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children('.validaty-balloon').length).toEqual(1);
+          });
+
+          it ('receives the invalid and the other too', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children('input:first')).toHaveClass('invalid');
+            expect(self.children('input:last')).toHaveClass('invalid');
+          });
+        });
+
+        context('valid', function() {
+          it ('receives the valid and the other too', function() {
+            // given
+            var self   = $('form').validaty(),
+                inputs = self.children('input');
+
+            inputs.first().click();
+
+            // when
+            self.submit();
+
+            // then
+            expect(inputs.first()).toHaveClass('valid');
+            expect(inputs.last()).toHaveClass('valid');
+          });
+        });
+      });
+    });
+
+    describe('radio', function() {
+      context('with more than one', function() {
+        beforeEach(function() { form(radio('required', 2)); });
+
+        context('invalid', function() {
+          it ('receives just one balloon', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children('.validaty-balloon').length).toEqual(1);
+          });
+
+          it ('receives the invalid and the other too', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children('input:first')).toHaveClass('invalid');
+            expect(self.children('input:last')).toHaveClass('invalid');
+          });
+        });
+
+        context('valid', function() {
+          it ('receives the valid and the other too', function() {
+            // given
+            var self   = $('form').validaty(),
+                inputs = self.children('input');
+
+            inputs.first().click();
+
+            // when
+            self.submit();
+
+            // then
+            expect(inputs.first()).toHaveClass('valid');
+            expect(inputs.last()).toHaveClass('valid');
+          });
+        });
+      });
+    });
+
+    context('inserted after the bind', function() {
+      beforeEach(function() { form(); });
+
+      it ('is included on validation', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        self.append(input('text', 'required')).submit();
+
+        // then
+        expect(self.children('.validaty-balloon').length).toEqual(1);
+      });
+    });
+  });
+
   describe('form', function() {
-    describe('configurations', function() {
+    describe('features', function() {
       beforeEach(function() { form(); });
 
       it ('receives the main class', function() {
@@ -250,10 +377,6 @@ describe('Validaty', function() {
         // then
         expect(self).toHaveClass('validaty');
       });
-    });
-
-    describe('chainnig', function() {
-      beforeEach(function() { form(); });
 
       it ('is chainable', function() {
         // given
@@ -267,163 +390,61 @@ describe('Validaty', function() {
       });
     });
 
-    describe('fields', function() {
-      context('insided elements', function() {
-        beforeEach(function() { form('<p>' + input('text', 'required') + '</p>'); });
+    describe('options', function() {
+      it ('has the right value options', function() {
+        // given
+        var validaty = $.fn.validaty
 
-        it ('is finded', function() {
-          // given
-          var self = $('form').validaty();
+        // when
+        var opt = validaty.defaults
 
-          // when
-          self.submit();
-
-          // then
-          expect(self[0].inputs).toBe(self.find('input'));
-        });
+        // then
+        expect(opt.fade).toEqual(true);
+        expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
+        expect(opt.speed).toEqual(200);
       });
 
-      context('created dynamically', function() {
-        beforeEach(function() { form('<p>' + input('text', 'required') + '</p>'); });
-
-        it ('is included on validation', function() {
-          // given
-          var self = $('form').validaty();
-
-          // when
-          self.append(input('text', 'required')).submit();
-
-          // then
-          expect(self.children('.validaty-balloon').length).toEqual(2);
-        });
-      });
-
-      context('with more than one invalid field', function() {
+      describe('focus', function() {
         beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
 
-        context('on validatio fails', function() {
-          it ('receives the invalid class', function() {
+        context('as "first"', function() {
+          it ('focus the first one', function() {
             // given
-            var self   = $('form').validaty(),
-                inputs = self.children('input');
+            var self = $('form').validaty({ focus: 'first' });
 
             // when
-            self.submit()
-
-            // then
-            expect(inputs.eq(0)).toHaveClass('invalid');
-          });
-        });
-
-        context('when becomes valid', function() {
-          it ('lost the invalid class', function() {
-            // given
-            var self   = $('form').validaty(),
-                inputs = self.children('input');
-
-            self.submit()
-
-            // when
-            inputs.val('valid');
-
             self.submit();
 
             // then
-            expect(inputs).not.toHaveClass('invalid');
+            expect(self.children(':input:first')).toBeFocused();
           });
         });
-      });
 
-      context('when it is valid', function() {
-        beforeEach(function() { form(input('text', 'required', 'filled')); });
-
-        it ('receives the valid class', function() {
-          // given
-          var self  = $('form').validaty(),
-              input = self.children('input');
-
-          // when
-          self.validaty('validate');
-
-          // then
-          expect(input).toHaveClass('valid');
-        });
-
-        context('when becomes valid', function() {
-          it ('lost the valid class', function() {
+        context('as "last"', function() {
+          it ('focus the last one', function() {
             // given
-            var self  = $('form').validaty(),
-                input = self.children('input');
-
-            self.submit()
+            var self = $('form').validaty({ focus: 'last' });
 
             // when
-            input.val('');
-
             self.submit();
 
             // then
-            expect(input).not.toHaveClass('valid');
+            expect(self.children(':input:last')).toBeFocused();
           });
         });
-      });
-    });
-  });
 
-  describe('options', function() {
-    it ('has the right value options', function() {
-      // given
-      var validaty = $.fn.validaty
+        context('as "null"', function() {
+          it ('focus no one', function() {
+            // given
+            var self = $('form').validaty({ focus: null });
 
-      // when
-      var opt = validaty.defaults
+            // when
+            self.submit();
 
-      // then
-      expect(opt.fade).toEqual(true);
-      expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
-      expect(opt.speed).toEqual(200);
-    });
-
-    describe('focus', function() {
-      beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
-
-      context('as "first"', function() {
-        it ('focus the first one', function() {
-          // given
-          var self = $('form').validaty({ focus: 'first' });
-
-          // when
-          self.submit();
-
-          // then
-          expect(self.children(':input:first')).toBeFocused();
-        });
-      });
-
-      context('as "last"', function() {
-        it ('focus the last one', function() {
-          // given
-          var self = $('form').validaty({ focus: 'last' });
-
-          // when
-          self.submit();
-
-          // then
-          expect(self.children(':input:last')).toBeFocused();
-        });
-      });
-
-      context('as "null"', function() {
-        it ('focus no one', function() {
-          // given
-          var self = $('form').validaty({ focus: null });
-
-          // when
-          self.submit();
-
-          // then
-          expect(self.children(':input:first')).not.toBeFocused();
-          expect(self.children(':input:last')).not.toBeFocused();
+            // then
+            expect(self.children(':input:first')).not.toBeFocused();
+            expect(self.children(':input:last')).not.toBeFocused();
+          });
         });
       });
     });
@@ -640,10 +661,21 @@ describe('Validaty', function() {
           this.input     = this.form.children('input');
         });
 
-        context('with the last (last to be validated) checked', function() {
-          it ('pass', function() {
-            this.input.last().click();
-            expect(validate(this)).toBeTruthy();
+        context('when valid', function() {
+          context('with the last (last to be validated) checked', function() {
+            it ('pass', function() {
+              this.input.last().click();
+              expect(validate(this)).toBeTruthy();
+            });
+          });
+        });
+
+        context('when valid', function() {
+          context('with the last (last to be validated) checked', function() {
+            it ('pass', function() {
+              this.input.last().click();
+              expect(validate(this)).toBeTruthy();
+            });
           });
         });
       });
