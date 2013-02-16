@@ -361,6 +361,21 @@ describe('Validaty', function() {
         expect(self.children('.validaty-balloon').length).toEqual(1);
       });
     });
+
+    context('with validation not registered', function() {
+      beforeEach(function() { form(input('text', 'notfound')); });
+
+      it ('throws exception', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        var lambda = function() { self.submit(); };
+
+        // then
+        expect(lambda).toThrow(new Error('Validator "notfound" not registered!'));
+      });
+    });
   });
 
   describe('form', function() {
@@ -519,6 +534,19 @@ describe('Validaty', function() {
         // then
         expect(validator).toBe($.fn.validaty.defaults.validators.required);
       });
+
+      context('not registered', function() {
+        it ('returns the right validator', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          var lambda = function() { self.validaty('validator', 'notfound') };
+
+          // then
+          expect(lambda).toThrow(new Error('Validator "notfound" not registered!'));
+        });
+      });
     });
   });
 
@@ -608,6 +636,78 @@ describe('Validaty', function() {
       });
     });
 
+    context('email', function() {
+      beforeEach(function() {
+        form(input('text', 'email'));
+
+        this.form      = $('form').validaty(),
+        this.validator = this.form.validaty('validator', 'email'),
+        this.helper    = this.form.validaty('helper'),
+        this.input     = this.form.children('input');
+      });
+
+      it ('pass', function() {
+        this.input.val('wbotelhos@gmail.com');
+        expect(validate(this)).toBeTruthy();
+      });
+
+      it ('fails', function() {
+        this.input.val('wbotelho');
+        expect(validate(this)).toBeFalsy();
+
+        this.input.val('wbotelho@');
+        expect(validate(this)).toBeFalsy();
+
+        this.input.val('wbotelho@g');
+        expect(validate(this)).toBeFalsy();
+
+        this.input.val('wbotelho@gmail');
+        expect(validate(this)).toBeFalsy();
+
+        this.input.val('wbotelho@gmail.');
+        expect(validate(this)).toBeFalsy();
+      });
+    });
+
+    context('number', function() {
+      beforeEach(function() {
+        form(input('text', 'number'));
+
+        this.form      = $('form').validaty(),
+        this.validator = this.form.validaty('validator', 'number'),
+        this.helper    = this.form.validaty('helper'),
+        this.input     = this.form.children('input');
+      });
+
+      it ('pass', function() {
+        this.input.val(1);
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val('');
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val(-1);
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val(1.1);
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val(-1.1);
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val(1,1);
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val(-1,1);
+        expect(validate(this)).toBeTruthy();
+      });
+
+      it ('fails', function() {
+        this.input.val('text');
+        expect(validate(this)).toBeFalsy();
+      });
+    });
+
     context('required', function() {
       context('for text field', function() {
         beforeEach(function() {
@@ -678,78 +778,6 @@ describe('Validaty', function() {
             });
           });
         });
-      });
-    });
-
-    context('number', function() {
-      beforeEach(function() {
-        form(input('text', 'number'));
-
-        this.form      = $('form').validaty(),
-        this.validator = this.form.validaty('validator', 'number'),
-        this.helper    = this.form.validaty('helper'),
-        this.input     = this.form.children('input');
-      });
-
-      it ('pass', function() {
-        this.input.val(1);
-        expect(validate(this)).toBeTruthy();
-
-        this.input.val('');
-        expect(validate(this)).toBeTruthy();
-
-        this.input.val(-1);
-        expect(validate(this)).toBeTruthy();
-
-        this.input.val(1.1);
-        expect(validate(this)).toBeTruthy();
-
-        this.input.val(-1.1);
-        expect(validate(this)).toBeTruthy();
-
-        this.input.val(1,1);
-        expect(validate(this)).toBeTruthy();
-
-        this.input.val(-1,1);
-        expect(validate(this)).toBeTruthy();
-      });
-
-      it ('fails', function() {
-        this.input.val('text');
-        expect(validate(this)).toBeFalsy();
-      });
-    });
-
-    context('email', function() {
-      beforeEach(function() {
-        form(input('text', 'email'));
-
-        this.form      = $('form').validaty(),
-        this.validator = this.form.validaty('validator', 'email'),
-        this.helper    = this.form.validaty('helper'),
-        this.input     = this.form.children('input');
-      });
-
-      it ('pass', function() {
-        this.input.val('wbotelhos@gmail.com');
-        expect(validate(this)).toBeTruthy();
-      });
-
-      it ('fails', function() {
-        this.input.val('wbotelho');
-        expect(validate(this)).toBeFalsy();
-
-        this.input.val('wbotelho@');
-        expect(validate(this)).toBeFalsy();
-
-        this.input.val('wbotelho@g');
-        expect(validate(this)).toBeFalsy();
-
-        this.input.val('wbotelho@gmail');
-        expect(validate(this)).toBeFalsy();
-
-        this.input.val('wbotelho@gmail.');
-        expect(validate(this)).toBeFalsy();
       });
     });
   });
