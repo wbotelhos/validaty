@@ -65,19 +65,19 @@ describe('Validaty', function() {
             balloons = self.children('.validaty-balloon');
           });
 
-          waits(400);
+          waits(450);
 
           // when
           runs(function() {
             balloons.first().mouseover();
           });
 
-          waits(400);
+          waits(450);
 
           // then
           runs(function() {
             expect(balloons.first().css('opacity')).toEqual('1');
-            expect(balloons.last().css('opacity')).toEqual('0.2');
+            expect(balloons.last().css('opacity').slice(0, 3)).toEqual('0.2');
           });
         });
       });
@@ -118,14 +118,14 @@ describe('Validaty', function() {
             balloons2 = self.last().children('.validaty-balloon');
           });
 
-          waits(400);
+          waits(450);
 
           // when
           runs(function() {
             balloons2.first().mouseover();
           });
 
-          waits(400);
+          waits(450);
 
           // then
           runs(function() {
