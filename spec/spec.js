@@ -668,10 +668,8 @@ describe('Validaty', function() {
         beforeEach(function() {
           form(radio('required', 2, 1));
 
-          this.form      = $('form').validaty(),
-          this.validator = this.form.validaty('validator', 'required'),
-          this.helper    = this.form.validaty('helper'),
-          this.input     = this.form.children('input');
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
         });
 
         context('with the last (last to be validated) checked', function() {
