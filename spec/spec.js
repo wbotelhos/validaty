@@ -261,6 +261,25 @@ describe('Validaty', function() {
     });
 
     describe('text', function() {
+      context('with two differents validation', function() {
+        beforeEach(function() { form(input('text', 'required number')); });
+
+        context('and one invalid', function() {
+          it ('receives the invalid class', function() {
+            // given
+            var self   = $('form').validaty(),
+                inputs = self.children('input');
+
+            // when
+            self.submit();
+
+            // then
+            expect(inputs.first()).not.toHaveClass('valid');
+            expect(inputs.last()).not.toHaveClass('valid');
+          });
+        });
+      });
+
       context('with more than one', function() {
         beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
 
