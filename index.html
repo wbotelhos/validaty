@@ -48,11 +48,11 @@
 
           <p>Bind the form and all fields inside it with <code>data-validaty</code> will be validated.</p>
 
-<div class="highlight">
+          <div class="highlight">
 <pre>
 <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">();</span>
 </pre>
-</div>
+          </div>
 
           <h3 id="required">
             <a href="#required">Required</a>
@@ -82,11 +82,11 @@
             </form>
           </div>
 
-<div class="highlight">
+          <div class="highlight">
 <pre>
 <span class="na">data-validaty=</span><span class="s">"required"</span>
 </pre>
-</div>
+          </div>
 
           <h3 id="number">
             <a href="#number">Number</a>
@@ -104,11 +104,11 @@
             </form>
           </div>
 
-<div class="highlight">
+          <div class="highlight">
 <pre>
 <span class="na">data-validaty=</span><span class="s">"number"</span>
 </pre>
-</div>
+          </div>
 
           <h3 id="email">
             <a href="#email">E-mail</a>
@@ -126,26 +126,79 @@
             </form>
           </div>
 
-<div class="highlight">
+          <div class="highlight">
 <pre>
 <span class="na">data-validaty=</span><span class="s">"email"</span>
 </pre>
-</div>
+          </div>
 
-          <h2 id="global">
-            <a href="#global">Changing the settings globally:</a>
+          <h3 id="minlength">
+            <a href="#minlength">Minimum Length</a>
+          </h3>
+
+          <p>You must to fill at least a certain number of characters.</p>
+
+          <div class="demo">
+            <form id="minlength-demo">
+              <input type="text" data-validaty="minlength:3" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"minlength:3"</span>
+</pre>
+          </div>
+
+          <h2 id="helpers">
+            <a href="#helpers">Helpers:</a>
           </h2>
 
-          <p>
-            You can change any option mentioning the scope <code>$.fn.validaty.defaults.</code> + <i>option_name</i>. It must be called before you bind the plugin.
-          </p>
+          <p>You can to use the internal <a href="#helper-function">helpers</a> to make your validations better.</p>
 
-<div class="highlight">
+          <div id="isCheckable" class="function">
+            <div class="highlight">
 <pre>
-<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validaty</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">fade</span> <span class="o">=</span> <span class="s1">false</span><span class="p">;</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validaty</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">ignore</span> <span class="o">=</span> <span class="s1">':hidden'</span><span class="p">;</span>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isCheckable</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
 </pre>
-</div>
+            </div>
+
+            <p>Checks if the given <code>input</code> is a <code>checkbox</code> or <code>radio</code>.</p>
+          </div>
+
+          <div id="isEmail" class="function">
+            <div class="highlight">
+<pre>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isEmail</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</pre>
+            </div>
+
+            <p>Checks if the given <code>value</code> is a valid e-mail.</p>
+          </div>
+
+          <div id="isNumber" class="function">
+            <div class="highlight">
+<pre>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</pre>
+            </div>
+
+            <p>Checks if the given <code>value</code> is a number.</p>
+          </div>
+
+          <div id="getValidations" class="function">
+            <div class="highlight">
+<pre>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">getValidations</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</pre>
+            </div>
+
+            <p>Extract the field's validations. <code>range:1:9</code> result <code>[{ validation: 'range', args: [1, 9] }]</code></p>
+          </div>
 
           <h2 id="options">
             <a href="#options">Options:</a>
@@ -176,48 +229,63 @@
             <p>Object to hold the injected validators functions from <code>jquery.validaty.validators.js</code> file.</p>
           </div>
 
+          <h2 id="global">
+            <a href="#global">Changing the settings globally:</a>
+          </h2>
+
+          <p>
+            You can change any option mentioning the scope <code>$.fn.validaty.defaults.</code> + <i>option_name</i>. It must be called before you bind the plugin.
+          </p>
+
+          <div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validaty</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">fade</span> <span class="o">=</span> <span class="s1">false</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validaty</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">ignore</span> <span class="o">=</span> <span class="s1">':hidden'</span><span class="p">;</span>
+</pre>
+          </div>
+
           <h2 id="functions">
             <a href="#functions">Functions:</a>
           </h2>
 
-<div id="destroy-function" class="function">
-<div class="highlight">
+            <div id="helper-function" class="function">
+              <div class="highlight">
 <pre>
 <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'helper'</span><span class="p">);</span>
 </pre>
-</div>
+              </div>
 
-              <p>Gives you the internal <a href="#helper-demo">helpers</a>.</p>
+              <p>Gives you the internal <a href="#helpers">helpers</a>.</p>
             </div>
 
-<div id="destroy-function" class="function">
-<div class="highlight">
+            <div id="validator-function" class="function">
+              <div class="highlight">
 <pre>
 <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'validator'</span><span class="p">);</span>
 </pre>
-</div>
+              </div>
 
-              <p>Gives you a <a href="#validator-demo">validator</a>.</p>
+              <p>Gives you a <a href="#validators">validator</a>.</p>
             </div>
 
-<div id="destroy-function" class="function">
-<div class="highlight">
-<pre>
-<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'destroy'</span><span class="p">);</span>
-</pre>
-</div>
-
-              <p>Destroy the Validaty's bind and gives you the raw element before it.</p>
-            </div>
-
-<div id="validate-function" class="function">
-<div class="highlight">
+            <div id="validate-function" class="function">
+              <div class="highlight">
 <pre>
 <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'validate'</span><span class="p">);</span>
 </pre>
-</div>
+            </div>
 
               <p>Execute the validation over the <b>form</b>.</p>
+            </div>
+
+            <div id="destroy-function" class="function">
+              <div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'destroy'</span><span class="p">);</span>
+</pre>
+            </div>
+
+              <p>Destroy the Validaty's bind and gives you the raw element before it.</p>
             </div>
 
           <h2 id="tests">
@@ -262,7 +330,7 @@
       $('form').validaty();
 
       $('.button').on('click', function() {
-        $(this).closest('form').validaty('validate');
+        $(this).parent('form').validaty('validate');
       });
     });
 

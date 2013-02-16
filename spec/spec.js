@@ -16,7 +16,7 @@ describe('Validaty', function() {
         expect($('.validaty-balloon')).toExist();
       });
 
-      it ('is created two times', function() {
+      it ('is created the right number times', function() {
         // given
         var self = $('form').validaty();
 
@@ -25,21 +25,6 @@ describe('Validaty', function() {
 
         // then
         expect(self.children('.validaty-balloon').length).toEqual(2);
-      });
-
-      it ('receives two messages', function() {
-        // given
-        var self = $('form').validaty();
-
-        // when
-        self.submit();
-
-        // then
-        var messages = self.children('.validaty-balloon').find('li'),
-            opt      = $.fn.validaty.defaults;
-
-        expect(messages.eq(0)).toHaveHtml(opt.validators.required.message.text);
-        expect(messages.eq(1)).toHaveHtml(opt.validators.number.message);
       });
 
       it ('is destroy before the validation', function() {
@@ -79,6 +64,129 @@ describe('Validaty', function() {
             expect(balloons.first().css('opacity')).toEqual('1');
             expect(balloons.last().css('opacity').slice(0, 3)).toEqual('0.2');
           });
+        });
+      });
+    });
+
+    context('message', function() {
+      context('required', function() {
+        context('text', function() {
+          beforeEach(function() { form(input('text', 'required')); });
+
+          it ('formats the right text', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml("Can't be blank or empty!");
+          });
+        });
+
+        context('radio', function() {
+          beforeEach(function() { form(radio('required', 1)); });
+
+          it ('formats the right text', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Should be chosen!');
+          });
+        });
+
+        context('checkbox', function() {
+          beforeEach(function() { form(checkbox('required', 1)); });
+
+          it ('formats the right text', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Should be checked!');
+          });
+        });
+
+        context('select', function() {
+          beforeEach(function() { form(select('required', 1)); });
+
+          it ('formats the right text', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Should be selected!');
+          });
+        });
+      });
+
+      context('number', function() {
+        beforeEach(function() { form(input('text', 'number', 'notnumber')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be a number!');
+        });
+      });
+
+      context('email', function() {
+        beforeEach(function() { form(input('text', 'email', 'notemail')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be a valid e-mail!');
+        });
+      });
+
+      context('minlength', function() {
+        beforeEach(function() { form(input('text', 'minlength:3', '12')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Too short (minimum is 3 characters)');
         });
       });
     });
@@ -481,6 +589,26 @@ describe('Validaty', function() {
     });
   });
 
+  describe('helpers', function() {
+    describe('#getValidations', function() {
+      beforeEach(function() { form(input('text', 'validation:1:string:3')); });
+
+      it ('returns the validations with args', function() {
+        // given
+        var self     = $('form').validaty(),
+            input    = self.children('input'),
+            helper   = self.validaty('helper'),
+            expected = [{ validation: 'validation', args: [1, 'string', 3] }];
+
+        // when
+        var validations = helper.getValidations(input);
+
+        // then
+        expect(validations).toEqual(expected);
+      });
+    });
+  });
+
   describe('validations', function() {
     describe('message', function() {
       it ('has the default right messages', function() {
@@ -571,10 +699,8 @@ describe('Validaty', function() {
       beforeEach(function() {
         form(input('text', 'email'));
 
-        this.form      = $('form').validaty(),
-        this.validator = this.form.validaty('validator', 'email'),
-        this.helper    = this.form.validaty('helper'),
-        this.input     = this.form.children('input');
+        this.form  = $('form').validaty(),
+        this.input = this.form.children('input');
       });
 
       it ('pass', function() {
@@ -604,10 +730,8 @@ describe('Validaty', function() {
       beforeEach(function() {
         form(input('text', 'number'));
 
-        this.form      = $('form').validaty(),
-        this.validator = this.form.validaty('validator', 'number'),
-        this.helper    = this.form.validaty('helper'),
-        this.input     = this.form.children('input');
+        this.form  = $('form').validaty(),
+        this.input = this.form.children('input');
       });
 
       it ('pass', function() {
@@ -644,10 +768,8 @@ describe('Validaty', function() {
         beforeEach(function() {
           form(input('text', 'required'));
 
-          this.form      = $('form').validaty(),
-          this.validator = this.form.validaty('validator', 'required'),
-          this.helper    = this.form.validaty('helper'),
-          this.input     = this.form.children('input');
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
         });
 
         it ('pass', function() {
@@ -684,10 +806,8 @@ describe('Validaty', function() {
         beforeEach(function() {
           form(checkbox('required', 2, 1));
 
-          this.form      = $('form').validaty(),
-          this.validator = this.form.validaty('validator', 'required'),
-          this.helper    = this.form.validaty('helper'),
-          this.input     = this.form.children('input');
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
         });
 
         context('when valid', function() {
@@ -706,6 +826,36 @@ describe('Validaty', function() {
               expect(validate(this)).toBeTruthy();
             });
           });
+        });
+      });
+    });
+
+    context('minlength', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'minlength:2:aff:fff:onfocus:blur'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('12');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('123');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('   ');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('1');
+          expect(validate(this)).toBeFalsy();
         });
       });
     });

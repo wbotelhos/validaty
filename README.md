@@ -59,6 +59,7 @@ It was separated from `jquery.validaty.js` to be more flexible and easy to edit 
 By default it comes with the following validators:
 
 + E-mail
++ Minimum Length
 + Number
 + Required
 
