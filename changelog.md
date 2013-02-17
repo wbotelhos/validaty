@@ -14,7 +14,10 @@
 + Option to choose which field will be focused when validation fails;
 + Separated file to create the validators;
 + Validation for:
+  - contain;
   - e-mail;
+  - equal;
+  - isodate;
   - maxlength;
   - minlength;
   - number;

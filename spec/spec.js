@@ -69,7 +69,7 @@ describe('Validaty', function() {
     });
 
     context('message', function() {
-      context('required', function() {
+      describe('required', function() {
         context('text', function() {
           beforeEach(function() { form(input('text', 'required')); });
 
@@ -139,7 +139,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('number', function() {
+      describe('number', function() {
         beforeEach(function() { form(input('text', 'number', 'notnumber')); });
 
         it ('formats the right text', function() {
@@ -156,7 +156,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('email', function() {
+      describe('email', function() {
         beforeEach(function() { form(input('text', 'email', 'notemail')); });
 
         it ('formats the right text', function() {
@@ -173,7 +173,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('minlength', function() {
+      describe('minlength', function() {
         beforeEach(function() { form(input('text', 'minlength:3', '12')); });
 
         it ('formats the right text', function() {
@@ -190,7 +190,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('maxlength', function() {
+      describe('maxlength', function() {
         beforeEach(function() { form(input('text', 'maxlength:2', '123')); });
 
         it ('formats the right text', function() {
@@ -207,7 +207,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('rangelength', function() {
+      describe('rangelength', function() {
         beforeEach(function() { form(input('text', 'rangelength:2:3', 'a')); });
 
         it ('formats the right text', function() {
@@ -224,7 +224,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('range', function() {
+      describe('range', function() {
         beforeEach(function() { form(input('text', 'range:2:4', '1')); });
 
         it ('formats the right text', function() {
@@ -241,7 +241,7 @@ describe('Validaty', function() {
         });
       });
 
-      context('url', function() {
+      describe('url', function() {
         beforeEach(function() { form(input('text', 'url', 'noturl')); });
 
         it ('formats the right text', function() {
@@ -255,6 +255,76 @@ describe('Validaty', function() {
           var message = self.children('.validaty-balloon').find('li');
 
           expect(message).toHaveHtml('Must be a valid URL!');
+        });
+      });
+
+      describe('dateiso', function() {
+        beforeEach(function() { form(input('text', 'dateiso', 'notdate')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be a valid date ISO (yyyy-MM-dd)!');
+        });
+      });
+
+      describe('contain', function() {
+        beforeEach(function() { form(input('text', 'contain:word', 'notfound')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must contain "word"!');
+        });
+      });
+
+      describe('equal', function() {
+        context('without space', function() {
+          beforeEach(function() { form(input('text', 'equal:text', 'different')); });
+
+          it ('formats the right text', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Must be equals to "text"!');
+          });
+        });
+
+        context('with space', function() {
+          beforeEach(function() { form(input('text', 'equal:my%20text', 'different')); });
+
+          it ('formats the right text', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Must be equals to "my text"!');
+          });
         });
       });
     });
@@ -678,20 +748,58 @@ describe('Validaty', function() {
 
   describe('helpers', function() {
     describe('#getValidations', function() {
-      beforeEach(function() { form(input('text', 'validation:1:string:3')); });
+      describe('without space character at all', function() {
+        beforeEach(function() { form(input('text', 'validation:1:string:3')); });
 
-      it ('returns the validations with args', function() {
-        // given
-        var self     = $('form').validaty(),
-            input    = self.children('input'),
-            helper   = self.validaty('helper'),
-            expected = [{ validation: 'validation', args: [1, 'string', 3] }];
+        it ('returns the validations with args', function() {
+          // given
+          var self     = $('form').validaty(),
+              input    = self.children('input'),
+              helper   = self.validaty('helper'),
+              expected = [{ validation: 'validation', args: [1, 'string', 3] }];
 
-        // when
-        var validations = helper.getValidations(input);
+          // when
+          var validations = helper.getValidations(input);
 
-        // then
-        expect(validations).toEqual(expected);
+          // then
+          expect(validations).toEqual(expected);
+        });
+      });
+
+      describe('with space character on validation', function() {
+        beforeEach(function() { form(input('text', 'my%20validation:1:string:3')); });
+
+        it ('returns the validations with character', function() {
+          // given
+          var self     = $('form').validaty(),
+              input    = self.children('input'),
+              helper   = self.validaty('helper'),
+              expected = [{ validation: 'my%20validation', args: [1, 'string', 3] }];
+
+          // when
+          var validations = helper.getValidations(input);
+
+          // then
+          expect(validations).toEqual(expected);
+        });
+      });
+
+      describe('with space character on args', function() {
+        beforeEach(function() { form(input('text', 'validation:1:My%20String:3')); });
+
+        it ('returns the validations with args', function() {
+          // given
+          var self     = $('form').validaty(),
+              input    = self.children('input'),
+              helper   = self.validaty('helper'),
+              expected = [{ validation: 'validation', args: [1, 'My String', 3] }];
+
+          // when
+          var validations = helper.getValidations(input);
+
+          // then
+          expect(validations).toEqual(expected);
+        });
       });
     });
   });
@@ -706,7 +814,10 @@ describe('Validaty', function() {
         var opt = $.fn.validaty.defaults
 
         // then
+        expect(opt.validators.contain.message).toEqual('Must contain "{word}"!');
+        expect(opt.validators.dateiso.message).toEqual('Must be a valid date ISO (yyyy-MM-dd)!');
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
+        expect(opt.validators.equal.message).toEqual('Must be equals to "{value}"!');
         expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)!');
         expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)!');
         expect(opt.validators.number.message).toEqual('Must be a number!');
@@ -787,7 +898,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('email', function() {
+    describe('email', function() {
       beforeEach(function() {
         form(input('text', 'email'));
 
@@ -818,7 +929,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('number', function() {
+    describe('number', function() {
       beforeEach(function() {
         form(input('text', 'number'));
 
@@ -855,7 +966,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('required', function() {
+    describe('required', function() {
       context('for text field', function() {
         beforeEach(function() {
           form(input('text', 'required'));
@@ -922,7 +1033,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('minlength', function() {
+    describe('minlength', function() {
       context('for text field', function() {
         beforeEach(function() {
           form(input('text', 'minlength:2'));
@@ -952,7 +1063,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('maxlength', function() {
+    describe('maxlength', function() {
       context('for text field', function() {
         beforeEach(function() {
           form(input('text', 'maxlength:2'));
@@ -985,7 +1096,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('rangelength', function() {
+    describe('rangelength', function() {
       context('for text field', function() {
         beforeEach(function() {
           form(input('text', 'rangelength:2:3'));
@@ -1018,7 +1129,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('range', function() {
+    describe('range', function() {
       context('for text field', function() {
         beforeEach(function() {
           form(input('text', 'range:2:4'));
@@ -1054,7 +1165,7 @@ describe('Validaty', function() {
       });
     });
 
-    context('url', function() {
+    describe('url', function() {
       context('for text field', function() {
         beforeEach(function() {
           form(input('text', 'url'));
@@ -1094,6 +1205,111 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('http://wbotelhos');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('dateiso', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'dateiso'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('    ');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('1984-10-23');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('1984/10/23');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('23/10/1984');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('23-10-1984');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('1984_10_23');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('contain', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'contain:word'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('word');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('xword');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('xwordx');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val(' ');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('wor');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('equal', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'equal:123'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('123');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val(123);
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val(' ');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('1');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('12');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('1234');
           expect(validate(this)).toBeFalsy();
         });
       });

@@ -1,6 +1,6 @@
 # jQuery Validaty - A Validation Plugin - [wbotelhos.com/validaty](http://wbotelhos.com/validaty)
 
-jQuery Validaty is a form validation plugin based on jQuery Validation and jQuery Ketchup.
+jQuery Validaty is a form validation plugin.
 
 ## Version
 
@@ -58,7 +58,10 @@ This file contains all validators and you can include your own.
 It was separated from `jquery.validaty.js` to be more flexible and easy to edit and add more.
 By default it comes with the following validators:
 
++ Contain
++ Date ISO
 + E-mail
++ Equal
 + Maximum Length
 + Minimum Length
 + Number

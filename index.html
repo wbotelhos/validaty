@@ -242,6 +242,90 @@
 </pre>
           </div>
 
+          <h2 id="dateiso">
+            <a href="#dateiso">Date ISO</a>
+          </h2>
+
+          <p>You must enter a valid date formated as ISO <code>yyyy-MM-dd</code>.</p>
+
+          <div class="demo">
+            <form id="dateiso-demo">
+              <input type="text" data-validaty="dateiso" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"dateiso"</span>
+</pre>
+          </div>
+
+          <h2 id="contain">
+            <a href="#contain">Contain</a>
+          </h2>
+
+          <p>You must enter a text that contains the given parameter <code>word</code>.</p>
+
+          <div class="demo">
+            <form id="contain-demo">
+              <input type="text" data-validaty="contain:word" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"contain:word"</span>
+</pre>
+          </div>
+
+          <h2 id="equal">
+            <a href="#equal">Equal</a>
+          </h2>
+
+          <p>You must enter a text that equals the given parameter <code>word</code>.</p>
+
+          <div class="demo">
+            <form id="equal-demo">
+              <input type="text" data-validaty="equal:text" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"equal:text"</span>
+</pre>
+          </div>
+
+          <p>If you want to use text with space, just replace it for <code>%20</code>.</p>
+
+          <div class="demo">
+            <form id="equal-space-demo">
+              <input type="text" data-validaty="equal:my%20precious" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"equal:my%20precious"</span>
+</pre>
+          </div>
+
           <h2 id="helpers">
             <a href="#helpers">Helpers:</a>
           </h2>
@@ -256,6 +340,16 @@
             </div>
 
             <p>Checks if the given <code>input</code> is a <code>checkbox</code> or <code>radio</code>.</p>
+          </div>
+
+          <div id="isDateISO" class="function">
+            <div class="highlight">
+<pre>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isDateISO</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</pre>
+            </div>
+
+            <p>Checks if the date is formatted as an ISO <code>yyyy-MM-dd</code>.</p>
           </div>
 
           <div id="isEmail" class="function">
