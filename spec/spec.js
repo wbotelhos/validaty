@@ -186,7 +186,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Too short (minimum is 3 characters)');
+          expect(message).toHaveHtml('Too short (minimum is 3 characters)!');
         });
       });
 
@@ -203,7 +203,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Too long (maximum is 2 characters)');
+          expect(message).toHaveHtml('Too long (maximum is 2 characters)!');
         });
       });
 
@@ -220,7 +220,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Wrong length (minimum is 2 and maximum is 3 characters)');
+          expect(message).toHaveHtml('Wrong length (minimum is 2 and maximum is 3 characters)!');
         });
       });
 
@@ -237,7 +237,24 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Must be a number between 2 and 4');
+          expect(message).toHaveHtml('Must be a number between 2 and 4!');
+        });
+      });
+
+      context('url', function() {
+        beforeEach(function() { form(input('text', 'url', 'noturl')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be a valid URL!');
         });
       });
     });
@@ -690,15 +707,16 @@ describe('Validaty', function() {
 
         // then
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
-        expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)');
-        expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)');
+        expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)!');
+        expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)!');
         expect(opt.validators.number.message).toEqual('Must be a number!');
-        expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}');
-        expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)');
+        expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}!');
+        expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)!');
         expect(opt.validators.required.message.checkbox).toEqual('Should be checked!');
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
         expect(opt.validators.required.message.text).toEqual("Can't be blank or empty!");
+        expect(opt.validators.url.message).toEqual('Must be a valid URL!');
       });
 
       context('with details message', function() {
@@ -1031,6 +1049,51 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val(5);
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    context('url', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'url'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('    ');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('http://wbotelhos.com');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('https://wbotelhos.com.br');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('ftp://wbotelhos.com');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('sftp://wbotelhos.com');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('git://wbotelhos.com');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('wbotelhos');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('wbotelhos.com');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('http://wbotelhos');
           expect(validate(this)).toBeFalsy();
         });
       });

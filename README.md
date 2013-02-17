@@ -65,6 +65,7 @@ By default it comes with the following validators:
 + Range Length
 + Range Number
 + Required
++ URL
 
 ## Licence
 

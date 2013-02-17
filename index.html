@@ -220,6 +220,28 @@
 </pre>
           </div>
 
+          <h2 id="url">
+            <a href="#url">URL</a>
+          </h2>
+
+          <p>You must enter a valid URL. It without "http" will be not accepted.</p>
+
+          <div class="demo">
+            <form id="url-demo">
+              <input type="text" data-validaty="url" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"url"</span>
+</pre>
+          </div>
+
           <h2 id="helpers">
             <a href="#helpers">Helpers:</a>
           </h2>
@@ -254,6 +276,16 @@
             </div>
 
             <p>Checks if the given <code>value</code> is a number.</p>
+          </div>
+
+          <div id="isUrl" class="function">
+            <div class="highlight">
+<pre>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isUrl</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</pre>
+            </div>
+
+            <p>Checks if the given <code>value</code> is a valid URL.</p>
           </div>
 
           <div id="getValidations" class="function">

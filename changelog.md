@@ -20,4 +20,5 @@
   - number;
   - range;
   - rangelength;
-  - required.
+  - required;
+  - url.
