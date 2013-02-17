@@ -189,6 +189,23 @@ describe('Validaty', function() {
           expect(message).toHaveHtml('Too short (minimum is 3 characters)');
         });
       });
+
+      context('maxlength', function() {
+        beforeEach(function() { form(input('text', 'maxlength:2', '123')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Too long (maximum is 2 characters)');
+        });
+      });
     });
 
     context('on another form', function() {
@@ -639,6 +656,8 @@ describe('Validaty', function() {
 
         // then
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
+        expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)');
+        expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)');
         expect(opt.validators.number.message).toEqual('Must be a number!');
         expect(opt.validators.required.message.checkbox).toEqual('Should be checked!');
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
@@ -852,13 +871,19 @@ describe('Validaty', function() {
     context('minlength', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'minlength:2:aff:fff:onfocus:blur'));
+          form(input('text', 'minlength:2'));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
         });
 
         it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val(' ');
+          expect(validate(this)).toBeTruthy();
+
           this.input.val('12');
           expect(validate(this)).toBeTruthy();
 
@@ -867,13 +892,40 @@ describe('Validaty', function() {
         });
 
         it ('fails', function() {
-          this.input.val('');
+          this.input.val('1');
           expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    context('maxlength', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'maxlength:2'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
 
           this.input.val('   ');
-          expect(validate(this)).toBeFalsy();
+          expect(validate(this)).toBeTruthy();
 
           this.input.val('1');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('12');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('123');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('1234');
           expect(validate(this)).toBeFalsy();
         });
       });

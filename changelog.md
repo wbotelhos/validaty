@@ -13,4 +13,9 @@
 + Method to get the validators;
 + Option to choose which field will be focused when validation fails;
 + Separated file to create the validators;
-+ Validation for required, e-mail, numbers and minlength.
++ Validation for:
+  - e-mail;
+  - maxlength;
+  - minlength;
+  - number;
+  - required.
