@@ -206,6 +206,23 @@ describe('Validaty', function() {
           expect(message).toHaveHtml('Too long (maximum is 2 characters)');
         });
       });
+
+      context('rangelength', function() {
+        beforeEach(function() { form(input('text', 'rangelength:2:3', 'a')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Wrong length (minimum is 2 and maximum is 3 characters)');
+        });
+      });
     });
 
     context('on another form', function() {
@@ -663,6 +680,7 @@ describe('Validaty', function() {
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
         expect(opt.validators.required.message.text).toEqual("Can't be blank or empty!");
+        expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)');
       });
 
       context('with details message', function() {
@@ -923,6 +941,39 @@ describe('Validaty', function() {
 
         it ('fails', function() {
           this.input.val('123');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('1234');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    context('rangelength', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'rangelength:2:3'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('    ');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('12');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('123');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('1');
           expect(validate(this)).toBeFalsy();
 
           this.input.val('1234');
