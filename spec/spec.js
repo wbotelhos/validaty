@@ -223,6 +223,23 @@ describe('Validaty', function() {
           expect(message).toHaveHtml('Wrong length (minimum is 2 and maximum is 3 characters)');
         });
       });
+
+      context('range', function() {
+        beforeEach(function() { form(input('text', 'range:2:4', '1')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be a number between 2 and 4');
+        });
+      });
     });
 
     context('on another form', function() {
@@ -676,11 +693,12 @@ describe('Validaty', function() {
         expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)');
         expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)');
         expect(opt.validators.number.message).toEqual('Must be a number!');
+        expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}');
+        expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)');
         expect(opt.validators.required.message.checkbox).toEqual('Should be checked!');
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
         expect(opt.validators.required.message.text).toEqual("Can't be blank or empty!");
-        expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)');
       });
 
       context('with details message', function() {
@@ -977,6 +995,42 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('1234');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    context('range', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'range:2:4'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('    ');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('2');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('3');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val(4);
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('1');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val(5);
           expect(validate(this)).toBeFalsy();
         });
       });

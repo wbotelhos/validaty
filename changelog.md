@@ -18,5 +18,6 @@
   - maxlength;
   - minlength;
   - number;
+  - range;
   - rangelength;
   - required.

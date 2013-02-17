@@ -54,9 +54,9 @@
 </pre>
           </div>
 
-          <h3 id="required">
+          <h2 id="required">
             <a href="#required">Required</a>
-          </h3>
+          </h2>
 
           <p>You must fill, select or check the fields.</p>
 
@@ -88,15 +88,15 @@
 </pre>
           </div>
 
-          <h3 id="number">
+          <h2 id="number">
             <a href="#number">Number</a>
-          </h3>
+          </h2>
 
           <p>You must fill a number. It can be a negative number or a float number.</p>
 
           <div class="demo">
             <form id="number-demo">
-              <input type="text" data-validaty="required number" />
+              <input type="text" data-validaty="number" />
 
               <div class="button">
                 <i class="icon-ok"></i>
@@ -110,15 +110,15 @@
 </pre>
           </div>
 
-          <h3 id="email">
+          <h2 id="email">
             <a href="#email">E-mail</a>
-          </h3>
+          </h2>
 
           <p>You must fill a valid e-mail.</p>
 
           <div class="demo">
             <form id="email-demo">
-              <input type="text" data-validaty="required email" />
+              <input type="text" data-validaty="email" />
 
               <div class="button">
                 <i class="icon-ok"></i>
@@ -132,9 +132,9 @@
 </pre>
           </div>
 
-          <h3 id="minlength">
+          <h2 id="minlength">
             <a href="#minlength">Minimum Length</a>
-          </h3>
+          </h2>
 
           <p>You must to fill at least a certain number of characters.</p>
 
@@ -154,9 +154,9 @@
 </pre>
           </div>
 
-          <h3 id="maxlength">
+          <h2 id="maxlength">
             <a href="#maxlength">Maximum Length</a>
-          </h3>
+          </h2>
 
           <p>You must to fill at most a certain number of characters.</p>
 
@@ -176,9 +176,9 @@
 </pre>
           </div>
 
-          <h3 id="rangelength">
+          <h2 id="rangelength">
             <a href="#rangelength">Range Length</a>
-          </h3>
+          </h2>
 
           <p>You must to fill at least the minimum and at most the maximum number of characters.</p>
 
@@ -195,6 +195,28 @@
           <div class="highlight">
 <pre>
 <span class="na">data-validaty=</span><span class="s">"rangelength:2:4"</span>
+</pre>
+          </div>
+
+          <h2 id="range">
+            <a href="#range">Range Number</a>
+          </h2>
+
+          <p>You must enter a number between the minimum and maximum including these one.</p>
+
+          <div class="demo">
+            <form id="range-demo">
+              <input type="text" data-validaty="range:2:4" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"range:2:4"</span>
 </pre>
           </div>
 

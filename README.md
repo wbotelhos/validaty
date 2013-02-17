@@ -63,6 +63,7 @@ By default it comes with the following validators:
 + Minimum Length
 + Number
 + Range Length
++ Range Number
 + Required
 
 ## Licence
