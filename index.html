@@ -348,11 +348,43 @@
 </pre>
           </div>
 
+          <h2 id="username">
+            <a href="#username">Username</a>
+          </h2>
+
+          <p>You must enter a valid username using just the letters <code>a-z</code>, <code>A-Z</code>, <code>0-9</code> and <code>_</code> without simultaneous repetitions.</p>
+
+          <div class="demo">
+            <form id="username-demo">
+              <input type="text" data-validaty="username" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"username"</span>
+</pre>
+          </div>
+
           <h2 id="helpers">
             <a href="#helpers">Helpers:</a>
           </h2>
 
           <p>You can to use the internal <a href="#helper-function">helpers</a> to make your validations better.</p>
+
+          <div id="getValidations" class="function">
+            <div class="highlight">
+<pre>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">getValidations</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</pre>
+            </div>
+
+            <p>Extract the field's validations. <code>range:1:9</code> result <code>[{ validation: 'range', args: [1, 9] }]</code></p>
+          </div>
 
           <div id="isCheckable" class="function">
             <div class="highlight">
@@ -367,7 +399,7 @@
           <div id="isDateISO" class="function">
             <div class="highlight">
 <pre>
-<span class="nx">helper</span><span class="p">.</span><span class="nx">isDateISO</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isDateISO</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
 </pre>
             </div>
 
@@ -377,11 +409,11 @@
           <div id="isDigits" class="function">
             <div class="highlight">
 <pre>
-<span class="nx">helper</span><span class="p">.</span><span class="nx">isDigits</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isDigits</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
 </pre>
             </div>
 
-            <p>Checks if the value is a valid digit. It is just positive integer numbers.</p>
+            <p>Checks if the given <code>value</code> is a valid digit. It is just positive integer numbers.</p>
           </div>
 
           <div id="isEmail" class="function">
@@ -414,14 +446,14 @@
             <p>Checks if the given <code>value</code> is a valid URL.</p>
           </div>
 
-          <div id="getValidations" class="function">
+          <div id="isUsername" class="function">
             <div class="highlight">
 <pre>
-<span class="nx">helper</span><span class="p">.</span><span class="nx">getValidations</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">isUsername</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
 </pre>
             </div>
 
-            <p>Extract the field's validations. <code>range:1:9</code> result <code>[{ validation: 'range', args: [1, 9] }]</code></p>
+            <p>Checks if the given <code>value</code> is a valid username text.</p>
           </div>
 
           <h2 id="options">

@@ -25,4 +25,5 @@
   - range;
   - rangelength;
   - required;
-  - url.
+  - url;
+  - username.

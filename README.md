@@ -70,6 +70,7 @@ By default it comes with the following validators:
 + Range Number
 + Required
 + URL
++ Username
 
 ## Licence
 
