@@ -60,6 +60,7 @@ By default it comes with the following validators:
 
 + Contain
 + Date ISO
++ Digits
 + E-mail
 + Equal
 + Maximum Length

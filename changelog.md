@@ -15,6 +15,7 @@
 + Separated file to create the validators;
 + Validation for:
   - contain;
+  - digits;
   - e-mail;
   - equal;
   - isodate;

@@ -327,6 +327,23 @@ describe('Validaty', function() {
           });
         });
       });
+
+      describe('digits', function() {
+        beforeEach(function() { form(input('text', 'digits', 'notdigit')); });
+
+        it ('formats the right text', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be digits!');
+        });
+      });
     });
 
     context('on another form', function() {
@@ -816,6 +833,7 @@ describe('Validaty', function() {
         // then
         expect(opt.validators.contain.message).toEqual('Must contain "{word}"!');
         expect(opt.validators.dateiso.message).toEqual('Must be a valid date ISO (yyyy-MM-dd)!');
+        expect(opt.validators.digits.message).toEqual('Must be digits!');
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
         expect(opt.validators.equal.message).toEqual('Must be equals to "{value}"!');
         expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)!');
@@ -907,6 +925,12 @@ describe('Validaty', function() {
       });
 
       it ('pass', function() {
+        this.input.val('');
+        expect(validate(this)).toBeTruthy();
+
+        this.input.val(' ');
+        expect(validate(this)).toBeTruthy();
+
         this.input.val('wbotelhos@gmail.com');
         expect(validate(this)).toBeTruthy();
       });
@@ -1178,9 +1202,6 @@ describe('Validaty', function() {
           this.input.val('');
           expect(validate(this)).toBeTruthy();
 
-          this.input.val('    ');
-          expect(validate(this)).toBeTruthy();
-
           this.input.val('http://wbotelhos.com');
           expect(validate(this)).toBeTruthy();
 
@@ -1198,6 +1219,9 @@ describe('Validaty', function() {
         });
 
         it ('fails', function() {
+          this.input.val('    ');
+          expect(validate(this)).toBeFalsy();
+
           this.input.val('wbotelhos');
           expect(validate(this)).toBeFalsy();
 
@@ -1256,6 +1280,9 @@ describe('Validaty', function() {
         });
 
         it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
           this.input.val('word');
           expect(validate(this)).toBeTruthy();
 
@@ -1267,9 +1294,6 @@ describe('Validaty', function() {
         });
 
         it ('fails', function() {
-          this.input.val('');
-          expect(validate(this)).toBeFalsy();
-
           this.input.val(' ');
           expect(validate(this)).toBeFalsy();
 
@@ -1310,6 +1334,45 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('1234');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('digits', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          form(input('text', 'digits'));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('1');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val(2);
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val(' ');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('a');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('-1');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val(-1);
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val(1.2);
           expect(validate(this)).toBeFalsy();
         });
       });
