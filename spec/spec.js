@@ -1,9 +1,11 @@
 describe('Validaty', function() {
-  afterEach(function() { clear(); });
+  afterEach(function() { Helper.clear(); });
 
   describe('balloon', function() {
     describe('behavior', function() {
-      beforeEach(function() { form(input('text', 'required') + input('text', 'number', 'letter')); });
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+      });
 
       it ('is created inside the form', function() {
         // given
@@ -71,9 +73,11 @@ describe('Validaty', function() {
     context('message', function() {
       describe('required', function() {
         context('text', function() {
-          beforeEach(function() { form(input('text', 'required')); });
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
+          });
 
-          it ('formats the right text', function() {
+          it ('shows up', function() {
             // given
             var self = $('form').validaty();
 
@@ -88,9 +92,14 @@ describe('Validaty', function() {
         });
 
         context('radio', function() {
-          beforeEach(function() { form(radio('required', 1)); });
+          beforeEach(function() {
+            Helper.append(Helper.form({
+              onsubmit: 'return false;',
+              html: Helper.radio({ name: 'name', 'data-validaty': 'required', selected: true })
+            }));
+          });
 
-          it ('formats the right text', function() {
+          it ('shows up', function() {
             // given
             var self = $('form').validaty();
 
@@ -105,9 +114,14 @@ describe('Validaty', function() {
         });
 
         context('checkbox', function() {
-          beforeEach(function() { form(checkbox('required', 1)); });
+          beforeEach(function() {
+            Helper.append(Helper.form({
+              onsubmit: 'return false;',
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'required' })
+            }));
+          });
 
-          it ('formats the right text', function() {
+          it ('shows up', function() {
             // given
             var self = $('form').validaty();
 
@@ -122,9 +136,11 @@ describe('Validaty', function() {
         });
 
         context('select', function() {
-          beforeEach(function() { form(select('required', 1)); });
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.select({ 'data-validaty': 'required' }) }));
+          });
 
-          it ('formats the right text', function() {
+          it ('shows up', function() {
             // given
             var self = $('form').validaty();
 
@@ -140,9 +156,11 @@ describe('Validaty', function() {
       });
 
       describe('number', function() {
-        beforeEach(function() { form(input('text', 'number', 'notnumber')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'number' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -157,9 +175,11 @@ describe('Validaty', function() {
       });
 
       describe('email', function() {
-        beforeEach(function() { form(input('text', 'email', 'notemail')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'email' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -174,9 +194,11 @@ describe('Validaty', function() {
       });
 
       describe('minlength', function() {
-        beforeEach(function() { form(input('text', 'minlength:3', '12')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: '12', 'data-validaty': 'minlength:3' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -191,9 +213,11 @@ describe('Validaty', function() {
       });
 
       describe('maxlength', function() {
-        beforeEach(function() { form(input('text', 'maxlength:2', '123')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: '123', 'data-validaty': 'maxlength:2' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -208,9 +232,11 @@ describe('Validaty', function() {
       });
 
       describe('rangelength', function() {
-        beforeEach(function() { form(input('text', 'rangelength:2:3', 'a')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'a', 'data-validaty': 'rangelength:2:3' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -225,9 +251,11 @@ describe('Validaty', function() {
       });
 
       describe('range', function() {
-        beforeEach(function() { form(input('text', 'range:2:4', '1')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: '1', 'data-validaty': 'range:2:4' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -242,9 +270,11 @@ describe('Validaty', function() {
       });
 
       describe('url', function() {
-        beforeEach(function() { form(input('text', 'url', 'noturl')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'url' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -259,9 +289,11 @@ describe('Validaty', function() {
       });
 
       describe('dateiso', function() {
-        beforeEach(function() { form(input('text', 'dateiso', 'notdate')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'dateiso' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -276,9 +308,11 @@ describe('Validaty', function() {
       });
 
       describe('contain', function() {
-        beforeEach(function() { form(input('text', 'contain:word', 'notfound')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'contain:word' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -294,9 +328,11 @@ describe('Validaty', function() {
 
       describe('equal', function() {
         context('without space', function() {
-          beforeEach(function() { form(input('text', 'equal:text', 'different')); });
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'equal:text' }) }));
+          });
 
-          it ('formats the right text', function() {
+          it ('shows up', function() {
             // given
             var self = $('form').validaty();
 
@@ -311,9 +347,11 @@ describe('Validaty', function() {
         });
 
         context('with space', function() {
-          beforeEach(function() { form(input('text', 'equal:my%20text', 'different')); });
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'equal:my%20text' }) }));
+          });
 
-          it ('formats the right text', function() {
+          it ('shows up', function() {
             // given
             var self = $('form').validaty();
 
@@ -329,9 +367,11 @@ describe('Validaty', function() {
       });
 
       describe('digits', function() {
-        beforeEach(function() { form(input('text', 'digits', 'notdigit')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: 'invalid', 'data-validaty': 'digits' }) }));
+        });
 
-        it ('formats the right text', function() {
+        it ('shows up', function() {
           // given
           var self = $('form').validaty();
 
@@ -344,12 +384,103 @@ describe('Validaty', function() {
           expect(message).toHaveHtml('Must be digits!');
         });
       });
+
+      describe('minselect', function() {
+        context('for checkbox', function() {
+          context('selecting all of the same name', function() {
+            beforeEach(function() {
+              Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'minselect:2', times: 3 }) }));
+            });
+
+            it ('shows up', function() {
+              // given
+              var self = $('form').validaty();
+
+              // when
+              self.submit();
+
+              // then
+              var message = self.children('.validaty-balloon').find('li');
+
+              expect(message).toHaveHtml('Select at least 2 checkboxes!');
+            });
+          });
+
+          context('selecting elements that is not belongs the validated group', function() {
+            beforeEach(function() {
+              Helper.append(Helper.form({
+                onsubmit: 'return false;',
+                html: [
+                  Helper.checkbox({ name: 'name',  'data-validaty': 'minselect:1' }),
+                  Helper.checkbox({ name: 'other', 'data-validaty': 'minselect:1', checked: true })
+                ]
+              }));
+            });
+
+            it ('shows up', function() {
+              // given
+              var self = $('form').validaty();
+
+              // when
+              self.submit();
+
+              // then
+              var message = self.children('.validaty-balloon').find('li');
+
+              expect(message).toHaveHtml('Select at least 1 checkboxes!');
+            });
+          });
+
+          context('with just only one of the group binded', function() {
+            beforeEach(function() {
+              Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'minselect:1' }) }));
+            });
+
+            it ('shows up', function() {
+              // given
+              var self = $('form').append(Helper.checkbox({ name: 'other' })).validaty();
+
+              // when
+              self.submit();
+
+              // then
+              var message = self.children('.validaty-balloon').find('li');
+
+              expect(message).toHaveHtml('Select at least 1 checkboxes!');
+            });
+          });
+        });
+      });
+
+      describe('maxselect', function() {
+        context('for checkbox', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({
+              onsubmit: 'return false;',
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxselect:2', times: 3, checked: true })
+            }));
+          });
+
+          it ('shows up', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Select at most 2 checkboxes!');
+          });
+        });
+      });
     });
 
     context('on another form', function() {
       beforeEach(function() {
-        form(input('text', 'required') + input('text', 'required'));
-        form(input('text', 'required'));
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
       });
 
       context('on validation', function() {
@@ -401,7 +532,9 @@ describe('Validaty', function() {
 
   describe('fields', function() {
     context('insided elements', function() {
-      beforeEach(function() { form('<p>' + input('text', 'required') + '</p>'); });
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: '<p>' + Helper.text({ 'data-validaty': 'required' }) + '</p>' }));
+      });
 
       it ('is finded to be binded', function() {
         // given
@@ -417,7 +550,9 @@ describe('Validaty', function() {
 
     describe('text', function() {
       context('with two differents validation', function() {
-        beforeEach(function() { form(input('text', 'required number')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required number' }) }));
+        });
 
         context('and one invalid', function() {
           it ('receives the invalid class', function() {
@@ -436,7 +571,9 @@ describe('Validaty', function() {
       });
 
       context('with more than one', function() {
-        beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+        });
 
         context('invalid', function() {
           it ('receives the same number of balloons', function() {
@@ -458,7 +595,8 @@ describe('Validaty', function() {
             self.submit();
 
             // then
-            expect(self.children('input')).toHaveClass('invalid');
+            expect(self.children('input:first')).toHaveClass('invalid');
+            expect(self.children('input:last')).toHaveClass('invalid');
           });
         });
       });
@@ -466,7 +604,12 @@ describe('Validaty', function() {
 
     describe('checkbox', function() {
       context('with more than one', function() {
-        beforeEach(function() { form(checkbox('required', 2)); });
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            onsubmit: 'return false;',
+            html: Helper.checkbox({ name: 'name', 'data-validaty': 'required', times: 2 })
+          }));
+        });
 
         context('invalid', function() {
           it ('created just one balloon', function() {
@@ -514,7 +657,12 @@ describe('Validaty', function() {
 
     describe('radio', function() {
       context('with more than one', function() {
-        beforeEach(function() { form(radio('required', 2)); });
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            onsubmit: 'return false;',
+            html: Helper.radio({ name: 'name', 'data-validaty': 'required', times: 2 })
+          }));
+        });
 
         context('invalid', function() {
           it ('receives just one balloon', function() {
@@ -561,14 +709,17 @@ describe('Validaty', function() {
     });
 
     context('inserted after the bind', function() {
-      beforeEach(function() { form(); });
+      beforeEach(function() {
+        Helper.append(Helper.form());
+      });
 
       it ('is included on validation', function() {
         // given
-        var self = $('form').validaty();
+        var self  = $('form').validaty(),
+            input = Helper.text({ 'data-validaty': 'required' });
 
         // when
-        self.append(input('text', 'required')).submit();
+        self.append(input).submit();
 
         // then
         expect(self.children('.validaty-balloon').length).toEqual(1);
@@ -576,7 +727,9 @@ describe('Validaty', function() {
     });
 
     context('with validation not registered', function() {
-      beforeEach(function() { form(input('text', 'notfound')); });
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'notfound' }) }));
+      });
 
       it ('throws exception', function() {
         // given
@@ -593,7 +746,9 @@ describe('Validaty', function() {
 
   describe('form', function() {
     describe('features', function() {
-      beforeEach(function() { form(); });
+      beforeEach(function() {
+        Helper.append(Helper.form());
+      });
 
       it ('receives the main class', function() {
         // given
@@ -633,7 +788,9 @@ describe('Validaty', function() {
       });
 
       describe('focus', function() {
-        beforeEach(function() { form(input('text', 'required') + input('text', 'required')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+        });
 
         context('as "first"', function() {
           it ('focus the first one', function() {
@@ -679,10 +836,12 @@ describe('Validaty', function() {
   });
 
   describe('functions', function() {
-    afterEach(function()  { clear(); });
+    afterEach(function() { Helper.clear(); });
 
     describe('#destroy', function() {
-      beforeEach(function() { form(); });
+      beforeEach(function() {
+        Helper.append(Helper.form());
+      });
 
       it ('is chainable', function() {
         // given
@@ -719,7 +878,9 @@ describe('Validaty', function() {
     });
 
     describe('#validate', function() {
-      beforeEach(function() { form(input('text', 'required')); });
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
+      });
 
       it ('validates the field', function() {
         // given
@@ -735,7 +896,9 @@ describe('Validaty', function() {
     });
 
     describe('#validator', function() {
-      beforeEach(function() { form(); });
+      beforeEach(function() {
+        Helper.append(Helper.form());
+      });
 
       it ('returns the right validator', function() {
         // given
@@ -766,7 +929,9 @@ describe('Validaty', function() {
   describe('helpers', function() {
     describe('#getValidations', function() {
       describe('without space character at all', function() {
-        beforeEach(function() { form(input('text', 'validation:1:string:3')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'validation:1:string:3' }) }));
+        });
 
         it ('returns the validations with args', function() {
           // given
@@ -784,7 +949,9 @@ describe('Validaty', function() {
       });
 
       describe('with space character on validation', function() {
-        beforeEach(function() { form(input('text', 'my%20validation:1:string:3')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'my%20validation:1:string:3' }) }));
+        });
 
         it ('returns the validations with character', function() {
           // given
@@ -802,7 +969,9 @@ describe('Validaty', function() {
       });
 
       describe('with space character on args', function() {
-        beforeEach(function() { form(input('text', 'validation:1:My%20String:3')); });
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'validation:1:My%20String:3' }) }));
+        });
 
         it ('returns the validations with args', function() {
           // given
@@ -836,8 +1005,10 @@ describe('Validaty', function() {
         expect(opt.validators.digits.message).toEqual('Must be digits!');
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
         expect(opt.validators.equal.message).toEqual('Must be equals to "{value}"!');
+        expect(opt.validators.maxselect.message).toEqual('Select at most {max} checkboxes!');
         expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)!');
         expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)!');
+        expect(opt.validators.minselect.message).toEqual('Select at least {min} checkboxes!');
         expect(opt.validators.number.message).toEqual('Must be a number!');
         expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}!');
         expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)!');
@@ -846,6 +1017,7 @@ describe('Validaty', function() {
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
         expect(opt.validators.required.message.text).toEqual("Can't be blank or empty!");
         expect(opt.validators.url.message).toEqual('Must be a valid URL!');
+        expect(opt.validators.username.message).toEqual('Must be a valid username (a-z, A-Z and _) only!');
       });
 
       context('with details message', function() {
@@ -857,7 +1029,7 @@ describe('Validaty', function() {
           context('for "input" type', function() {
             beforeEach(function() {
               $.fn.validaty.defaults.validators.mock.message['someType'] = 'someType'
-              form(input('someType', 'mock'));
+              Helper.append(Helper.form({ html: Helper.input({ type: 'someType', 'data-validaty': 'mock' }) }));
             });
 
             it ('receives the text message', function() {
@@ -877,7 +1049,7 @@ describe('Validaty', function() {
           context('for "select" type', function() {
             beforeEach(function() {
               $.fn.validaty.defaults.validators.mock.message['select'] = 'select'
-              form(select('mock', 2));
+              Helper.append(Helper.form({ html: Helper.select({ 'data-validaty': 'mock', times: 2 }) }));
             });
 
             it ('receives the text message', function() {
@@ -897,7 +1069,7 @@ describe('Validaty', function() {
 
         context('and no match attribute', function() {
           beforeEach(function() {
-            form(input('type', 'mock'));
+            Helper.append(Helper.form({ html: Helper.input({ type: 'type', 'data-validaty': 'mock' }) }));
           });
 
           it ('receives the text message', function() {
@@ -918,7 +1090,7 @@ describe('Validaty', function() {
 
     describe('email', function() {
       beforeEach(function() {
-        form(input('text', 'email'));
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'email' }) }));
 
         this.form  = $('form').validaty(),
         this.input = this.form.children('input');
@@ -955,7 +1127,7 @@ describe('Validaty', function() {
 
     describe('number', function() {
       beforeEach(function() {
-        form(input('text', 'number'));
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'number' }) }));
 
         this.form  = $('form').validaty(),
         this.input = this.form.children('input');
@@ -993,7 +1165,7 @@ describe('Validaty', function() {
     describe('required', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'required'));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1015,7 +1187,12 @@ describe('Validaty', function() {
 
       context('for radio field with same name', function() {
         beforeEach(function() {
-          form(radio('required', 2, 1));
+          Helper.append(Helper.form({
+            html: [
+              Helper.radio({ name: 'name', 'data-validaty': 'required', selected: true }),
+              Helper.radio({ name: 'name', 'data-validaty': 'required' })
+            ]
+          }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1031,7 +1208,12 @@ describe('Validaty', function() {
 
       context('for checkbox field with same name', function() {
         beforeEach(function() {
-          form(checkbox('required', 2, 1));
+          Helper.append(Helper.form({
+            html: [
+              Helper.radio({ name: 'name', 'data-validaty': 'required', selected: true }),
+              Helper.radio({ name: 'name', 'data-validaty': 'required' })
+            ]
+          }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1060,7 +1242,7 @@ describe('Validaty', function() {
     describe('minlength', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'minlength:2'));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'minlength:2' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1090,7 +1272,7 @@ describe('Validaty', function() {
     describe('maxlength', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'maxlength:2'));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'maxlength:2' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1123,7 +1305,7 @@ describe('Validaty', function() {
     describe('rangelength', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'rangelength:2:3'));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'rangelength:2:3' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1156,7 +1338,7 @@ describe('Validaty', function() {
     describe('range', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'range:2:4'));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'range:2:4' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1192,7 +1374,7 @@ describe('Validaty', function() {
     describe('url', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'url'));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'url' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1237,7 +1419,7 @@ describe('Validaty', function() {
     describe('dateiso', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'dateiso'));
+          Helper.append(Helper.form({ html: Helper.radio({ name: 'name', 'data-validaty': 'dateiso' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1273,7 +1455,7 @@ describe('Validaty', function() {
     describe('contain', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'contain:word'));
+          Helper.append(Helper.form({ html: Helper.radio({ name: 'name', 'data-validaty': 'contain:word' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1306,7 +1488,7 @@ describe('Validaty', function() {
     describe('equal', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'equal:123'));
+          Helper.append(Helper.form({ html: Helper.radio({ name: 'name', 'data-validaty': 'equal:123' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1342,7 +1524,7 @@ describe('Validaty', function() {
     describe('digits', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'digits'));
+          Helper.append(Helper.form({ html: Helper.radio({ name: 'name', 'data-validaty': 'digits' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1381,7 +1563,7 @@ describe('Validaty', function() {
     describe('username', function() {
       context('for text field', function() {
         beforeEach(function() {
-          form(input('text', 'username'));
+          Helper.append(Helper.form({ html: Helper.radio({ name: 'name', 'data-validaty': 'username' }) }));
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
@@ -1448,6 +1630,55 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('(theuser)');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('minselect', function() {
+      context('for checkbox', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'minselect:2', times: 3 }) }));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.eq(0).attr('checked', 'checked');
+          this.input.eq(1).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.eq(0).attr('checked', 'checked');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('maxselect', function() {
+      context('for checkbox', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxselect:2', times: 3 }) }));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.eq(0).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.eq(1).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.attr('checked', 'checked');
           expect(validate(this)).toBeFalsy();
         });
       });
