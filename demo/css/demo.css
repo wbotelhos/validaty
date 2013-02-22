@@ -4,10 +4,10 @@
 .demo textarea,
 .demo select { border: 1px solid #999; border-radius: 5px; color: #333; font-size: 1.5em; height: 27px; margin-bottom: 12px; padding: 3px; width: 200px }
 
-.demo textarea { height: 80px }
-
 .demo input[type="checkbox"] { display: block; height: 16px; width: 16px }
 .demo input[type="radio"] { margin-right: 10px; width: auto }
+
+.demo textarea { height: 80px }
 
    .demo input:focus,
 .demo textarea:focus,
@@ -22,9 +22,13 @@
 /* Custom */
 
 .demo form { float: left; margin-bottom: 15px; width: 255px }
-.demo form#required-demo { width: 200px }
+.demo form#required-demo,
+.demo form#minselect-demo,
+.demo form#maxselect-demo { width: 200px }
 
 .demo { float: left; margin-top: 20px }
 
 .demo .button { background-color: #F5F5F5; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #B3B3B3; border-radius: 4px; border-style: solid; border-width: 1px; cursor: pointer; float: right; font-size: 1.4em; padding: 4px 12px }
 .demo .button:hover, .demo .button:focus { background-color: #F9F9F9; transition: color 0s ease 0s, background .2s ease-in 0s }
+
+.demo select.multiple { height: 81px }

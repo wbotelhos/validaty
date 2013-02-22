@@ -19,8 +19,12 @@
   - e-mail;
   - equal;
   - isodate;
+  - maxcheck;
   - maxlength;
+  - maxselect;
+  - mincheck;
   - minlength;
+  - minselect;
   - number;
   - range;
   - rangelength;

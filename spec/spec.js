@@ -7,67 +7,6 @@ describe('Validaty', function() {
         Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
       });
 
-      it ('is created inside the form', function() {
-        // given
-        var self = $('form').validaty();
-
-        // when
-        self.submit();
-
-        // then
-        expect($('.validaty-balloon')).toExist();
-      });
-
-      it ('is created the right number times', function() {
-        // given
-        var self = $('form').validaty();
-
-        // when
-        self.submit();
-
-        // then
-        expect(self.children('.validaty-balloon').length).toEqual(2);
-      });
-
-      it ('is destroy before the validation', function() {
-        // given
-        var self = $('form').validaty();
-
-        // when
-        self.submit().submit();
-
-        // then
-        expect(self.children('.validaty-balloon').length).toEqual(2);
-      });
-
-      context('mouseover', function() {
-        it ('keeps visible and fades the others', function() {
-          // given
-          var self     = $('form').validaty({ speed: 0 }),
-              balloons = undefined;
-
-          runs(function() {
-            self.submit();
-
-            balloons = self.children('.validaty-balloon');
-          });
-
-          waits(450);
-
-          // when
-          runs(function() {
-            balloons.first().mouseover();
-          });
-
-          waits(450);
-
-          // then
-          runs(function() {
-            expect(balloons.first().css('opacity')).toEqual('1');
-            expect(balloons.last().css('opacity').slice(0, 3)).toEqual('0.2');
-          });
-        });
-      });
     });
 
     context('message', function() {
@@ -193,9 +132,13 @@ describe('Validaty', function() {
         });
       });
 
-      describe('minlength', function() {
+      describe('maxcheck', function() {
         beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.text({ value: '12', 'data-validaty': 'minlength:3' }) }));
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxcheck:2', times: 3, checked: true })
+            })
+          );
         });
 
         it ('shows up', function() {
@@ -208,7 +151,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Too short (minimum is 3 characters)!');
+          expect(message).toHaveHtml('Check at most 2 checkboxes!');
         });
       });
 
@@ -228,6 +171,122 @@ describe('Validaty', function() {
           var message = self.children('.validaty-balloon').find('li');
 
           expect(message).toHaveHtml('Too long (maximum is 2 characters)!');
+        });
+      });
+
+      describe('maxselect', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'maxselect:1',
+                html: Helper.option({ selected: true, html: '{index}', times: 2 })
+              })
+            })
+          );
+        });
+
+        it ('shows up', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Select at most 1 options!');
+        });
+      });
+
+      describe('mincheck', function() {
+        context('selecting elements that is not belongs the validated group', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({
+              html: [
+                Helper.checkbox({ name: 'name',  'data-validaty': 'mincheck:1' }),
+                Helper.checkbox({ name: 'other', 'data-validaty': 'mincheck:1', checked: true })
+              ]
+            }));
+          });
+
+          it ('shows up', function() {
+            // given
+            var self = $('form').validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Check at least 1 checkboxes!');
+          });
+        });
+
+        context('with just only one of the group binded', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'mincheck:1' }) }));
+          });
+
+          it ('shows up', function() {
+            // given
+            var self = $('form').append(Helper.checkbox({ name: 'other' })).validaty();
+
+            // when
+            self.submit();
+
+            // then
+            var message = self.children('.validaty-balloon').find('li');
+
+            expect(message).toHaveHtml('Check at least 1 checkboxes!');
+          });
+        });
+      });
+
+      describe('minlength', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: '12', 'data-validaty': 'minlength:3' }) }));
+        });
+
+        it ('shows up', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Too short (minimum is 3 characters)!');
+        });
+      });
+
+      describe('minselect', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'minselect:1',
+                html: Helper.option()
+              })
+            })
+          );
+        });
+
+        it ('shows up', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Select at least 1 options!');
         });
       });
 
@@ -382,97 +441,6 @@ describe('Validaty', function() {
           var message = self.children('.validaty-balloon').find('li');
 
           expect(message).toHaveHtml('Must be digits!');
-        });
-      });
-
-      describe('minselect', function() {
-        context('for checkbox', function() {
-          context('selecting all of the same name', function() {
-            beforeEach(function() {
-              Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'minselect:2', times: 3 }) }));
-            });
-
-            it ('shows up', function() {
-              // given
-              var self = $('form').validaty();
-
-              // when
-              self.submit();
-
-              // then
-              var message = self.children('.validaty-balloon').find('li');
-
-              expect(message).toHaveHtml('Select at least 2 checkboxes!');
-            });
-          });
-
-          context('selecting elements that is not belongs the validated group', function() {
-            beforeEach(function() {
-              Helper.append(Helper.form({
-                onsubmit: 'return false;',
-                html: [
-                  Helper.checkbox({ name: 'name',  'data-validaty': 'minselect:1' }),
-                  Helper.checkbox({ name: 'other', 'data-validaty': 'minselect:1', checked: true })
-                ]
-              }));
-            });
-
-            it ('shows up', function() {
-              // given
-              var self = $('form').validaty();
-
-              // when
-              self.submit();
-
-              // then
-              var message = self.children('.validaty-balloon').find('li');
-
-              expect(message).toHaveHtml('Select at least 1 checkboxes!');
-            });
-          });
-
-          context('with just only one of the group binded', function() {
-            beforeEach(function() {
-              Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'minselect:1' }) }));
-            });
-
-            it ('shows up', function() {
-              // given
-              var self = $('form').append(Helper.checkbox({ name: 'other' })).validaty();
-
-              // when
-              self.submit();
-
-              // then
-              var message = self.children('.validaty-balloon').find('li');
-
-              expect(message).toHaveHtml('Select at least 1 checkboxes!');
-            });
-          });
-        });
-      });
-
-      describe('maxselect', function() {
-        context('for checkbox', function() {
-          beforeEach(function() {
-            Helper.append(Helper.form({
-              onsubmit: 'return false;',
-              html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxselect:2', times: 3, checked: true })
-            }));
-          });
-
-          it ('shows up', function() {
-            // given
-            var self = $('form').validaty();
-
-            // when
-            self.submit();
-
-            // then
-            var message = self.children('.validaty-balloon').find('li');
-
-            expect(message).toHaveHtml('Select at most 2 checkboxes!');
-          });
         });
       });
     });
@@ -1005,10 +973,12 @@ describe('Validaty', function() {
         expect(opt.validators.digits.message).toEqual('Must be digits!');
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
         expect(opt.validators.equal.message).toEqual('Must be equals to "{value}"!');
-        expect(opt.validators.maxselect.message).toEqual('Select at most {max} checkboxes!');
+        expect(opt.validators.maxcheck.message).toEqual('Check at most {max} checkboxes!');
         expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)!');
+        expect(opt.validators.maxselect.message).toEqual('Select at most {max} options!');
+        expect(opt.validators.mincheck.message).toEqual('Check at least {min} checkboxes!');
         expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)!');
-        expect(opt.validators.minselect.message).toEqual('Select at least {min} checkboxes!');
+        expect(opt.validators.minselect.message).toEqual('Select at least {min} options!');
         expect(opt.validators.number.message).toEqual('Must be a number!');
         expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}!');
         expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)!');
@@ -1239,32 +1209,47 @@ describe('Validaty', function() {
       });
     });
 
-    describe('minlength', function() {
-      context('for text field', function() {
+    describe('maxcheck', function() {
+      context('without disabled', function() {
         beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'minlength:2' }) }));
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxcheck:2', times: 3 })
+            })
+          );
 
           this.form  = $('form').validaty(),
           this.input = this.form.children('input');
         });
 
         it ('pass', function() {
-          this.input.val('');
+          this.input.eq(0).attr('checked', 'checked');
           expect(validate(this)).toBeTruthy();
 
-          this.input.val(' ');
-          expect(validate(this)).toBeTruthy();
-
-          this.input.val('12');
-          expect(validate(this)).toBeTruthy();
-
-          this.input.val('123');
+          this.input.eq(1).attr('checked', 'checked');
           expect(validate(this)).toBeTruthy();
         });
 
         it ('fails', function() {
-          this.input.val('1');
+          this.input.attr('checked', 'checked');
           expect(validate(this)).toBeFalsy();
+        });
+      });
+
+      context('with disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxcheck:2', times: 3, checked: true, disabled: true })
+            })
+          );
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass ignoring the disabled inputs', function() {
+          expect(validate(this)).toBeTruthy();
         });
       });
     });
@@ -1297,6 +1282,183 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('1234');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('maxselect', function() {
+      context('without disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'maxselect:1',
+                html: Helper.option({ html: '{index}', times: 2 })
+              })
+            })
+          );
+
+          this.form    = $('form').validaty(),
+          this.input   = this.form.children('select');
+          this.options = this.input.children('option');
+        });
+
+        it ('pass', function() {
+          this.options.eq(0).attr('selected', 'selected');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.options.attr('selected', 'selected');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+
+      context('with disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'maxselect:1',
+                html: Helper.option({ html: '{index}', times: 2, selected: true, disabled: true })
+              })
+            })
+          );
+
+          this.form  = $('form').validaty(),
+          this.input   = this.form.children('select');
+          this.options = this.input.children('option');
+        });
+
+        it ('pass ignoring the disabled inputs', function() {
+          expect(validate(this)).toBeTruthy();
+        });
+      });
+    });
+
+    describe('mincheck', function() {
+      context('without disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'mincheck:2', times: 3 })
+            })
+          );
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.eq(0).attr('checked', 'checked');
+          this.input.eq(1).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.eq(2).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+
+      context('with disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'mincheck:2', times: 3, checked: true, disabled: true })
+            })
+          );
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass ignoring the disabled inputs', function() {
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('minlength', function() {
+      context('for text field', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'minlength:2' }) }));
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.val('');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val(' ');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('12');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.val('123');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          this.input.val('1');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('minselect', function() {
+      context('without disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'minselect:1',
+                html: Helper.option({ html: '{index}', times: 2 })
+              })
+            })
+          );
+
+          this.form    = $('form').validaty(),
+          this.input   = this.form.children('select');
+          this.options = this.input.children('option');
+        });
+
+        it ('pass', function() {
+          this.options.eq(0).attr('selected', 'selected');
+          expect(validate(this)).toBeTruthy();
+
+          this.options.eq(1).attr('selected', 'selected');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+
+      context('with disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'minselect:1',
+                html: Helper.option({ html: '{index}', times: 2, selected: true, disabled: true })
+              })
+            })
+          );
+
+          this.form    = $('form').validaty(),
+          this.input   = this.form.children('select');
+          this.options = this.input.children('option');
+        });
+
+        it ('pass ignoring the disabled inputs', function() {
           expect(validate(this)).toBeFalsy();
         });
       });
@@ -1630,55 +1792,6 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('(theuser)');
-          expect(validate(this)).toBeFalsy();
-        });
-      });
-    });
-
-    describe('minselect', function() {
-      context('for checkbox', function() {
-        beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'minselect:2', times: 3 }) }));
-
-          this.form  = $('form').validaty(),
-          this.input = this.form.children('input');
-        });
-
-        it ('pass', function() {
-          this.input.eq(0).attr('checked', 'checked');
-          this.input.eq(1).attr('checked', 'checked');
-          expect(validate(this)).toBeTruthy();
-
-          this.input.attr('checked', 'checked');
-          expect(validate(this)).toBeTruthy();
-        });
-
-        it ('fails', function() {
-          this.input.eq(0).attr('checked', 'checked');
-          expect(validate(this)).toBeFalsy();
-        });
-      });
-    });
-
-    describe('maxselect', function() {
-      context('for checkbox', function() {
-        beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'maxselect:2', times: 3 }) }));
-
-          this.form  = $('form').validaty(),
-          this.input = this.form.children('input');
-        });
-
-        it ('pass', function() {
-          this.input.eq(0).attr('checked', 'checked');
-          expect(validate(this)).toBeTruthy();
-
-          this.input.eq(1).attr('checked', 'checked');
-          expect(validate(this)).toBeTruthy();
-        });
-
-        it ('fails', function() {
-          this.input.attr('checked', 'checked');
           expect(validate(this)).toBeFalsy();
         });
       });

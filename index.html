@@ -133,7 +133,7 @@
           </div>
 
           <h2 id="minlength">
-            <a href="#minlength">Minimum Length</a>
+            <a href="#minlength">Min Length</a>
           </h2>
 
           <p>You must to fill at least a certain number of characters.</p>
@@ -155,7 +155,7 @@
           </div>
 
           <h2 id="maxlength">
-            <a href="#maxlength">Maximum Length</a>
+            <a href="#maxlength">Max Length</a>
           </h2>
 
           <p>You must to fill at most a certain number of characters.</p>
@@ -367,6 +367,124 @@
           <div class="highlight">
 <pre>
 <span class="na">data-validaty=</span><span class="s">"username"</span>
+</pre>
+          </div>
+
+          <h2 id="mincheck">
+            <a href="#mincheck">Min Check</a>
+          </h2>
+
+          <p>
+            You must check at least a quantity of checkboxes.<br />
+            You don't need to put the <code>data-validaty</code> on each one that has the same name, just one is enough.<br />
+            Disabled inputs is ignored.
+          </p>
+
+          <div class="demo">
+            <form id="mincheck-demo">
+              <input type="checkbox" name="checkbox" data-validaty="mincheck:2" />
+              <input type="checkbox" name="checkbox" />
+              <input type="checkbox" name="checkbox" />
+              <input type="checkbox" name="checkbox" checked="checked" disabled="disabled" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"mincheck:2"</span>
+</pre>
+          </div>
+
+          <h2 id="maxcheck">
+            <a href="#maxcheck">Max Check</a>
+          </h2>
+
+          <p>
+            You can select at most a quantity of checkboxes.<br />
+            You don't need to put the <code>data-validaty</code> on each one that has the same name, just one is enough.<br />
+            Disabled inputs is ignored.
+          </p>
+
+          <div class="demo">
+            <form id="maxcheck-demo">
+              <input type="checkbox" name="checkbox" data-validaty="maxcheck:1" />
+              <input type="checkbox" name="checkbox" />
+              <input type="checkbox" name="checkbox" />
+              <input type="checkbox" name="checkbox" checked="checked" disabled="disabled" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"maxcheck:1"</span>
+</pre>
+          </div>
+
+          <h2 id="minselect">
+            <a href="#minselect">Min Select</a>
+          </h2>
+
+          <p>
+            You must select at least a quantity of options.<br />
+            Disabled options is not verified.
+          </p>
+
+          <div class="demo">
+            <form id="minselect-demo">
+              <select multiple="true" size="5" class="multiple" data-validaty="minselect:2">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" disabled="disabled" selected="selected">3</option>
+              </select>
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"minselect:2"</span>
+</pre>
+          </div>
+
+          <h2 id="maxselect">
+            <a href="#maxselect">Max Select</a>
+          </h2>
+
+          <p>
+            You must select at least a quantity of options.<br />
+            Disabled options is not verified.
+          </p>
+
+          <div class="demo">
+            <form id="maxselect-demo">
+              <select multiple="true" size="5" class="multiple" data-validaty="maxselect:2">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" disabled="disabled" selected="selected">3</option>
+              </select>
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"maxselect:2"</span>
 </pre>
           </div>
 

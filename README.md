@@ -63,8 +63,12 @@ By default it comes with the following validators:
 + Digits
 + E-mail
 + Equal
-+ Maximum Length
-+ Minimum Length
++ Max Check
++ Max Length
++ Max Select
++ Min Check
++ Min Length
++ Min Select
 + Number
 + Range Length
 + Range Number
