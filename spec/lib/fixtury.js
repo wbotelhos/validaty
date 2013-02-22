@@ -76,7 +76,7 @@ var Helper = {
     var html = '';
 
     for (var i = 0; i < data.times; i++) {
-      html += Helper._checks(tag, data);
+      html += Helper._checks(tag, data).replace(/{index}/g, i + 1);
     }
 
     return html;
