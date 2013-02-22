@@ -488,6 +488,64 @@
 </pre>
           </div>
 
+          <h2 id="rangecheck">
+            <a href="#rangecheck">Range Check</a>
+          </h2>
+
+          <p>
+            You must check at least a minimum and at most a maximum of checkboxes.<br />
+            Disabled options is not verified.
+          </p>
+
+          <div class="demo">
+            <form id="rangecheck-demo">
+              <input type="checkbox" name="checkbox" data-validaty="rangecheck:1:2" />
+              <input type="checkbox" name="checkbox" />
+              <input type="checkbox" name="checkbox" />
+              <input type="checkbox" name="checkbox" checked="checked" disabled="disabled" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"rangecheck:1:2"</span>
+</pre>
+          </div>
+
+          <h2 id="rangeselect">
+            <a href="#rangeselect">Range Select</a>
+          </h2>
+
+          <p>
+            You must select at least a minimum and at most a maximum of options.<br />
+            Disabled options is not verified.
+          </p>
+
+          <div class="demo">
+            <form id="rangeselect-demo">
+              <select multiple="true" size="5" class="multiple" data-validaty="rangeselect:1:2">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" disabled="disabled" selected="selected">3</option>
+              </select>
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"rangeselect:1:2"</span>
+</pre>
+          </div>
+
           <h2 id="helpers">
             <a href="#helpers">Helpers:</a>
           </h2>

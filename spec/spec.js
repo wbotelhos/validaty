@@ -205,7 +205,7 @@ describe('Validaty', function() {
           beforeEach(function() {
             Helper.append(Helper.form({
               html: [
-                Helper.checkbox({ name: 'name',  'data-validaty': 'mincheck:1' }),
+                Helper.checkbox({ name: 'name', 'data-validaty': 'mincheck:1' }),
                 Helper.checkbox({ name: 'other', 'data-validaty': 'mincheck:1', checked: true })
               ]
             }));
@@ -290,6 +290,46 @@ describe('Validaty', function() {
         });
       });
 
+      describe('range', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text({ value: '1', 'data-validaty': 'range:2:4' }) }));
+        });
+
+        it ('shows up', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Must be a number between 2 and 4!');
+        });
+      });
+
+      describe('rangecheck', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            html: Helper.checkbox({ name: 'name', 'data-validaty': 'rangecheck:1:2', times: 2 })
+          }));
+        });
+
+        it ('shows up', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.submit();
+
+          // then
+          var message = self.children('.validaty-balloon').find('li');
+
+          expect(message).toHaveHtml('Check between 1 and 2 checkboxes!');
+        });
+      });
+
       describe('rangelength', function() {
         beforeEach(function() {
           Helper.append(Helper.form({ html: Helper.text({ value: 'a', 'data-validaty': 'rangelength:2:3' }) }));
@@ -309,9 +349,16 @@ describe('Validaty', function() {
         });
       });
 
-      describe('range', function() {
+      describe('rangeselect', function() {
         beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.text({ value: '1', 'data-validaty': 'range:2:4' }) }));
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'rangeselect:1:2',
+                html: Helper.option()
+              })
+            })
+          );
         });
 
         it ('shows up', function() {
@@ -324,7 +371,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Must be a number between 2 and 4!');
+          expect(message).toHaveHtml('Select between 1 and 2 options!');
         });
       });
 
@@ -981,7 +1028,9 @@ describe('Validaty', function() {
         expect(opt.validators.minselect.message).toEqual('Select at least {min} options!');
         expect(opt.validators.number.message).toEqual('Must be a number!');
         expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}!');
+        expect(opt.validators.rangecheck.message).toEqual('Check between {min} and {max} checkboxes!');
         expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)!');
+        expect(opt.validators.rangeselect.message).toEqual('Select between {min} and {max} options!');
         expect(opt.validators.required.message.checkbox).toEqual('Should be checked!');
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
@@ -1464,6 +1513,53 @@ describe('Validaty', function() {
       });
     });
 
+    describe('rangecheck', function() {
+      context('without disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'rangecheck:1:2', times: 3 })
+            })
+          );
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass', function() {
+          this.input.eq(0).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+
+          this.input.eq(1).attr('checked', 'checked');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          expect(validate(this)).toBeFalsy();
+
+          this.input.attr('checked', 'checked');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+
+      context('with disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.checkbox({ name: 'name', 'data-validaty': 'rangecheck:1:2', times: 3, checked: true, disabled: true })
+            })
+          );
+
+          this.form  = $('form').validaty(),
+          this.input = this.form.children('input');
+        });
+
+        it ('pass ignoring the disabled inputs', function() {
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
     describe('rangelength', function() {
       context('for text field', function() {
         beforeEach(function() {
@@ -1492,6 +1588,61 @@ describe('Validaty', function() {
           expect(validate(this)).toBeFalsy();
 
           this.input.val('1234');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+    });
+
+    describe('rangeselect', function() {
+      context('without disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'rangeselect:1:2',
+                html: Helper.option({ html: '{index}', times: 3 })
+              })
+            })
+          );
+
+          this.form    = $('form').validaty(),
+          this.input   = this.form.children('select');
+          this.options = this.input.children('option');
+        });
+
+        it ('pass', function() {
+          this.options.eq(0).attr('selected', 'selected');
+          expect(validate(this)).toBeTruthy();
+
+          this.options.eq(1).attr('selected', 'selected');
+          expect(validate(this)).toBeTruthy();
+        });
+
+        it ('fails', function() {
+          expect(validate(this)).toBeFalsy();
+
+          this.options.attr('selected', 'selected');
+          expect(validate(this)).toBeFalsy();
+        });
+      });
+
+      context('with disabled', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.select({
+                multiple: true, 'data-validaty': 'rangeselect:1:2',
+                html: Helper.option({ html: '{index}', selected: true, disabled: true })
+              })
+            })
+          );
+
+          this.form    = $('form').validaty(),
+          this.input   = this.form.children('select');
+          this.options = this.input.children('option');
+        });
+
+        it ('pass ignoring the disabled inputs', function() {
           expect(validate(this)).toBeFalsy();
         });
       });
