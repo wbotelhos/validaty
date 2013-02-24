@@ -13,6 +13,7 @@
 + Method to get the validators;
 + Option to choose which field will be focused when validation fails;
 + Separated file to create the validators;
++ Support to declare the trigger of the validation inline with `on:`;
 + Validation for:
   - contain;
   - digits;

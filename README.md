@@ -30,6 +30,8 @@ validators : {}         // Object to hold the validators functions.
 
 ## Usage
 
+Use the attribute `data-validaty` to declare the validation you want.
+
 ```html
 <form>
   <input type="text" data-validaty="required" />
@@ -38,6 +40,16 @@ validators : {}         // Object to hold the validators functions.
 
 ```js
 $('form').validaty();
+```
+
+### Actions
+
+Add the key `on:` with the action you want to trigger the validation.
+
+```html
+<form>
+  <input type="text" data-validaty="required on:blur" />
+</form>
 ```
 
 ## Functions

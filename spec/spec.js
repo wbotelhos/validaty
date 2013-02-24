@@ -1,14 +1,70 @@
 describe('Validaty', function() {
   afterEach(function() { Helper.clear(); });
 
-  describe('balloon', function() {
-    describe('behavior', function() {
+  describe('actions', function() {
+    context('submit', function() {
       beforeEach(function() {
-        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+        Helper.append(Helper.form({
+          html: Helper.text({ 'data-validaty': 'required' })
+        }));
       });
 
+      it ('triggers the validation', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        self.submit();
+
+        // then
+        expect(self.children('.validaty-balloon')).toExist();
+      });
     });
 
+    context('others binds', function() {
+      context('blur', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            html: Helper.text({ 'data-validaty': 'required on:blur' })
+          }));
+        });
+
+        it ('triggers the validation', function() {
+          // given
+          var self  = $('form').validaty();
+              input = self.children('input').focus();
+
+          // when
+          input.blur();
+
+          // then
+          expect(self.children('.validaty-balloon')).toExist();
+        });
+      });
+
+      context('focus', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            html: Helper.text({ 'data-validaty': 'required on:focus' })
+          }));
+        });
+
+        it ('triggers the validation and does not trriger a infinite looping', function() {
+          // given
+          var self  = $('form').validaty();
+              input = self.children('input').blur();
+
+          // when
+          input.focus();
+
+          // then
+          expect(self.children('.validaty-balloon')).toExist();
+        });
+      });
+    });
+  });
+
+  describe('balloon', function() {
     context('message', function() {
       describe('required', function() {
         context('text', function() {
@@ -33,7 +89,6 @@ describe('Validaty', function() {
         context('radio', function() {
           beforeEach(function() {
             Helper.append(Helper.form({
-              onsubmit: 'return false;',
               html: Helper.radio({ name: 'name', 'data-validaty': 'required', selected: true })
             }));
           });
@@ -55,7 +110,6 @@ describe('Validaty', function() {
         context('checkbox', function() {
           beforeEach(function() {
             Helper.append(Helper.form({
-              onsubmit: 'return false;',
               html: Helper.checkbox({ name: 'name', 'data-validaty': 'required' })
             }));
           });
@@ -170,7 +224,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Too long (maximum is 2 characters)!');
+          expect(message).toHaveHtml('Too long (max is 2 characters)!');
         });
       });
 
@@ -260,7 +314,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Too short (minimum is 3 characters)!');
+          expect(message).toHaveHtml('Too short (min is 3 characters)!');
         });
       });
 
@@ -345,7 +399,7 @@ describe('Validaty', function() {
           // then
           var message = self.children('.validaty-balloon').find('li');
 
-          expect(message).toHaveHtml('Wrong length (minimum is 2 and maximum is 3 characters)!');
+          expect(message).toHaveHtml('Wrong length (min is 2 and max is 3 characters)!');
         });
       });
 
@@ -725,10 +779,10 @@ describe('Validaty', function() {
 
     context('inserted after the bind', function() {
       beforeEach(function() {
-        Helper.append(Helper.form());
+        Helper.append(Helper.form({ onsubmit: 'return false;' }));
       });
 
-      it ('is included on validation', function() {
+      it ('is not included on validation', function() {
         // given
         var self  = $('form').validaty(),
             input = Helper.text({ 'data-validaty': 'required' });
@@ -737,7 +791,7 @@ describe('Validaty', function() {
         self.append(input).submit();
 
         // then
-        expect(self.children('.validaty-balloon').length).toEqual(1);
+        expect(self.children('.validaty-balloon')).not.toExist();
       });
     });
 
@@ -785,67 +839,6 @@ describe('Validaty', function() {
 
         // then
         expect(ref).toBe(self);
-      });
-    });
-
-    describe('options', function() {
-      it ('has the right value options', function() {
-        // given
-        var validaty = $.fn.validaty
-
-        // when
-        var opt = validaty.defaults
-
-        // then
-        expect(opt.fade).toEqual(true);
-        expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
-        expect(opt.speed).toEqual(200);
-      });
-
-      describe('focus', function() {
-        beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
-        });
-
-        context('as "first"', function() {
-          it ('focus the first one', function() {
-            // given
-            var self = $('form').validaty({ focus: 'first' });
-
-            // when
-            self.submit();
-
-            // then
-            expect(self.children(':input:first')).toBeFocused();
-          });
-        });
-
-        context('as "last"', function() {
-          it ('focus the last one', function() {
-            // given
-            var self = $('form').validaty({ focus: 'last' });
-
-            // when
-            self.submit();
-
-            // then
-            expect(self.children(':input:last')).toBeFocused();
-          });
-        });
-
-        context('as "null"', function() {
-          it ('focus no one', function() {
-            // given
-            var self = $('form').validaty({ focus: null });
-
-            // when
-            self.submit();
-
-            // then
-            expect(self.children(':input:first')).not.toBeFocused();
-            expect(self.children(':input:last')).not.toBeFocused();
-          });
-        });
       });
     });
   });
@@ -942,10 +935,10 @@ describe('Validaty', function() {
   });
 
   describe('helpers', function() {
-    describe('#getValidations', function() {
+    describe('#getParams', function() {
       describe('without space character at all', function() {
         beforeEach(function() {
-          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'validation:1:string:3' }) }));
+          Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'validation:1:string:3 on:focus:blur on:keyup' }) }));
         });
 
         it ('returns the validations with args', function() {
@@ -953,10 +946,13 @@ describe('Validaty', function() {
           var self     = $('form').validaty(),
               input    = self.children('input'),
               helper   = self.validaty('helper'),
-              expected = [{ validation: 'validation', args: [1, 'string', 3] }];
+              expected = {
+                validations: [{ name: 'validation', args: [1, 'string', 3] }],
+                actions    : [{ name: 'on', args: ['focus', 'blur'] }, { name: 'on', args: ['keyup'] }]
+              };
 
           // when
-          var validations = helper.getValidations(input);
+          var validations = helper.getParams(input);
 
           // then
           expect(validations).toEqual(expected);
@@ -973,10 +969,13 @@ describe('Validaty', function() {
           var self     = $('form').validaty(),
               input    = self.children('input'),
               helper   = self.validaty('helper'),
-              expected = [{ validation: 'my%20validation', args: [1, 'string', 3] }];
+              expected = {
+                validations: [{ name: 'my%20validation', args: [1, 'string', 3] }],
+                actions    : []
+              };
 
           // when
-          var validations = helper.getValidations(input);
+          var validations = helper.getParams(input);
 
           // then
           expect(validations).toEqual(expected);
@@ -993,13 +992,77 @@ describe('Validaty', function() {
           var self     = $('form').validaty(),
               input    = self.children('input'),
               helper   = self.validaty('helper'),
-              expected = [{ validation: 'validation', args: [1, 'My String', 3] }];
+              expected = {
+                validations: [{ name: 'validation', args: [1, 'My String', 3] }],
+                actions    : []
+              };
 
           // when
-          var validations = helper.getValidations(input);
+          var validations = helper.getParams(input);
 
           // then
           expect(validations).toEqual(expected);
+        });
+      });
+    });
+  });
+
+  describe('options', function() {
+    it ('has the right value options', function() {
+      // given
+      var validaty = $.fn.validaty
+
+      // when
+      var opt = validaty.defaults
+
+      // then
+      expect(opt.fade).toEqual(true);
+      expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
+      expect(opt.speed).toEqual(200);
+    });
+
+    describe('focus', function() {
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+      });
+
+      context('as "first"', function() {
+        it ('focus the first one', function() {
+          // given
+          var self = $('form').validaty({ focus: 'first' });
+
+          // when
+          self.submit();
+
+          // then
+          expect(self.children(':input:first')).toBeFocused();
+        });
+      });
+
+      context('as "last"', function() {
+        it ('focus the last one', function() {
+          // given
+          var self = $('form').validaty({ focus: 'last' });
+
+          // when
+          self.submit();
+
+          // then
+          expect(self.children(':input:last')).toBeFocused();
+        });
+      });
+
+      context('as "null"', function() {
+        it ('focus no one', function() {
+          // given
+          var self = $('form').validaty({ focus: null });
+
+          // when
+          self.submit();
+
+          // then
+          expect(self.children(':input:first')).not.toBeFocused();
+          expect(self.children(':input:last')).not.toBeFocused();
         });
       });
     });
@@ -1021,15 +1084,15 @@ describe('Validaty', function() {
         expect(opt.validators.email.message).toEqual('Must be a valid e-mail!');
         expect(opt.validators.equal.message).toEqual('Must be equals to "{value}"!');
         expect(opt.validators.maxcheck.message).toEqual('Check at most {max} checkboxes!');
-        expect(opt.validators.maxlength.message).toEqual('Too long (maximum is {max} characters)!');
+        expect(opt.validators.maxlength.message).toEqual('Too long (max is {max} characters)!');
         expect(opt.validators.maxselect.message).toEqual('Select at most {max} options!');
         expect(opt.validators.mincheck.message).toEqual('Check at least {min} checkboxes!');
-        expect(opt.validators.minlength.message).toEqual('Too short (minimum is {min} characters)!');
+        expect(opt.validators.minlength.message).toEqual('Too short (min is {min} characters)!');
         expect(opt.validators.minselect.message).toEqual('Select at least {min} options!');
         expect(opt.validators.number.message).toEqual('Must be a number!');
         expect(opt.validators.range.message).toEqual('Must be a number between {min} and {max}!');
         expect(opt.validators.rangecheck.message).toEqual('Check between {min} and {max} checkboxes!');
-        expect(opt.validators.rangelength.message).toEqual('Wrong length (minimum is {min} and maximum is {max} characters)!');
+        expect(opt.validators.rangelength.message).toEqual('Wrong length (min is {min} and max is {max} characters)!');
         expect(opt.validators.rangeselect.message).toEqual('Select between {min} and {max} options!');
         expect(opt.validators.required.message.checkbox).toEqual('Should be checked!');
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');

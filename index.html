@@ -12,32 +12,32 @@
   <meta content="jQuery Validaty - A Validation Plugin" name="description">
   <meta content="jquery,plugin,validation,validator" name="keywords">
 
-	<link type="text/css" rel="stylesheet" href="demo/css/application.css">
+  <link type="text/css" rel="stylesheet" href="demo/css/application.css">
   <link type="text/css" rel="stylesheet" href="lib/jquery.validaty.css" />
 
   <script type="text/javascript" src="demo/js/jquery.min.js"></script>
-	<script type="text/javascript" src="lib/jquery.validaty.js"></script>
+  <script type="text/javascript" src="lib/jquery.validaty.js"></script>
   <script type="text/javascript" src="lib/jquery.validaty.validators.js"></script>
 
-	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
-	<div id="wrapper">
-		<header role="banner">
-			<div id="logo">
-				<h1><a href="http://wbotelhos.com/validaty" title="jQuery Validaty">jQuery Validaty</a></h1>
-				<p>A Validation Plugin</p>
-			</div>
+  <div id="wrapper">
+    <header role="banner">
+      <div id="logo">
+        <h1><a href="http://wbotelhos.com/validaty" title="jQuery Validaty">jQuery Validaty</a></h1>
+        <p>A Validation Plugin</p>
+      </div>
 
-			<nav role="navigation">
-			  <ul>
-			    <li><a href="http://github.com/wbotelhos/validaty/archive/0.1.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.1.0</a></li>
+      <nav role="navigation">
+        <ul>
+          <li><a href="http://github.com/wbotelhos/validaty/archive/0.1.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.1.0</a></li>
           <li><a href="http://github.com/wbotelhos/validaty" title="Github" target="_blank"><i class="icon-github icon-large"></i>Github</a></li>
           <li><a href="http://wbotelhos.com/labs" title="yLab" target="_blank"><i class="icon-beaker icon-large"></i>yLab</a></li>
           <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=X8HEP2878NDEG&amp;item_name=jQuery%20Validaty" title="Donate" target="_blank"><i class="icon-heart-empty icon-large"></i>Donate</a></li>
-			  </ul>
-			</nav>
-		</header>
+        </ul>
+      </nav>
+    </header>
 
     <div id="container">
       <section role="main">
@@ -46,7 +46,14 @@
             <a href="#form">Form Bind</a>
           </h2>
 
-          <p>Bind the form and all fields inside it with <code>data-validaty</code> will be validated.</p>
+          <p>Bind the form and all fields inside it with <code>data-validaty</code> attribute will be validated.</p>
+
+          <div class="highlight">
+<pre><span class="nt">&lt;form&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">data-validaty=</span><span class="s">"validation_name"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre>
+          </div>
 
           <div class="highlight">
 <pre>
@@ -54,9 +61,9 @@
 </pre>
           </div>
 
-          <h2 id="required">
+          <h3 id="required">
             <a href="#required">Required</a>
-          </h2>
+          </h3>
 
           <p>You must fill, select or check the fields.</p>
 
@@ -88,9 +95,9 @@
 </pre>
           </div>
 
-          <h2 id="number">
+          <h3 id="number">
             <a href="#number">Number</a>
-          </h2>
+          </h3>
 
           <p>You must fill a number. It can be a negative number or a float number.</p>
 
@@ -110,9 +117,9 @@
 </pre>
           </div>
 
-          <h2 id="email">
+          <h3 id="email">
             <a href="#email">E-mail</a>
-          </h2>
+          </h3>
 
           <p>You must fill a valid e-mail.</p>
 
@@ -132,9 +139,9 @@
 </pre>
           </div>
 
-          <h2 id="minlength">
+          <h3 id="minlength">
             <a href="#minlength">Min Length</a>
-          </h2>
+          </h3>
 
           <p>You must to fill at least a certain number of characters.</p>
 
@@ -154,9 +161,9 @@
 </pre>
           </div>
 
-          <h2 id="maxlength">
+          <h3 id="maxlength">
             <a href="#maxlength">Max Length</a>
-          </h2>
+          </h3>
 
           <p>You must to fill at most a certain number of characters.</p>
 
@@ -176,9 +183,9 @@
 </pre>
           </div>
 
-          <h2 id="rangelength">
+          <h3 id="rangelength">
             <a href="#rangelength">Range Length</a>
-          </h2>
+          </h3>
 
           <p>You must to fill at least the minimum and at most the maximum number of characters.</p>
 
@@ -198,9 +205,9 @@
 </pre>
           </div>
 
-          <h2 id="range">
+          <h3 id="range">
             <a href="#range">Range Number</a>
-          </h2>
+          </h3>
 
           <p>You must enter a number between the minimum and maximum including these one.</p>
 
@@ -220,9 +227,9 @@
 </pre>
           </div>
 
-          <h2 id="url">
+          <h3 id="url">
             <a href="#url">URL</a>
-          </h2>
+          </h3>
 
           <p>You must enter a valid URL. It without "http" will be not accepted.</p>
 
@@ -242,9 +249,9 @@
 </pre>
           </div>
 
-          <h2 id="dateiso">
+          <h3 id="dateiso">
             <a href="#dateiso">Date ISO</a>
-          </h2>
+          </h3>
 
           <p>You must enter a valid date formated as ISO <code>yyyy-MM-dd</code>.</p>
 
@@ -264,9 +271,9 @@
 </pre>
           </div>
 
-          <h2 id="contain">
+          <h3 id="contain">
             <a href="#contain">Contain</a>
-          </h2>
+          </h3>
 
           <p>You must enter a text that contains the given parameter <code>word</code>.</p>
 
@@ -286,9 +293,9 @@
 </pre>
           </div>
 
-          <h2 id="equal">
+          <h3 id="equal">
             <a href="#equal">Equal</a>
-          </h2>
+          </h3>
 
           <p>You must enter a text that equals the given parameter <code>word</code>.</p>
 
@@ -326,9 +333,9 @@
 </pre>
           </div>
 
-          <h2 id="digits">
+          <h3 id="digits">
             <a href="#digits">Digits</a>
-          </h2>
+          </h3>
 
           <p>You must enter just positive integers numbers.</p>
 
@@ -348,9 +355,9 @@
 </pre>
           </div>
 
-          <h2 id="username">
+          <h3 id="username">
             <a href="#username">Username</a>
-          </h2>
+          </h3>
 
           <p>You must enter a valid username using just the letters <code>a-z</code>, <code>A-Z</code>, <code>0-9</code> and <code>_</code> without simultaneous repetitions.</p>
 
@@ -370,9 +377,9 @@
 </pre>
           </div>
 
-          <h2 id="mincheck">
+          <h3 id="mincheck">
             <a href="#mincheck">Min Check</a>
-          </h2>
+          </h3>
 
           <p>
             You must check at least a quantity of checkboxes.<br />
@@ -399,9 +406,9 @@
 </pre>
           </div>
 
-          <h2 id="maxcheck">
+          <h3 id="maxcheck">
             <a href="#maxcheck">Max Check</a>
-          </h2>
+          </h3>
 
           <p>
             You can select at most a quantity of checkboxes.<br />
@@ -428,9 +435,9 @@
 </pre>
           </div>
 
-          <h2 id="minselect">
+          <h3 id="minselect">
             <a href="#minselect">Min Select</a>
-          </h2>
+          </h3>
 
           <p>
             You must select at least a quantity of options.<br />
@@ -458,9 +465,9 @@
 </pre>
           </div>
 
-          <h2 id="maxselect">
+          <h3 id="maxselect">
             <a href="#maxselect">Max Select</a>
-          </h2>
+          </h3>
 
           <p>
             You must select at least a quantity of options.<br />
@@ -488,9 +495,9 @@
 </pre>
           </div>
 
-          <h2 id="rangecheck">
+          <h3 id="rangecheck">
             <a href="#rangecheck">Range Check</a>
-          </h2>
+          </h3>
 
           <p>
             You must check at least a minimum and at most a maximum of checkboxes.<br />
@@ -516,9 +523,9 @@
 </pre>
           </div>
 
-          <h2 id="rangeselect">
+          <h3 id="rangeselect">
             <a href="#rangeselect">Range Select</a>
-          </h2>
+          </h3>
 
           <p>
             You must select at least a minimum and at most a maximum of options.<br />
@@ -546,20 +553,71 @@
 </pre>
           </div>
 
+          <h2 id="actions">
+            <a href="#actions">Actions</a>
+          </h2>
+
+          <p>
+            By default, the validations is always trigged on <code>submit</code>, and you can add your bind like <code>blur</code>, <code>keypress</code>, <code>keyup</code> and so one.<br />
+            The bind action starts with the key <code>on</code> and we separate the arguments with colon <code>:</code>. You can pass more than one arg like <code>on:blur:keyup</code>.
+          </p>
+
+          <h3 id="blur">
+            <a href="#blur">Blur</a>
+          </h3>
+
+          <div class="demo">
+            <form id="blur-demo">
+              <input type="text" data-validaty="required on:blur" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"required on:blur"</span>
+</pre>
+          </div>
+
+          <h3 id="keypress">
+            <a href="#keypress">Blur and Keypress</a>
+          </h3>
+
+          <div class="demo">
+            <form id="blur-demo">
+              <input id="keypress-demo" type="text" data-validaty="rangelength:5:10 on:blur:keyup" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="na">data-validaty=</span><span class="s">"rangelength:5:10 on:blur:keyup"</span>
+</pre>
+          </div>
+
           <h2 id="helpers">
             <a href="#helpers">Helpers:</a>
           </h2>
 
           <p>You can to use the internal <a href="#helper-function">helpers</a> to make your validations better.</p>
 
-          <div id="getValidations" class="function">
+          <div id="getParams" class="function">
             <div class="highlight">
 <pre>
-<span class="nx">helper</span><span class="p">.</span><span class="nx">getValidations</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+<span class="nx">helper</span><span class="p">.</span><span class="nx">getParams</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
 </pre>
             </div>
 
-            <p>Extract the field's validations. <code>range:1:9</code> result <code>[{ validation: 'range', args: [1, 9] }]</code></p>
+            <p>
+              Extract the field's parameters. <code>range:1:9 on:blur</code> will result <code>{ actions: [{ name: 'on', args: ['blur'] }], validations: [{ name: 'range', args: [1, 9] }]</code>
+            </p>
           </div>
 
           <div id="isCheckable" class="function">
@@ -661,9 +719,9 @@
             <p>Object to hold the injected validators functions from <code>jquery.validaty.validators.js</code> file.</p>
           </div>
 
-          <h2 id="global">
+          <h3 id="global">
             <a href="#global">Changing the settings globally:</a>
-          </h2>
+          </h3>
 
           <p>
             You can change any option mentioning the scope <code>$.fn.validaty.defaults.</code> + <i>option_name</i>. It must be called before you bind the plugin.
