@@ -1017,8 +1017,8 @@ describe('Validaty', function() {
 
       // then
       expect(opt.fade).toEqual(true);
+      expect(opt.fadeSpeed).toEqual(200);
       expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
-      expect(opt.speed).toEqual(200);
     });
 
     describe('focus', function() {
