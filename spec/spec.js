@@ -279,7 +279,7 @@ describe('Validaty', function() {
           });
         });
 
-        context('with just only one of the group binded', function() {
+        context('with only one of the group binded', function() {
           beforeEach(function() {
             Helper.append(Helper.form({ html: Helper.checkbox({ name: 'name', 'data-validaty': 'mincheck:1' }) }));
           });
@@ -600,6 +600,40 @@ describe('Validaty', function() {
   });
 
   describe('fields', function() {
+    context('binded', function() {
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
+      });
+
+      it ('receives a hash', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        var hash = self.children('input:first')[0].hash;
+
+        // then
+        expect(hash).not.toBeEmpty();
+      });
+    });
+
+    context('not binded', function() {
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text() }));
+      });
+
+      it ('does not receives a hash', function() {
+        // given
+        var self = $('form').validaty();
+
+        // when
+        var hash = self.children('input:first')[0].hash;
+
+        // then
+        expect(hash).toBeUndefined();
+      });
+    });
+
     context('insided elements', function() {
       beforeEach(function() {
         Helper.append(Helper.form({ html: '<p>' + Helper.text({ 'data-validaty': 'required' }) + '</p>' }));
@@ -1002,6 +1036,25 @@ describe('Validaty', function() {
 
           // then
           expect(validations).toEqual(expected);
+        });
+      });
+
+      describe('without the data-validaty attribute', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({ html: Helper.text() }));
+        });
+
+        it ('returns undefined', function() {
+          // given
+          var self     = $('form').validaty(),
+              input    = self.children('input'),
+              helper   = self.validaty('helper');
+
+          // when
+          var params = helper.getParams(input);
+
+          // then
+          expect(params).toBeUndefined();
         });
       });
     });
