@@ -81,7 +81,7 @@ var Helper = {
 
     return html;
   }, _verify: function(options) {
-    if (options.type) {
+    if (options && options.type) {
       $.error('You cannot set the "type" using an alias!');
     }
   }, append: function(html) {
@@ -89,9 +89,7 @@ var Helper = {
   }, checkbox: function(options) {
     Helper._verify(options);
 
-    options['type'] = 'checkbox';
-
-    return Helper.input(options);
+    return Helper.input(options, 'checkbox');
   }, clear: function() {
     if (clean) {
       $('.fixtury').empty();
@@ -103,16 +101,20 @@ var Helper = {
     return Helper._repeat(tag.replace(' >', '>'), data);
   }, form: function(options) {
     return Helper.double(options, 'form');
-  }, input: function(options) {
+  }, input: function(options, type) {
+    options = options || {};
+
+    if (type) {
+      options['type'] = type;
+    }
+
     return Helper.single(options, 'input');
   }, option: function(options) {
     return Helper.double(options, 'option');
   }, radio: function(options) {
     Helper._verify(options);
 
-    options['type'] = 'radio';
-
-    return Helper.input(options);
+    return Helper.input(options, 'radio');
   }, select: function(options) {
     return Helper.double(options, 'select');
   }, single: function(options, name) {
@@ -120,17 +122,9 @@ var Helper = {
         tag  = '<' + name + ' ' + data.attributes + ' />';
 
     return Helper._repeat(tag.replace('  />', ' />'), data);
-  }, radio: function(options) {
-    Helper._verify(options);
-
-    options['type'] = 'radio';
-
-    return Helper.input(options);
   }, text: function(options) {
     Helper._verify(options);
 
-    options['type'] = 'text';
-
-    return Helper.input(options);
+    return Helper.input(options, 'text');
   }
 };
