@@ -25,20 +25,37 @@ describe('Validaty', function() {
       context('blur', function() {
         beforeEach(function() {
           Helper.append(Helper.form({
-            html: Helper.text({ 'data-validaty': 'required on:blur' })
+            html: [
+              Helper.text({ 'data-validaty': 'required on:blur' }),
+              Helper.text()
+            ]
           }));
         });
 
         it ('triggers the validation', function() {
           // given
           var self  = $('form').validaty();
-              input = self.children('input').focus();
+              input = self.children('input:first').focus();
 
           // when
           input.blur();
 
           // then
           expect(self.children('.validaty-balloon')).toExist();
+        });
+
+        it ('does not focus back the blured field on error', function() {
+          // given
+          var self   = $('form').validaty();
+              inputs = self.children('input');
+
+          inputs.first().focus();
+
+          // when
+          inputs.last().focus();
+
+          // then
+          expect(inputs.last()).toBeFocused();
         });
       });
 
@@ -970,7 +987,7 @@ describe('Validaty', function() {
 
   describe('helpers', function() {
     describe('#getParams', function() {
-      describe('without space character at all', function() {
+      context('without space character at all', function() {
         beforeEach(function() {
           Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'validation:1:string:3 on:focus:blur on:keyup' }) }));
         });
@@ -993,7 +1010,7 @@ describe('Validaty', function() {
         });
       });
 
-      describe('with space character on validation', function() {
+      context('with space character on validation', function() {
         beforeEach(function() {
           Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'my%20validation:1:string:3' }) }));
         });
@@ -1016,7 +1033,7 @@ describe('Validaty', function() {
         });
       });
 
-      describe('with space character on args', function() {
+      context('with space character on args', function() {
         beforeEach(function() {
           Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'validation:1:My%20String:3' }) }));
         });
@@ -1039,7 +1056,7 @@ describe('Validaty', function() {
         });
       });
 
-      describe('without the data-validaty attribute', function() {
+      context('without the data-validaty attribute', function() {
         beforeEach(function() {
           Helper.append(Helper.form({ html: Helper.text() }));
         });
