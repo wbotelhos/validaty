@@ -80,25 +80,41 @@ describe('Validaty', function() {
       });
 
       context('with two fields inside the same form', function() {
-        beforeEach(function() {
-          Helper.append(Helper.form({
-            html: [
-              Helper.text({ 'data-validaty': 'digits on:focus' }),
-              Helper.text({ 'data-validaty': 'required' })
-            ]
-          }));
-        });
+        context('on trriger the action of one of it', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({
+              html: [
+                Helper.text({ 'data-validaty': 'digits on:focus' }),
+                Helper.text({ 'data-validaty': 'required' })
+              ]
+            }));
+          });
 
-        it ('does not trigger the other validation', function() {
-          // given
-          var self  = $('form').validaty();
-              input = self.children('input:first');
+          it ('does not valid the other', function() {
+            // given
+            var self  = $('form').validaty();
+                first = self.children('input:first');
 
-          // when
-          input.focus();
+            // when
+            first.focus();
 
-          // then
-          expect(self.children('.validaty-balloon')).not.toExist();
+            // then
+            expect(self.children('.validaty-balloon')).not.toExist();
+          });
+
+          it ('does not removes the validation of the other', function() {
+            // given
+            var self  = $('form').validaty();
+                first = self.children('input:first');
+
+            self.submit();
+
+            // when
+            first.focus();
+
+            // then
+            expect(self.children('.validaty-balloon')).toExist();
+          });
         });
       });
     });
