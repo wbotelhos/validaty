@@ -637,6 +637,24 @@ describe('Validaty', function() {
         });
       });
     });
+
+    describe('hash', function() {
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
+      });
+
+      it ('receives the field hash as ID', function() {
+        // given
+        var self = $('form').validaty(),
+            hash = self.children('input')[0].hash;
+
+        // when
+        self.submit();
+
+        // then
+        expect(self.children('.validaty-balloon').attr('id')).toEqual(hash);
+      });
+    });
   });
 
   describe('fields', function() {
