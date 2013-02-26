@@ -6,7 +6,7 @@ jQuery Validaty is a form validation plugin.
 
 ```
 @version        0.1.0
-@since          2012-02-10
+@since          2013-02-10
 @author         Washington Botelho
 @documentation  wbotelhos.com/validaty
 @twitter        twitter.com/wbotelhos
