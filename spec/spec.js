@@ -1877,9 +1877,6 @@ describe('Validaty', function() {
           this.input.val('');
           expect(validate(this)).toBeTruthy();
 
-          this.input.val('    ');
-          expect(validate(this)).toBeTruthy();
-
           this.input.val('2');
           expect(validate(this)).toBeTruthy();
 
@@ -1891,7 +1888,13 @@ describe('Validaty', function() {
         });
 
         it ('fails', function() {
+          this.input.val('    ');
+          expect(validate(this)).toBeFalsy();
+
           this.input.val('1');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('a');
           expect(validate(this)).toBeFalsy();
 
           this.input.val(5);
