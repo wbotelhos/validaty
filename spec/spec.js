@@ -66,7 +66,7 @@ describe('Validaty', function() {
           }));
         });
 
-        it ('triggers the validation and does not trriger a infinite looping', function() {
+        it ('triggers the validation and does not trigger a infinite looping', function() {
           // given
           var self  = $('form').validaty();
               input = self.children('input').blur();
@@ -76,6 +76,29 @@ describe('Validaty', function() {
 
           // then
           expect(self.children('.validaty-balloon')).toExist();
+        });
+      });
+
+      context('with two fields inside the same form', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            html: [
+              Helper.text({ 'data-validaty': 'digits on:focus' }),
+              Helper.text({ 'data-validaty': 'required' })
+            ]
+          }));
+        });
+
+        it ('does not trigger the other validation', function() {
+          // given
+          var self  = $('form').validaty();
+              input = self.children('input:first');
+
+          // when
+          input.focus();
+
+          // then
+          expect(self.children('.validaty-balloon')).not.toExist();
         });
       });
     });
