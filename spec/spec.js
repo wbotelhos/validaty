@@ -1657,12 +1657,6 @@ describe('Validaty', function() {
         });
 
         it ('pass', function() {
-          this.input.val('');
-          expect(validate(this)).toBeTruthy();
-
-          this.input.val(' ');
-          expect(validate(this)).toBeTruthy();
-
           this.input.val('12');
           expect(validate(this)).toBeTruthy();
 
@@ -1671,6 +1665,15 @@ describe('Validaty', function() {
         });
 
         it ('fails', function() {
+          this.input.val('');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val(' ');
+          expect(validate(this)).toBeFalsy();
+
+          this.input.val('  ');
+          expect(validate(this)).toBeFalsy();
+
           this.input.val('1');
           expect(validate(this)).toBeFalsy();
         });
