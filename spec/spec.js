@@ -1143,6 +1143,7 @@ describe('Validaty', function() {
       var opt = validaty.defaults
 
       // then
+      expect(opt.balloon).toBeTruthy();
       expect(opt.fade).toEqual(true);
       expect(opt.fadeSpeed).toEqual(200);
       expect(opt.ignore).toEqual(':submit, :reset, :image, :disabled');
@@ -1194,28 +1195,142 @@ describe('Validaty', function() {
           });
         });
       });
+
+      context('with the first field hidden', function() {
+        beforeEach(function() {
+          Helper.append(Helper.form({
+            html: [
+              Helper.text({ 'data-validaty': 'required', style: 'display: none;' }),
+              Helper.text({ 'data-validaty': 'required', times: 2 }),
+            ]
+          }));
+        });
+
+        context('as "first"', function() {
+          it ('focus the first one', function() {
+            // given
+            var self = $('form').validaty({ focus: 'first' });
+
+            // when
+            self.submit();
+
+            // then
+            expect(self.children(':input:visible:first')).toBeFocused();
+          });
+        });
+      });
     });
 
-    context('with the first field hidden', function() {
-      beforeEach(function() {
-        Helper.append(Helper.form({
-          html: [
-            Helper.text({ 'data-validaty': 'required', style: 'display: none;' }),
-            Helper.text({ 'data-validaty': 'required', times: 2 }),
-          ]
-        }));
+    describe('balloon', function() {
+      context('enabled', function() {
+        context('without checkboxes or radios', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
+          });
+
+          it ('shows up as simples div after the field', function() {
+            // given
+            var self  = $('form').validaty(),
+                input = self.children('input');
+
+            // when
+            self.submit();
+
+            // then
+            expect(input.next()).toHaveClass('validaty-balloon');
+          });
+        });
+
+        context('with more than one checkbox', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.checkbox({ 'data-validaty': 'required', times: 2 }) }));
+          });
+
+          it ('shows up after the first one', function() {
+            // given
+            var self  = $('form').validaty(),
+                input = self.children('input:first');
+
+            // when
+            self.submit();
+
+            // then
+            expect(input.next()).toHaveClass('validaty-balloon');
+          });
+        });
+
+        context('with more than one radio', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.radio({ 'data-validaty': 'required', times: 2 }) }));
+          });
+
+          it ('shows up after the first one', function() {
+            // given
+            var self  = $('form').validaty(),
+                input = self.children('input:first');
+
+            // when
+            self.submit();
+
+            // then
+            expect(input.next()).toHaveClass('validaty-balloon');
+          });
+        });
       });
 
-      context('as "first"', function() {
-        it ('focus the first one', function() {
-          // given
-          var self = $('form').validaty({ focus: 'first' });
+      context('disabled', function() {
+        context('without checkboxes or radios', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
+          });
 
-          // when
-          self.submit();
+          it ('shows up as simples list after the field', function() {
+            // given
+            var self  = $('form').validaty({ balloon: false }),
+                input = self.children('input');
 
-          // then
-          expect(self.children(':input:visible:first')).toBeFocused();
+            // when
+            self.submit();
+
+            // then
+            expect(input.next()).toHaveClass('validaty-message');
+          });
+        });
+
+        context('with more than one checkbox', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.checkbox({ 'data-validaty': 'required', times: 2 }) }));
+          });
+
+          it ('shows up after the last one', function() {
+            // given
+            var self  = $('form').validaty({ balloon: false }),
+                input = self.children('input:last');
+
+            // when
+            self.submit();
+
+            // then
+            expect(input.next()).toHaveClass('validaty-message');
+          });
+        });
+
+        context('with more than one radio', function() {
+          beforeEach(function() {
+            Helper.append(Helper.form({ html: Helper.radio({ 'data-validaty': 'required', times: 2 }) }));
+          });
+
+          it ('shows up after the last one', function() {
+            // given
+            var self  = $('form').validaty({ balloon: false }),
+                input = self.children('input:last');
+
+            // when
+            self.submit();
+
+            // then
+            expect(input.next()).toHaveClass('validaty-message');
+          });
         });
       });
     });
@@ -2030,9 +2145,6 @@ describe('Validaty', function() {
         });
 
         it ('pass', function() {
-          this.input.val('');
-          expect(validate(this)).toBeTruthy();
-
           this.input.val('123');
           expect(validate(this)).toBeTruthy();
 
@@ -2041,6 +2153,9 @@ describe('Validaty', function() {
         });
 
         it ('fails', function() {
+          this.input.val('');
+          expect(validate(this)).toBeFalsy();
+
           this.input.val(' ');
           expect(validate(this)).toBeFalsy();
 

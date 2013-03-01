@@ -24,7 +24,8 @@
 .demo form { float: left; margin-bottom: 15px; width: 255px }
 .demo form#required-demo,
 .demo form#minselect-demo,
-.demo form#maxselect-demo { width: 200px }
+.demo form#maxselect-demo,
+.demo form#balloon-demo { width: 200px }
 
 .demo { float: left; margin-top: 20px }
 
@@ -32,3 +33,6 @@
 .demo .button:hover, .demo .button:focus { background-color: #F9F9F9; transition: color 0s ease 0s, background .2s ease-in 0s }
 
 .demo select.multiple { height: 81px }
+.demo input[type="checkbox"] { display: inline-block; margin-right: 10px }
+
+.validaty-message { margin-bottom: 5px; margin-left: -8px; margin-top: -10px }

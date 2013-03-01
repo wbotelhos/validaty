@@ -1,5 +1,15 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## 0.2.0
+
+### News
+
++ Added option `balloon` to choose between balloon or list style message.
+
+### Fixes
+
++ The `equal` validator was accepting blank value.
+
 ## 0.1.0
 
 ### News

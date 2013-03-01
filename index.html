@@ -16,7 +16,7 @@
   <link type="text/css" rel="stylesheet" href="lib/jquery.validaty.css" />
 
   <script type="text/javascript" src="demo/js/jquery.min.js"></script>
-  <script type="text/javascript" src="lib/jquery.validaty.js"></script>
+  <script type="text/javascript" src="lib/jquery.validaty.min.js"></script>
   <script type="text/javascript" src="lib/jquery.validaty.validators.js"></script>
 
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
@@ -31,7 +31,7 @@
 
       <nav role="navigation">
         <ul>
-          <li><a href="http://github.com/wbotelhos/validaty/archive/0.1.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.1.0</a></li>
+          <li><a href="http://github.com/wbotelhos/validaty/archive/0.2.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.2.0</a></li>
           <li><a href="http://github.com/wbotelhos/validaty" title="Github" target="_blank"><i class="icon-github icon-large"></i>Github</a></li>
           <li><a href="http://wbotelhos.com/labs" title="yLab" target="_blank"><i class="icon-beaker icon-large"></i>yLab</a></li>
           <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=X8HEP2878NDEG&amp;item_name=jQuery%20Validaty" title="Donate" target="_blank"><i class="icon-heart-empty icon-large"></i>Donate</a></li>
@@ -42,8 +42,8 @@
     <div id="container">
       <section role="main">
         <article>
-          <h2 id="form">
-            <a href="#form">Form Bind</a>
+          <h2 id="bind">
+            <a href="#bind">Bind</a>
           </h2>
 
           <p>Bind the form and all fields inside it with <code>data-validaty</code> attribute will be validated.</p>
@@ -61,6 +61,12 @@
 </pre>
           </div>
 
+          <h2 id="validators">
+            <a href="#validators">Validators</a>
+          </h2>
+
+          <p>We have a couple of validator ready to be used declared on file <code>jquery.validaty.validators.js</code>.</p>
+
           <h3 id="required">
             <a href="#required">Required</a>
           </h3>
@@ -68,20 +74,20 @@
           <p>You must fill, select or check the fields.</p>
 
           <div class="demo">
-            <form id="required-demo">
+            <form id="required-demo" class="form">
               <input type="text" data-validaty="required" />
 
               <input type="checkbox" name="checkbox" data-validaty="required" />
               <input type="checkbox" name="checkbox" data-validaty="required" />
-
-              <input type="radio" name="radio" data-validaty="required" />
-              <input type="radio" name="radio" data-validaty="required" />
 
               <select data-validaty="required">
                 <option value=""></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
               </select>
+
+              <input type="radio" name="radio" data-validaty="required" />
+              <input type="radio" name="radio" data-validaty="required" />
 
               <div class="button">
                 <i class="icon-ok"></i>
@@ -102,7 +108,7 @@
           <p>You must fill a number. It can be a negative number or a float number.</p>
 
           <div class="demo">
-            <form id="number-demo">
+            <form id="number-demo" class="form">
               <input type="text" data-validaty="number" />
 
               <div class="button">
@@ -124,7 +130,7 @@
           <p>You must fill a valid e-mail.</p>
 
           <div class="demo">
-            <form id="email-demo">
+            <form id="email-demo" class="form">
               <input type="text" data-validaty="email" />
 
               <div class="button">
@@ -146,7 +152,7 @@
           <p>You must to fill at least a certain number of characters.</p>
 
           <div class="demo">
-            <form id="minlength-demo">
+            <form id="minlength-demo" class="form">
               <input type="text" data-validaty="minlength:3" />
 
               <div class="button">
@@ -168,7 +174,7 @@
           <p>You must to fill at most a certain number of characters.</p>
 
           <div class="demo">
-            <form id="maxlength-demo">
+            <form id="maxlength-demo" class="form">
               <input type="text" data-validaty="maxlength:3" />
 
               <div class="button">
@@ -190,7 +196,7 @@
           <p>You must to fill at least the minimum and at most the maximum number of characters.</p>
 
           <div class="demo">
-            <form id="rangelength-demo">
+            <form id="rangelength-demo" class="form">
               <input type="text" data-validaty="rangelength:2:4" />
 
               <div class="button">
@@ -212,7 +218,7 @@
           <p>You must enter a number between the minimum and maximum including these one.</p>
 
           <div class="demo">
-            <form id="range-demo">
+            <form id="range-demo" class="form">
               <input type="text" data-validaty="range:2:4" />
 
               <div class="button">
@@ -234,7 +240,7 @@
           <p>You must enter a valid URL. It without "http" will be not accepted.</p>
 
           <div class="demo">
-            <form id="url-demo">
+            <form id="url-demo" class="form">
               <input type="text" data-validaty="url" />
 
               <div class="button">
@@ -256,7 +262,7 @@
           <p>You must enter a valid date formated as ISO <code>yyyy-MM-dd</code>.</p>
 
           <div class="demo">
-            <form id="dateiso-demo">
+            <form id="dateiso-demo" class="form">
               <input type="text" data-validaty="dateiso" />
 
               <div class="button">
@@ -278,7 +284,7 @@
           <p>You must enter a text that contains the given parameter <code>word</code>.</p>
 
           <div class="demo">
-            <form id="contain-demo">
+            <form id="contain-demo" class="form">
               <input type="text" data-validaty="contain:word" />
 
               <div class="button">
@@ -300,7 +306,7 @@
           <p>You must enter a text that equals the given parameter <code>word</code>.</p>
 
           <div class="demo">
-            <form id="equal-demo">
+            <form id="equal-demo" class="form">
               <input type="text" data-validaty="equal:text" />
 
               <div class="button">
@@ -318,7 +324,7 @@
           <p>If you want to use text with space, just replace it for <code>%20</code>.</p>
 
           <div class="demo">
-            <form id="equal-space-demo">
+            <form id="equal-space-demo" class="form">
               <input type="text" data-validaty="equal:my%20precious" />
 
               <div class="button">
@@ -340,7 +346,7 @@
           <p>You must enter just positive integers numbers.</p>
 
           <div class="demo">
-            <form id="digits-demo">
+            <form id="digits-demo" class="form">
               <input type="text" data-validaty="digits" />
 
               <div class="button">
@@ -362,7 +368,7 @@
           <p>You must enter a valid username using just the letters <code>a-z</code>, <code>A-Z</code>, <code>0-9</code> and <code>_</code> without simultaneous repetitions.</p>
 
           <div class="demo">
-            <form id="username-demo">
+            <form id="username-demo" class="form">
               <input type="text" data-validaty="username" />
 
               <div class="button">
@@ -388,7 +394,7 @@
           </p>
 
           <div class="demo">
-            <form id="mincheck-demo">
+            <form id="mincheck-demo" class="form">
               <input type="checkbox" name="checkbox" data-validaty="mincheck:2" />
               <input type="checkbox" name="checkbox" />
               <input type="checkbox" name="checkbox" />
@@ -417,7 +423,7 @@
           </p>
 
           <div class="demo">
-            <form id="maxcheck-demo">
+            <form id="maxcheck-demo" class="form">
               <input type="checkbox" name="checkbox" data-validaty="maxcheck:1" />
               <input type="checkbox" name="checkbox" />
               <input type="checkbox" name="checkbox" />
@@ -445,7 +451,7 @@
           </p>
 
           <div class="demo">
-            <form id="minselect-demo">
+            <form id="minselect-demo" class="form">
               <select multiple="true" size="5" class="multiple" data-validaty="minselect:2">
                 <option value=""></option>
                 <option value="1">1</option>
@@ -475,7 +481,7 @@
           </p>
 
           <div class="demo">
-            <form id="maxselect-demo">
+            <form id="maxselect-demo" class="form">
               <select multiple="true" size="5" class="multiple" data-validaty="maxselect:2">
                 <option value=""></option>
                 <option value="1">1</option>
@@ -505,7 +511,7 @@
           </p>
 
           <div class="demo">
-            <form id="rangecheck-demo">
+            <form id="rangecheck-demo" class="form">
               <input type="checkbox" name="checkbox" data-validaty="rangecheck:1:2" />
               <input type="checkbox" name="checkbox" />
               <input type="checkbox" name="checkbox" />
@@ -533,7 +539,7 @@
           </p>
 
           <div class="demo">
-            <form id="rangeselect-demo">
+            <form id="rangeselect-demo" class="form">
               <select multiple="true" size="5" class="multiple" data-validaty="rangeselect:1:2">
                 <option value=""></option>
                 <option value="1">1</option>
@@ -559,7 +565,7 @@
 
           <p>
             By default, the validations is always trigged on <code>submit</code>, and you can add your bind like <code>blur</code>, <code>keypress</code>, <code>keyup</code> and so one.<br />
-            The bind action starts with the key <code>on</code> and we separate the arguments with colon <code>:</code>. You can pass more than one arg like <code>on:blur:keyup</code>.
+            The bind action starts with the key <code>on</code> and we separate the arguments with colon <code>:</code>.
           </p>
 
           <h3 id="blur">
@@ -567,7 +573,7 @@
           </h3>
 
           <div class="demo">
-            <form id="blur-demo">
+            <form id="blur-demo" class="form">
               <input type="text" data-validaty="required on:blur" />
 
               <div class="button">
@@ -587,8 +593,8 @@
           </h3>
 
           <div class="demo">
-            <form id="blur-demo">
-              <input type="text" data-validaty="rangelength:5:10 on:blur:keyup" />
+            <form id="blur-demo" class="form">
+              <input type="text" data-validaty="rangelength:5:10 on:blur:keypress:keyup" />
 
               <div class="button">
                 <i class="icon-ok"></i>
@@ -606,7 +612,35 @@
 
           <div class="highlight">
 <pre>
-<span class="na">data-validaty=</span><span class="s">"rangelength:5:10 on:blur:keypress:keyup"</span>
+<span class="na">data-validaty=</span><span class="s">"rangelength:5:10 on:blur:keyup"</span>
+</pre>
+          </div>
+
+          <h2 id="balloon">
+            <a href="#balloon">Balloon</a>
+          </h2>
+
+          <p>
+            There are two differents styles of how the message will be displayed, the default <code>balloon</code> and the <code>list</code>.<br />
+            The list style will be appended after the invalid field. If it is checkbox or radio with the same name, will be appended after the last one.
+          </p>
+
+          <div class="demo">
+            <form id="balloon-demo">
+              <input type="text" data-validaty="required on:blur" />
+
+              <input type="checkbox" name="checkbox" data-validaty="required" />
+              <input type="checkbox" name="checkbox" data-validaty="required" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'input'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">({</span> <span class="nx">balloon</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
 </pre>
           </div>
 
@@ -701,6 +735,11 @@
           <h2 id="options">
             <a href="#options">Options:</a>
           </h2>
+
+          <div id="balloon" class="option">
+            <div>balloon: <span>true</span></div>
+            <p>Enables the balloon message or list message style.</p>
+          </div>
 
           <div id="fade" class="option">
             <div>fade: <span>true</span></div>
@@ -825,7 +864,9 @@
 
   <script type="text/javascript">
     $(function() {
-      $('form').validaty();
+      $('.form').validaty();
+
+      $('#balloon-demo').validaty({ balloon: false });
 
       $('.button').on('click', function() {
         $(this).parent('form').validaty('validate');

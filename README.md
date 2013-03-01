@@ -5,7 +5,7 @@ jQuery Validaty is a form validation plugin.
 ## Version
 
 ```
-@version        0.1.0
+@version        0.2.0
 @since          2013-02-10
 @author         Washington Botelho
 @documentation  wbotelhos.com/validaty
@@ -21,6 +21,7 @@ jQuery Validaty is a form validation plugin.
 ## Options
 
 ```js
+balloon    : true       // Enables the balloon message or list message style.
 fade       : true       // Enables the fade on balloons message.
 focus      : 'first'    // Field to be focused when validation fails.
 ignore     : ':submit'  // Fields to be ignored.
