@@ -4,7 +4,8 @@
 
 ### Fixes
 
-+ The fade effect was being applied even when not enabled.
++ The fade effect was being applied even when not enabled;
++ The fade was not binding to the list style message.
 
 ## 0.2.0
 

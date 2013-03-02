@@ -1342,30 +1342,61 @@ describe('Validaty', function() {
 
       context('true', function() {
         context('mouseover', function() {
-          it ('keeps the overed and fades out the others', function() {
-            // given
-            var self     = $('form').validaty({ speed: 0 }),
-                balloons = undefined;
+          context('with balloon true', function() {
+            it ('keeps the overed and fades out the others', function() {
+              // given
+              var self     = $('form').validaty({ fade: true, balloon: true, speed: 0 }),
+                  balloons = undefined;
 
-            runs(function() {
-              self.submit();
+              runs(function() {
+                self.submit();
 
-              balloons = self.children('.validaty-balloon');
+                balloons = self.children('.validaty-balloon');
+              });
+
+              waits(450);
+
+              // when
+              runs(function() {
+                balloons.first().mouseover();
+              });
+
+              waits(450);
+
+              // then
+              runs(function() {
+                expect(balloons.first().css('opacity')).toEqual('1');
+                expect(balloons.last().css('opacity')).toEqual('0.2');
+              });
             });
+          });
 
-            waits(400);
+          context('with balloon false', function() {
+            it ('keeps the overed and fades out the others', function() {
+              // given
+              var self     = $('form').validaty({ fade: true, balloon: false, speed: 0 }),
+                  balloons = undefined;
 
-            // when
-            runs(function() {
-              balloons.first().mouseover();
-            });
+              runs(function() {
+                self.submit();
 
-            waits(400);
+                balloons = self.children('.validaty-message');
+              });
 
-            // then
-            runs(function() {
-              expect(balloons.first().css('opacity')).toEqual('1');
-              expect(balloons.last().css('opacity')).toEqual('0.2');
+              waits(450);
+
+              // when
+              runs(function() {
+                balloons.first().mouseover();
+              });
+
+              waits(450);
+
+              // then
+              runs(function() {
+                expect(balloons.first().css('opacity')).toEqual('1');
+                expect(balloons.last().css('opacity')).toEqual('0.2');
+              });
             });
           });
         });
@@ -1373,30 +1404,61 @@ describe('Validaty', function() {
 
       context('false', function() {
         context('mouseover', function() {
-          it ('is not excuted', function() {
-            // given
-            var self     = $('form').validaty({ fade: false, speed: 0 }),
-                balloons = undefined;
+          context('with balloon true', function() {
+            it ('is not excuted', function() {
+              // given
+              var self     = $('form').validaty({ fade: false, balloon: true, speed: 0 }),
+                  balloons = undefined;
 
-            runs(function() {
-              self.submit();
+              runs(function() {
+                self.submit();
 
-              balloons = self.children('.validaty-balloon');
+                balloons = self.children('.validaty-balloon');
+              });
+
+              waits(450);
+
+              // when
+              runs(function() {
+                balloons.first().mouseover();
+              });
+
+              waits(450);
+
+              // then
+              runs(function() {
+                expect(balloons.first().css('opacity')).toEqual('1');
+                expect(balloons.last().css('opacity')).toEqual('1');
+              });
             });
+          });
 
-            waits(400);
+          context('with balloon false', function() {
+            it ('keeps the overed and fades out the others', function() {
+              // given
+              var self     = $('form').validaty({ fade: false, balloon: false, speed: 0 }),
+                  balloons = undefined;
 
-            // when
-            runs(function() {
-              balloons.first().mouseover();
-            });
+              runs(function() {
+                self.submit();
 
-            waits(400);
+                balloons = self.children('.validaty-message');
+              });
 
-            // then
-            runs(function() {
-              expect(balloons.first().css('opacity')).toEqual('1');
-              expect(balloons.last().css('opacity')).toEqual('1');
+              waits(450);
+
+              // when
+              runs(function() {
+                balloons.first().mouseover();
+              });
+
+              waits(450);
+
+              // then
+              runs(function() {
+                expect(balloons.first().css('opacity')).toEqual('1');
+                expect(balloons.last().css('opacity')).toEqual('1');
+              });
             });
           });
         });
