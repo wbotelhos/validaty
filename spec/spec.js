@@ -1334,6 +1334,74 @@ describe('Validaty', function() {
         });
       });
     });
+
+    describe('fade', function() {
+      beforeEach(function() {
+        Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
+      });
+
+      context('true', function() {
+        context('mouseover', function() {
+          it ('keeps the overed and fades out the others', function() {
+            // given
+            var self     = $('form').validaty({ speed: 0 }),
+                balloons = undefined;
+
+            runs(function() {
+              self.submit();
+
+              balloons = self.children('.validaty-balloon');
+            });
+
+            waits(400);
+
+            // when
+            runs(function() {
+              balloons.first().mouseover();
+            });
+
+            waits(400);
+
+            // then
+            runs(function() {
+              expect(balloons.first().css('opacity')).toEqual('1');
+              expect(balloons.last().css('opacity')).toEqual('0.2');
+            });
+          });
+        });
+      });
+
+      context('false', function() {
+        context('mouseover', function() {
+          it ('is not excuted', function() {
+            // given
+            var self     = $('form').validaty({ fade: false, speed: 0 }),
+                balloons = undefined;
+
+            runs(function() {
+              self.submit();
+
+              balloons = self.children('.validaty-balloon');
+            });
+
+            waits(400);
+
+            // when
+            runs(function() {
+              balloons.first().mouseover();
+            });
+
+            waits(400);
+
+            // then
+            runs(function() {
+              expect(balloons.first().css('opacity')).toEqual('1');
+              expect(balloons.last().css('opacity')).toEqual('1');
+            });
+          });
+        });
+      });
+    });
   });
 
   describe('validations', function() {

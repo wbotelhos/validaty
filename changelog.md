@@ -1,5 +1,11 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## 0.3.0
+
+### Fixes
+
++ The fade effect was being applied even when not enabled.
+
 ## 0.2.0
 
 ### News
