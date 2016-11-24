@@ -1496,6 +1496,7 @@ describe('Validaty', function() {
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
         expect(opt.validators.required.message.text).toEqual("Can't be blank or empty!");
+        expect(opt.validators.required.message.textarea).toEqual("Can't be blank or empty!");
         expect(opt.validators.url.message).toEqual('Must be a valid URL!');
         expect(opt.validators.username.message).toEqual('Must be a valid username (a-z, A-Z and _) only!');
       });
