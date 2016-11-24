@@ -1057,6 +1057,53 @@ describe('Validaty', function() {
         });
       });
     });
+
+    describe('#valid', function() {
+      context('when all field is valid', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: Helper.input({ type: 'type', 'data-validaty': 'number' })
+            })
+          );
+        });
+
+        it ('is returns true', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.validaty('validate');
+
+          // then
+          expect(self.validaty('valid')).toBeTruthy();
+        });
+      });
+
+      context('when some field is not valid', function() {
+        beforeEach(function() {
+          Helper.append(
+            Helper.form({
+              html: [
+                Helper.input({ type: 'type', 'data-validaty': 'number', value: 1 }),
+                Helper.input({ type: 'type', 'data-validaty': 'number', value: 'text' })
+              ]
+            })
+          );
+        });
+
+        it ('is returns false', function() {
+          // given
+          var self = $('form').validaty();
+
+          // when
+          self.validaty('validate');
+
+          // then
+          expect(self.validaty('valid')).toBeFalsy();
+        });
+      });
+    });
   });
 
   describe('helpers', function() {
@@ -2458,16 +2505,16 @@ describe('Validaty', function() {
     describe('onValid', function() {
       context('when all field is valid', function() {
         beforeEach(function() {
-          this.input = Helper.input({ type: 'type', 'data-me': true, 'data-validaty': 'number' });
+          this.input = Helper.input({ type: 'type', 'data-input': true, 'data-validaty': 'number' });
 
-          Helper.append(Helper.form({ html: this.input, onsubmit: 'return false;' }));
+          Helper.append(Helper.form({ html: this.input, 'data-form': true, onsubmit: 'return false;' }));
         });
 
         it ('is executed', function() {
           // given
           var self = $('form').validaty({
-            onValid: function(inputs) {
-              $(this).data({ inputs: inputs });
+            onValid: function(inputs, evt) {
+              $(this).data({ this: this, inputs: inputs, evt: evt });
             }
           });
 
@@ -2480,7 +2527,9 @@ describe('Validaty', function() {
 
           expect(inputs.length).toEqual(1);
 
-          expect(inputs[0].getAttribute('data-me')).toBeTruthy();
+          expect(inputs[0].getAttribute('data-input')).toBeTruthy();
+          expect($(self).data('this').getAttribute('data-form')).toBeTruthy('s');
+          expect($(self).data('evt').type).toEqual('submit');
         });
       });
 
@@ -2505,6 +2554,8 @@ describe('Validaty', function() {
           // then
 
           expect(self.data('inputs')).toBeUndefined();
+          expect($(self).data('this')).toBeUndefined();
+          expect($(self).data('evt')).toBeUndefined();
         });
       });
     });
