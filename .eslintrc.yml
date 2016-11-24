@@ -1,0 +1,53 @@
+env:
+  browser: true
+
+rules:
+  array-bracket-spacing: ['error', 'never']
+  comma-spacing: ['error', { before: false, after: true }]
+  indent: [2, 2]
+  key-spacing: ['error', { 'align': 'value' }]
+  keyword-spacing: ['error', { before: true }]
+  no-trailing-spaces: 1
+  object-curly-spacing: ['error', 'always']
+  quotes: [2, single]
+  space-before-blocks: 'error'
+  space-before-function-paren: ['error', 'never']
+  space-in-parens: ['error', 'never']
+  strict: [2, 'function']
+
+  no-multi-spaces: [1, {
+    exceptions: {
+      AssignmentExpression: true,
+      VariableDeclarator:   true
+    }}]
+
+globals:
+  $:                 true
+  accounting:        true
+  Autocomplete:      true
+  document:          true
+  Handlebars:        true
+  I18n:              true
+  modulejs:          true
+  moment:            true
+  Pikaday:           true
+  window:            true
+  wysihtml5:         true
+
+  Ajax:              true
+  Boot:              true
+  Common:            true
+  Complety:          true
+  Course:            true
+  Dates:             true
+  Editor:            true
+  Enrollment:        true
+  Format:            true
+  Grade:             true
+  Gridy:             true
+  HandlebarsHelpers: true
+  Helper:            true
+  Mask:              true
+  Menu:              true
+  Money:             true
+  Templates:         true
