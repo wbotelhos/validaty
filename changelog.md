@@ -1,5 +1,12 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## Master
+
+## News
+
++ Added callback option `onValid` that runs when all fields are valid.
++ Added function `valid` to check if all fields is valid.
+
 ## 0.3.0
 
 ### Fixes

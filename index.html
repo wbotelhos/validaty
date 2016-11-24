@@ -18,7 +18,7 @@
   <link type="text/css" rel="stylesheet" href="lib/jquery.validaty.css" />
 
   <script type="text/javascript" src="demo/js/jquery.min.js"></script>
-  <script type="text/javascript" src="lib/jquery.validaty.min.js"></script>
+  <script type="text/javascript" src="lib/jquery.validaty.js"></script>
   <script type="text/javascript" src="lib/jquery.validaty.validators.js"></script>
 </head>
 <body>
@@ -645,6 +645,38 @@
 </pre>
           </div>
 
+          <h2 id="callbacks">
+            <a href="#callbacks">Callbacks</a>
+          </h2>
+
+          <p>
+            Callbcks are function that are executed in some state/situations.
+          </p>
+
+          <h3 id="onValid">
+            <a href="#onValid">onValid</a>
+          </h3>
+
+          <div class="demo">
+            <form id="onValid-demo">
+              <input type="text" data-validaty="required" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">({</span>
+  <span class="nx">onValid</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">inputs</span><span class="p">,</span> <span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'this: '</span> <span class="o">+</span> <span class="k">this</span> <span class="o">+</span> <span class="s1">', inputs: '</span> <span class="o">+</span> <span class="nx">inputs</span> <span class="o">+</span> <span class="s1">', evt: '</span> <span class="o">+</span> <span class="nx">evt</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre>
+          </div>
+
           <h2 id="helpers">
             <a href="#helpers">Helpers:</a>
           </h2>
@@ -762,6 +794,11 @@
             <p>The speed of the <a href="#fade">fade</a> option</p>
           </div>
 
+          <div id="onValid" class="option">
+            <div>onValid: <span>undefined</span></div>
+            <p>Callback that runs when all fields are valid.</p>
+          </div>
+
           <div id="validators" class="option">
             <div>validators: <span>{}</span></div>
             <p>Object to hold the injected validators functions from <code>jquery.validaty.validators.js</code> file.</p>
@@ -804,6 +841,16 @@
               </div>
 
               <p>Gives you a <a href="#validators">validator</a>.</p>
+            </div>
+
+            <div id="valid-function" class="function">
+              <div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">(</span><span class="s1">'valid'</span><span class="p">);</span>
+</pre>
+              </div>
+
+              <p>Checks if all fields is valid.</p>
             </div>
 
             <div id="validate-function" class="function">
@@ -868,6 +915,12 @@
       $('.form').validaty();
 
       $('#balloon-demo').validaty({ balloon: false });
+
+      $('#onValid-demo').validaty({
+        onValid: function(inputs, evt) {
+          alert('this: ' + this + ', inputs: ' + inputs + ', evt: ' + evt);
+        }
+      });
 
       $('.button').on('click', function() {
         $(this).parent('form').validaty('validate');
