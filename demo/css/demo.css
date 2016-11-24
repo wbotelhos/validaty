@@ -11,15 +11,15 @@
 
    .demo input:focus,
 .demo textarea:focus,
-  .demo select:focus { border: 1px solid #95BDD4 }
+  .demo select:focus { border: 1px solid #95bdd4 }
 
    .demo input:hover,
 .demo textarea:hover,
-  .demo select:hover { border: 1px solid #BDBDBD }
+  .demo select:hover { border: 1px solid #bdbdbd }
 
 .demo input[type="submit"] { float: right; margin-right: -6px; margin-top: 5px; width: 100px }
 
-/* Custom */
+/* custom */
 
 .demo form { float: left; margin-bottom: 15px; width: 255px }
 .demo form#required-demo,
@@ -29,8 +29,8 @@
 
 .demo { float: left; margin-top: 20px }
 
-.demo .button { background-color: #F5F5F5; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #B3B3B3; border-radius: 4px; border-style: solid; border-width: 1px; cursor: pointer; float: right; font-size: 1.4em; padding: 4px 12px }
-.demo .button:hover, .demo .button:focus { background-color: #F9F9F9; transition: color 0s ease 0s, background .2s ease-in 0s }
+.demo .button { background-color: #f5f5f5; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #b3b3b3; border-radius: 4px; border-style: solid; border-width: 1px; cursor: pointer; float: right; font-size: 1.4em; padding: 4px 12px }
+.demo .button:hover, .demo .button:focus { background-color: #f9f9f9; transition: color 0s ease 0s, background .2s ease-in 0s }
 
 .demo select.multiple { height: 81px }
 .demo input[type="checkbox"] { display: inline-block; margin-right: 10px }
