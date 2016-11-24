@@ -1,4 +1,6 @@
 describe('Validaty', function() {
+  'use strict';
+
   afterEach(function() { Helper.clear(); });
 
   describe('actions', function() {
@@ -34,8 +36,9 @@ describe('Validaty', function() {
 
         it ('triggers the validation', function() {
           // given
-          var self  = $('form').validaty();
-              input = self.children('input:first').focus();
+          var
+            self  = $('form').validaty(),
+            input = self.children('input:first').focus();
 
           // when
           input.blur();
@@ -46,8 +49,9 @@ describe('Validaty', function() {
 
         it ('does not focus back the blured field on error', function() {
           // given
-          var self   = $('form').validaty();
-              inputs = self.children('input');
+          var
+            self   = $('form').validaty(),
+            inputs = self.children('input');
 
           inputs.first().focus();
 
@@ -68,8 +72,9 @@ describe('Validaty', function() {
 
         it ('triggers the validation and does not trigger a infinite looping', function() {
           // given
-          var self  = $('form').validaty();
-              input = self.children('input').blur();
+          var
+            self  = $('form').validaty(),
+            input = self.children('input').blur();
 
           // when
           input.focus();
@@ -92,8 +97,9 @@ describe('Validaty', function() {
 
           it ('does not valid the other', function() {
             // given
-            var self  = $('form').validaty();
-                first = self.children('input:first');
+            var
+              self  = $('form').validaty(),
+              first = self.children('input:first');
 
             // when
             first.focus();
@@ -104,8 +110,9 @@ describe('Validaty', function() {
 
           it ('does not removes the validation of the other', function() {
             // given
-            var self  = $('form').validaty();
-                first = self.children('input:first');
+            var
+              self  = $('form').validaty(),
+              first = self.children('input:first');
 
             self.submit();
 
@@ -138,7 +145,7 @@ describe('Validaty', function() {
             // then
             var message = self.children('.validaty-balloon').find('li');
 
-            expect(message).toHaveHtml("Can't be blank or empty!");
+            expect(message).toHaveHtml('Can\'t be blank or empty!');
           });
         });
 
@@ -289,8 +296,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'maxselect:1',
-                html: Helper.option({ selected: true, html: '{index}', times: 2 })
+                'data-validaty': 'maxselect:1',
+                html:            Helper.option({ selected: true, html: '{index}', times: 2 }),
+                multiple:        true
               })
             })
           );
@@ -379,8 +387,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'minselect:1',
-                html: Helper.option()
+                'data-validaty': 'minselect:1',
+                html:            Helper.option(),
+                multiple:        true
               })
             })
           );
@@ -464,8 +473,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'rangeselect:1:2',
-                html: Helper.option()
+                'data-validaty': 'rangeselect:1:2',
+                html:            Helper.option(),
+                multiple:        true
               })
             })
           );
@@ -626,9 +636,10 @@ describe('Validaty', function() {
       context('on mouseover', function() {
         it ('keeps visible', function() {
           // given
-          var self      = $('form').validaty({ speed: 0 }),
-              balloons1 = undefined,
-              balloons2 = undefined;
+          var
+            self      = $('form').validaty({ speed: 0 }),
+            balloons1 = undefined,
+            balloons2 = undefined;
 
           runs(function() {
             self.submit();
@@ -661,8 +672,9 @@ describe('Validaty', function() {
 
       it ('receives the field hash as ID', function() {
         // given
-        var self = $('form').validaty(),
-            hash = self.children('input')[0].hash;
+        var
+          self = $('form').validaty(),
+          hash = self.children('input')[0].hash;
 
         // when
         self.submit();
@@ -734,8 +746,9 @@ describe('Validaty', function() {
         context('and one invalid', function() {
           it ('receives the invalid class', function() {
             // given
-            var self   = $('form').validaty(),
-                inputs = self.children('input');
+            var
+              self   = $('form').validaty(),
+              inputs = self.children('input');
 
             // when
             self.submit();
@@ -784,7 +797,7 @@ describe('Validaty', function() {
         beforeEach(function() {
           Helper.append(Helper.form({
             onsubmit: 'return false;',
-            html: Helper.checkbox({ name: 'name', 'data-validaty': 'required', times: 2 })
+            html:     Helper.checkbox({ name: 'name', 'data-validaty': 'required', times: 2 })
           }));
         });
 
@@ -816,8 +829,9 @@ describe('Validaty', function() {
         context('valid', function() {
           it ('receives the valid and the other too', function() {
             // given
-            var self   = $('form').validaty(),
-                inputs = self.children('input');
+            var
+              self   = $('form').validaty(),
+              inputs = self.children('input');
 
             inputs.first().click();
 
@@ -837,7 +851,7 @@ describe('Validaty', function() {
         beforeEach(function() {
           Helper.append(Helper.form({
             onsubmit: 'return false;',
-            html: Helper.radio({ name: 'name', 'data-validaty': 'required', times: 2 })
+            html:     Helper.radio({ name: 'name', 'data-validaty': 'required', times: 2 })
           }));
         });
 
@@ -869,8 +883,9 @@ describe('Validaty', function() {
         context('valid', function() {
           it ('receives the valid and the other too', function() {
             // given
-            var self   = $('form').validaty(),
-                inputs = self.children('input');
+            var
+              self   = $('form').validaty(),
+              inputs = self.children('input');
 
             inputs.first().click();
 
@@ -892,8 +907,9 @@ describe('Validaty', function() {
 
       it ('is not included on validation', function() {
         // given
-        var self  = $('form').validaty(),
-            input = Helper.text({ 'data-validaty': 'required' });
+        var
+          self  = $('form').validaty(),
+          input = Helper.text({ 'data-validaty': 'required' });
 
         // when
         self.append(input).submit();
@@ -1000,8 +1016,9 @@ describe('Validaty', function() {
 
       it ('validates the field', function() {
         // given
-        var self  = $('form').validaty(),
-            input = self.children('input');
+        var
+          self  = $('form').validaty(),
+          input = self.children('input');
 
         // when
         self.validaty('validate');
@@ -1051,13 +1068,14 @@ describe('Validaty', function() {
 
         it ('returns the validations with args', function() {
           // given
-          var self     = $('form').validaty(),
-              input    = self.children('input'),
-              helper   = self.validaty('helper'),
-              expected = {
-                validations: [{ name: 'validation', args: [1, 'string', 3] }],
-                actions    : [{ name: 'on', args: ['focus', 'blur'] }, { name: 'on', args: ['keyup'] }]
-              };
+          var
+            self     = $('form').validaty(),
+            input    = self.children('input'),
+            helper   = self.validaty('helper'),
+            expected = {
+              validations: [{ name: 'validation', args: [1, 'string', 3] }],
+              actions:     [{ name: 'on', args: ['focus', 'blur'] }, { name: 'on', args: ['keyup'] }]
+            };
 
           // when
           var validations = helper.getParams(input);
@@ -1074,13 +1092,14 @@ describe('Validaty', function() {
 
         it ('returns the validations with character', function() {
           // given
-          var self     = $('form').validaty(),
-              input    = self.children('input'),
-              helper   = self.validaty('helper'),
-              expected = {
-                validations: [{ name: 'my%20validation', args: [1, 'string', 3] }],
-                actions    : []
-              };
+          var
+            self     = $('form').validaty(),
+            input    = self.children('input'),
+            helper   = self.validaty('helper'),
+            expected = {
+              validations: [{ name: 'my%20validation', args: [1, 'string', 3] }],
+              actions:     []
+            };
 
           // when
           var validations = helper.getParams(input);
@@ -1097,13 +1116,14 @@ describe('Validaty', function() {
 
         it ('returns the validations with args', function() {
           // given
-          var self     = $('form').validaty(),
-              input    = self.children('input'),
-              helper   = self.validaty('helper'),
-              expected = {
-                validations: [{ name: 'validation', args: [1, 'My String', 3] }],
-                actions    : []
-              };
+          var
+            self     = $('form').validaty(),
+            input    = self.children('input'),
+            helper   = self.validaty('helper'),
+            expected = {
+              validations: [{ name: 'validation', args: [1, 'My String', 3] }],
+              actions:     []
+            };
 
           // when
           var validations = helper.getParams(input);
@@ -1120,9 +1140,10 @@ describe('Validaty', function() {
 
         it ('returns undefined', function() {
           // given
-          var self     = $('form').validaty(),
-              input    = self.children('input'),
-              helper   = self.validaty('helper');
+          var
+            self     = $('form').validaty(),
+            input    = self.children('input'),
+            helper   = self.validaty('helper');
 
           // when
           var params = helper.getParams(input);
@@ -1230,8 +1251,9 @@ describe('Validaty', function() {
 
           it ('shows up as simples div after the field', function() {
             // given
-            var self  = $('form').validaty(),
-                input = self.children('input');
+            var
+              self  = $('form').validaty(),
+              input = self.children('input');
 
             // when
             self.submit();
@@ -1248,8 +1270,9 @@ describe('Validaty', function() {
 
           it ('shows up after the first one', function() {
             // given
-            var self  = $('form').validaty(),
-                input = self.children('input:first');
+            var
+              self  = $('form').validaty(),
+              input = self.children('input:first');
 
             // when
             self.submit();
@@ -1266,8 +1289,9 @@ describe('Validaty', function() {
 
           it ('shows up after the first one', function() {
             // given
-            var self  = $('form').validaty(),
-                input = self.children('input:first');
+            var
+              self  = $('form').validaty(),
+              input = self.children('input:first');
 
             // when
             self.submit();
@@ -1286,8 +1310,9 @@ describe('Validaty', function() {
 
           it ('shows up as simples list after the field', function() {
             // given
-            var self  = $('form').validaty({ balloon: false }),
-                input = self.children('input');
+            var
+              self  = $('form').validaty({ balloon: false }),
+              input = self.children('input');
 
             // when
             self.submit();
@@ -1304,8 +1329,9 @@ describe('Validaty', function() {
 
           it ('shows up after the last one', function() {
             // given
-            var self  = $('form').validaty({ balloon: false }),
-                input = self.children('input:last');
+            var
+              self  = $('form').validaty({ balloon: false }),
+              input = self.children('input:last');
 
             // when
             self.submit();
@@ -1322,8 +1348,9 @@ describe('Validaty', function() {
 
           it ('shows up after the last one', function() {
             // given
-            var self  = $('form').validaty({ balloon: false }),
-                input = self.children('input:last');
+            var
+              self  = $('form').validaty({ balloon: false }),
+              input = self.children('input:last');
 
             // when
             self.submit();
@@ -1345,8 +1372,9 @@ describe('Validaty', function() {
           context('with balloon true', function() {
             it ('keeps the overed and fades out the others', function() {
               // given
-              var self     = $('form').validaty({ fade: true, balloon: true, speed: 0 }),
-                  balloons = undefined;
+              var
+                self     = $('form').validaty({ fade: true, balloon: true, speed: 0 }),
+                balloons = undefined;
 
               runs(function() {
                 self.submit();
@@ -1374,8 +1402,9 @@ describe('Validaty', function() {
           context('with balloon false', function() {
             it ('keeps the overed and fades out the others', function() {
               // given
-              var self     = $('form').validaty({ fade: true, balloon: false, speed: 0 }),
-                  balloons = undefined;
+              var
+                self     = $('form').validaty({ fade: true, balloon: false, speed: 0 }),
+                balloons = undefined;
 
               runs(function() {
                 self.submit();
@@ -1407,8 +1436,9 @@ describe('Validaty', function() {
           context('with balloon true', function() {
             it ('is not excuted', function() {
               // given
-              var self     = $('form').validaty({ fade: false, balloon: true, speed: 0 }),
-                  balloons = undefined;
+              var
+                self     = $('form').validaty({ fade: false, balloon: true, speed: 0 }),
+                balloons = undefined;
 
               runs(function() {
                 self.submit();
@@ -1436,8 +1466,9 @@ describe('Validaty', function() {
           context('with balloon false', function() {
             it ('keeps the overed and fades out the others', function() {
               // given
-              var self     = $('form').validaty({ fade: false, balloon: false, speed: 0 }),
-                  balloons = undefined;
+              var
+                self     = $('form').validaty({ fade: false, balloon: false, speed: 0 }),
+                balloons = undefined;
 
               runs(function() {
                 self.submit();
@@ -1495,8 +1526,8 @@ describe('Validaty', function() {
         expect(opt.validators.required.message.checkbox).toEqual('Should be checked!');
         expect(opt.validators.required.message.radio).toEqual('Should be chosen!');
         expect(opt.validators.required.message.select).toEqual('Should be selected!');
-        expect(opt.validators.required.message.text).toEqual("Can't be blank or empty!");
-        expect(opt.validators.required.message.textarea).toEqual("Can't be blank or empty!");
+        expect(opt.validators.required.message.text).toEqual('Can\'t be blank or empty!');
+        expect(opt.validators.required.message.textarea).toEqual('Can\'t be blank or empty!');
         expect(opt.validators.url.message).toEqual('Must be a valid URL!');
         expect(opt.validators.username.message).toEqual('Must be a valid username (a-z, A-Z and _) only!');
       });
@@ -1630,10 +1661,10 @@ describe('Validaty', function() {
         this.input.val(-1.1);
         expect(validate(this)).toBeTruthy();
 
-        this.input.val(1,1);
+        this.input.val(1, 1);
         expect(validate(this)).toBeTruthy();
 
-        this.input.val(-1,1);
+        this.input.val(-1, 1);
         expect(validate(this)).toBeTruthy();
       });
 
@@ -1804,8 +1835,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'maxselect:1',
-                html: Helper.option({ html: '{index}', times: 2 })
+                'data-validaty': 'maxselect:1',
+                html:            Helper.option({ html: '{index}', times: 2 }),
+                multiple:        true
               })
             })
           );
@@ -1831,8 +1863,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'maxselect:1',
-                html: Helper.option({ html: '{index}', times: 2, selected: true, disabled: true })
+                'data-validaty': 'maxselect:1',
+                html:            Helper.option({ html: '{index}', times: 2, selected: true, disabled: true }),
+                multiple:        true
               })
             })
           );
@@ -1932,8 +1965,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'minselect:1',
-                html: Helper.option({ html: '{index}', times: 2 })
+                'data-validaty': 'minselect:1',
+                html:            Helper.option({ html: '{index}', times: 2 }),
+                multiple:        true
               })
             })
           );
@@ -1961,8 +1995,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'minselect:1',
-                html: Helper.option({ html: '{index}', times: 2, selected: true, disabled: true })
+                'data-validaty': 'minselect:1',
+                html:            Helper.option({ html: '{index}', times: 2, selected: true, disabled: true }),
+                multiple:        true
               })
             })
           );
@@ -2064,8 +2099,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'rangeselect:1:2',
-                html: Helper.option({ html: '{index}', times: 3 })
+                'data-validaty': 'rangeselect:1:2',
+                html:            Helper.option({ html: '{index}', times: 3 }),
+                multiple:        true
               })
             })
           );
@@ -2096,8 +2132,9 @@ describe('Validaty', function() {
           Helper.append(
             Helper.form({
               html: Helper.select({
-                multiple: true, 'data-validaty': 'rangeselect:1:2',
-                html: Helper.option({ html: '{index}', selected: true, disabled: true })
+                'data-validaty': 'rangeselect:1:2',
+                html:            Helper.option({ html: '{index}', selected: true, disabled: true }),
+                multiple:        true
               })
             })
           );
