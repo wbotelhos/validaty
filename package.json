@@ -1,0 +1,52 @@
+{
+  "author": "Washington Botelho",
+
+  "bugs": {
+    "url": "https://github.com/wbotelhos/validaty/issues"
+  },
+
+  "contributors" : ["Washington Botelho <wbotelhos@gmail.com> (http://wbotelhos.com)"],
+  "demos"        : ["index.html"],
+
+  "dependencies" : {
+    "jquery": "3"
+  },
+
+  "description": "jQuery Validaty - A Validation Plugin",
+
+  "devDependencies": {
+    "karma": "0.12",
+    "karma-chrome-launcher": "0.1",
+    "karma-firefox-launcher": "0.1",
+    "karma-ie-launcher": "0.1",
+    "karma-opera-launcher": "0.1",
+    "karma-phantomjs-launcher": "0.1",
+    "karma-safari-launcher": "0.1",
+
+    "karma-jasmine": "0.2"
+  },
+
+  "directories": {
+    "lib"  : "lib",
+    "test" : "spec"
+  },
+
+  "engines"     : { "node" : "0.10" },
+  "homepage"    : "https://github.com/wbotelhos/validaty",
+  "keywords"    : ["validacao", "validate", "valid", "validation"],
+  "license"     : "MIT",
+  "main"        : "lib/jquery.validaty.js",
+  "maintainers" : ["Washington Botelho <wbotelhos@gmail.com> (http://wbotelhos.com)"],
+  "name"        : "validaty-js",
+
+  "repository": {
+    "type" : "git",
+    "url"  : "https://github.com/wbotelhos/validaty"
+  },
+
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start spec/karma.conf.js"
+  },
+
+  "version": "0.3.0"
+}
