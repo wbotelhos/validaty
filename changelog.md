@@ -1,6 +1,6 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
-## Master
+## 0.4.0
 
 ## News
 
