@@ -37,7 +37,7 @@
   "license"     : "MIT",
   "main"        : "lib/jquery.validaty.js",
   "maintainers" : ["Washington Botelho <wbotelhos@gmail.com> (http://wbotelhos.com)"],
-  "name"        : "validaty-js",
+  "name"        : "validaty",
 
   "repository": {
     "type" : "git",
