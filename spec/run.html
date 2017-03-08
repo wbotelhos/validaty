@@ -3,55 +3,36 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <title>http://wbotelhos.com/labs</title>
 
-	<title>http://wbotelhos.com/labs</title>
+  <link type="image/png" href="lib/jasmine/jasmine_favicon.png" rel="shortcut icon">
 
-	<link rel="stylesheet" type="text/css" href="lib/jasmine.css">
-  <link rel="stylesheet" type="text/css" href="../lib/jquery.validaty.css">
+  <!-- jquery -->
+  <script src="../vendor/jquery.min.js"></script>
 
-	<script type="text/javascript" src="../demo/js/jquery.min.js"></script>
-	<script type="text/javascript" src="../lib/jquery.validaty.js"></script>
-  <script type="text/javascript" src="../lib/jquery.validaty.validators.js"></script>
+  <!-- jasmine -->
+  <link rel="stylesheet" href="lib/jasmine/jasmine.css">
 
-	<script type="text/javascript" src="lib/jasmine.js"></script>
-	<script type="text/javascript" src="lib/jasmine-html.js"></script>
-	<script type="text/javascript" src="lib/jasmine-jquery.js"></script>
-  <script type="text/javascript" src="lib/fixtury.js"></script>
-  <script type="text/javascript" src="lib/spec.helper.js"></script>
+  <script src="lib/jasmine/jasmine.js"></script>
+  <script src="lib/jasmine/jasmine-html.js"></script>
+  <script src="lib/jasmine/boot.js"></script>
 
-	<script type="text/javascript" src="spec.js"></script>
+  <!-- plugins -->
+  <script src="lib/jasmine-jquery.js"></script>
+
+  <!-- libs -->
+  <script src="../lib/jquery.validaty.js"></script>
+  <script src="../lib/jquery.validaty.validators.js"></script>
+
+  <!-- helpers -->
+  <script src="lib/fixtury.js"></script>
+  <script src="lib/helper.js"></script>
+  <script src="lib/spec.helper.js"></script>
+
+  <!-- specs -->
+  <script src="spec.js"></script>
 </head>
 <body>
   <div class="fixtury"></div>
-
-	<script type="text/javascript">
-		(function() {
-    	var jasmineEnv = jasmine.getEnv();
-
-    	jasmineEnv.updateInterval = 1000;
-
-    	var htmlReporter = new jasmine.HtmlReporter();
-
-    	jasmineEnv.addReporter(htmlReporter);
-
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
-
-    	var currentWindowOnload = window.onload;
-
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-
-        execJasmine();
-      };
-
-      function execJasmine() {
-        jasmineEnv.execute();
-      }
-  	})();
-	</script>
 </body>
 </html>

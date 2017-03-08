@@ -634,33 +634,29 @@ describe('Validaty', function() {
       });
 
       context('on mouseover', function() {
-        it ('keeps visible', function() {
+        it ('keeps visible', function(done) {
           // given
           var
             self      = $('form').validaty({ speed: 0 }),
             balloons1 = undefined,
             balloons2 = undefined;
 
-          runs(function() {
-            self.submit();
+          self.submit();
 
-            balloons1 = self.first().children('.validaty-balloon');
-            balloons2 = self.last().children('.validaty-balloon');
-          });
+          balloons1 = self.first().children('.validaty-balloon');
+          balloons2 = self.last().children('.validaty-balloon');
 
-          waits(450);
-
-          // when
-          runs(function() {
+          setTimeout(function() {
+            // when
             balloons2.first().mouseover();
-          });
 
-          waits(450);
+            setTimeout(function() {
+              // then
+              expect(balloons1.css('opacity')).toEqual('1');
 
-          // then
-          runs(function() {
-            expect(balloons1.css('opacity')).toEqual('1');
-          });
+              done();
+            }, 450);
+          }, 450);
         });
       });
     });
@@ -983,7 +979,7 @@ describe('Validaty', function() {
         var ref = self.validaty('destroy');
 
         // then
-        expect(ref).toBe(self);
+        expect(ref).toEqual(self);
       });
 
       it ('removes the main class', function() {
@@ -1417,62 +1413,54 @@ describe('Validaty', function() {
       context('true', function() {
         context('mouseover', function() {
           context('with balloon true', function() {
-            it ('keeps the overed and fades out the others', function() {
+            it ('keeps the overed and fades out the others', function(done) {
               // given
               var
                 self     = $('form').validaty({ fade: true, balloon: true, speed: 0 }),
                 balloons = undefined;
 
-              runs(function() {
-                self.submit();
+              self.submit();
 
-                balloons = self.children('.validaty-balloon');
-              });
+              balloons = self.children('.validaty-balloon');
 
-              waits(450);
-
-              // when
-              runs(function() {
+              setTimeout(function() {
+                // when
                 balloons.first().mouseover();
-              });
 
-              waits(450);
+                setTimeout(function() {
+                  // then
+                  expect(balloons.first().css('opacity')).toEqual('1');
+                  expect(balloons.last().css('opacity')).toEqual('0.2');
 
-              // then
-              runs(function() {
-                expect(balloons.first().css('opacity')).toEqual('1');
-                expect(balloons.last().css('opacity')).toEqual('0.2');
-              });
+                  done();
+                }, 450);
+              }, 450);
             });
           });
 
           context('with balloon false', function() {
-            it ('keeps the overed and fades out the others', function() {
+            it ('keeps the overed and fades out the others', function(done) {
               // given
               var
                 self     = $('form').validaty({ fade: true, balloon: false, speed: 0 }),
                 balloons = undefined;
 
-              runs(function() {
-                self.submit();
+              self.submit();
 
-                balloons = self.children('.validaty-message');
-              });
+              balloons = self.children('.validaty-message');
 
-              waits(450);
-
-              // when
-              runs(function() {
+              setTimeout(function() {
+                // when
                 balloons.first().mouseover();
-              });
 
-              waits(450);
+                setTimeout(function() {
+                  // then
+                  expect(balloons.first().css('opacity')).toEqual('1');
+                  expect(balloons.last().css('opacity')).toEqual('0.2');
 
-              // then
-              runs(function() {
-                expect(balloons.first().css('opacity')).toEqual('1');
-                expect(balloons.last().css('opacity')).toEqual('0.2');
-              });
+                  done();
+                }, 450);
+              }, 450);
             });
           });
         });
@@ -1481,62 +1469,54 @@ describe('Validaty', function() {
       context('false', function() {
         context('mouseover', function() {
           context('with balloon true', function() {
-            it ('is not excuted', function() {
+            it ('is not excuted', function(done) {
               // given
               var
                 self     = $('form').validaty({ fade: false, balloon: true, speed: 0 }),
                 balloons = undefined;
 
-              runs(function() {
-                self.submit();
+              self.submit();
 
-                balloons = self.children('.validaty-balloon');
-              });
+              balloons = self.children('.validaty-balloon');
 
-              waits(450);
-
-              // when
-              runs(function() {
+              setTimeout(function() {
+                // when
                 balloons.first().mouseover();
-              });
 
-              waits(450);
+                setTimeout(function() {
+                  // then
+                  expect(balloons.first().css('opacity')).toEqual('1');
+                  expect(balloons.last().css('opacity')).toEqual('1');
 
-              // then
-              runs(function() {
-                expect(balloons.first().css('opacity')).toEqual('1');
-                expect(balloons.last().css('opacity')).toEqual('1');
-              });
+                  done();
+                }, 450);
+              }, 450);
             });
           });
 
           context('with balloon false', function() {
-            it ('keeps the overed and fades out the others', function() {
+            it ('keeps the overed and fades out the others', function(done) {
               // given
               var
                 self     = $('form').validaty({ fade: false, balloon: false, speed: 0 }),
                 balloons = undefined;
 
-              runs(function() {
-                self.submit();
+              self.submit();
 
-                balloons = self.children('.validaty-message');
-              });
+              balloons = self.children('.validaty-message');
 
-              waits(450);
-
-              // when
-              runs(function() {
+              setTimeout(function() {
+                // when
                 balloons.first().mouseover();
-              });
 
-              waits(450);
+                setTimeout(function() {
+                  // then
+                  expect(balloons.first().css('opacity')).toEqual('1');
+                  expect(balloons.last().css('opacity')).toEqual('1');
 
-              // then
-              runs(function() {
-                expect(balloons.first().css('opacity')).toEqual('1');
-                expect(balloons.last().css('opacity')).toEqual('1');
-              });
+                  done();
+                }, 450);
+              }, 450);
             });
           });
         });
