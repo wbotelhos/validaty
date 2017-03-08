@@ -1,5 +1,11 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## 0.4.1
+
+### Fixes
+
++ Replace `startsWith` with Regex, since IE does not support it.
+
 ## 0.4.0
 
 ## News
