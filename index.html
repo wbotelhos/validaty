@@ -645,6 +645,31 @@
 </pre>
           </div>
 
+          <h2 id="errorTarget">
+            <a href="#errorTarget">errorTarget</a>
+          </h2>
+
+          <p>
+            Callback to intercept the error and manipulate the field and the error message manually.
+            Good when you want to change the place where message will be created ou customize the field.
+          </p>
+
+          <div class="demo">
+            <form id="errorTarget-demo">
+              <input type="text" data-validaty="required" />
+
+              <div class="button">
+                <i class="icon-ok"></i>
+              </div>
+            </form>
+          </div>
+
+          <div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'input'</span><span class="p">).</span><span class="nx">validaty</span><span class="p">({</span> <span class="nx">balloon</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+</pre>
+          </div>
+
           <h2 id="callbacks">
             <a href="#callbacks">Callbacks</a>
           </h2>
@@ -772,6 +797,11 @@
           <div id="balloon" class="option">
             <div>balloon: <span>true</span></div>
             <p>Enables the balloon message or list message style.</p>
+          </div>
+
+          <div id="errorTarget" class="option">
+            <div>errorTarget: <span>undefined</span></div>
+            <p>Callback to intercept the errors. You receive `field` and `error`.</p>
           </div>
 
           <div id="fade" class="option">
@@ -919,6 +949,12 @@
       $('#onValid-demo').validaty({
         onValid: function(inputs, evt) {
           alert('this: ' + this + ', inputs: ' + inputs + ', evt: ' + evt);
+        }
+      });
+
+      $('#errorTarget-demo').validaty({
+        errorTarget: function(field, message) {
+          alert('field:' + field[0].outerHTML + ' message:' + message[0].outerHTML)
         }
       });
 

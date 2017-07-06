@@ -1,5 +1,11 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## Next Release
+
+### News
+
++ Added callback options `errorTarget` where you receive the field and message and decide what to do with that.
+
 ## 0.4.1
 
 ### Fixes
