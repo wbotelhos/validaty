@@ -1,4 +1,4 @@
-describe('#destroy', function() {
+describe('functions#destroy', function() {
   beforeEach(function() {
     Helper.append(Helper.form());
   });

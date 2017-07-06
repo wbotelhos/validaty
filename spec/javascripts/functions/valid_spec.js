@@ -1,4 +1,4 @@
-describe('#valid', function() {
+describe('functions#valid', function() {
   afterEach(function() { Helper.clear(); });
 
   context('when all field is valid', function() {

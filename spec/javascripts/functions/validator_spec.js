@@ -1,4 +1,4 @@
-describe('#validator', function() {
+describe('functions#validator', function() {
   beforeEach(function() {
     Helper.append(Helper.form());
   });

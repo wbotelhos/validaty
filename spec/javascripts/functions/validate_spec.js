@@ -1,4 +1,6 @@
-describe('#validate', function() {
+describe('functions#validate', function() {
+  'use strict';
+
   beforeEach(function() {
     Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
   });
