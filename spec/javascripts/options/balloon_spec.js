@@ -555,7 +555,7 @@ describe('options:balloon', function() {
     });
   });
 
-  describe('message markup', function() {
+  describe('markup', function() {
     context('enabled', function() {
       context('without checkboxes or radios', function() {
         beforeEach(function() {
