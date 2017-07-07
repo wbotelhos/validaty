@@ -3,7 +3,7 @@ describe('markup:fields', function() {
 
   afterEach(function() { Helper.clear(); });
 
-  context('binded', function() {
+  context('with data validaty attribute', function() {
     beforeEach(function() {
       Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required' }) }));
     });
@@ -20,7 +20,7 @@ describe('markup:fields', function() {
     });
   });
 
-  context('not binded', function() {
+  context('with no data validaty attribute', function() {
     beforeEach(function() {
       Helper.append(Helper.form({ html: Helper.text() }));
     });

@@ -1,5 +1,9 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## 0.5.1
+
++ fields with no `data-validaty` will return empty `validators` and `actions` instead of `undefined`.
+
 ## 0.5.0
 
 ### News

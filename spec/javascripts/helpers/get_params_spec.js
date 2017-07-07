@@ -75,12 +75,12 @@ describe('helpers#getParams', function() {
     });
   });
 
-  context('without the data-validaty attribute', function() {
+  context('with no data validaty attribute', function() {
     beforeEach(function() {
       Helper.append(Helper.form({ html: Helper.text() }));
     });
 
-    it ('returns undefined', function() {
+    it ('returns empty values', function() {
       // given
       var
         self     = $('form').validaty(),
@@ -91,7 +91,7 @@ describe('helpers#getParams', function() {
       var params = helper.getParams(input);
 
       // then
-      expect(params).toBeUndefined();
+      expect(params).toEqual({ validations: [], actions: [] });
     });
   });
 });
