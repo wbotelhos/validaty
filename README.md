@@ -90,6 +90,10 @@ By default it comes with the following validators:
 + URL
 + Username
 
-## Donate
+## Contributors
 
-You can do it via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=X8HEP2878NDEG&item_name=jQuery%20Validaty). Thanks! (:
+[Check it out](http://github.com/wbotelhos/validaty/graphs/contributors)
+
+## Love it!
+
+Via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=X8HEP2878NDEG&item_name=validaty) or [Gratipay](https://gratipay.com/validaty). Thanks! (:
