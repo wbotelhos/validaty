@@ -1,16 +1,13 @@
 # jQuery Validaty - A Validation Plugin - [wbotelhos.com/validaty](http://wbotelhos.com/validaty)
 
+[![Build Status](https://img.shields.io/travis/wbotelhos/validaty/master.svg)](https://travis-ci.org/wbotelhos/validaty)
+[![NPM Version](https://badge.fury.io/js/validaty.svg)](https://badge.fury.io/js/validaty)
+[![Dependency](https://david-dm.org/wbotelhos/validaty.svg)](https://david-dm.org/wbotelhos/validaty)
+[![Dev Dependency](https://david-dm.org/wbotelhos/validaty/dev-status.svg)](https://david-dm.org/wbotelhos/validaty#info=devDependencies)
+[![Code Climate](https://codeclimate.com/github/wbotelhos/validaty.png)](https://codeclimate.com/github/wbotelhos/validaty)
+[![Support](http://img.shields.io/gittip/wbotelhos.svg)](https://gratipay.com/~wbotelhos)
+
 jQuery Validaty is a form validation plugin.
-
-## Version
-
-```
-@version        0.5.0
-@since          2013-02-10
-@author         Washington Botelho
-@documentation  wbotelhos.com/validaty
-@twitter        twitter.com/wbotelhos
-```
 
 ## Required Files
 
