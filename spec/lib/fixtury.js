@@ -81,7 +81,13 @@ var Helper = {
       $.error('You cannot set the "type" using an alias!');
     }
   }, append: function(html) {
-    return $(html).appendTo('.fixtury');
+    var fixtury = $('.fixtury');
+
+    if (!fixtury.length) {
+      return $('<div />', { 'class': 'fixtury', html: html }).appendTo('body');
+    }
+
+    return fixtury.append(html);
   }, checkbox: function(options) {
     Helper._verify(options);
 
