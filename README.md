@@ -5,7 +5,7 @@ jQuery Validaty is a form validation plugin.
 ## Version
 
 ```
-@version        0.4.1
+@version        0.5.0
 @since          2013-02-10
 @author         Washington Botelho
 @documentation  wbotelhos.com/validaty
@@ -57,13 +57,13 @@ Add the key `on:` with the action you want to trigger the validation.
 ## Functions
 
 ```js
-$('form').validaty('helper');    // Gives you the internal helpers.
+$('form').validaty('helper');              // Gives you the internal helpers.
 
-$('form').validaty('validator'); // Gives you a validator.
+$('form').validaty('validator');           // Gives you a validator.
 
-$('form').validaty('destroy');   // Destroy the Validaty's bind.
+$('form').validaty('destroy');             // Destroy the Validaty's bind.
 
-$('form').validaty('validate');  // Execute the validation over the form.
+$('form').validaty('validate', selectors); // Execute the validation over the form or the given selectors.
 ```
 
 ## Validators.js

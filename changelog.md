@@ -1,10 +1,11 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
-## Next Release
+## 0.5.0
 
 ### News
 
-+ Added callback options `errorTarget` where you receive the field and message and decide what to do with that.
++ Added callback options `errorTarget` where you receive the field and message and decide what to do with that;
++ Now the public `validate` method can receive the fields you want to validate.
 
 ## 0.4.1
 
