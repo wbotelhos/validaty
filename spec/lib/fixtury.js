@@ -1,14 +1,10 @@
 clean = true;
 
-function context(description, spec) {
-  describe(description, spec);
-};
-
 var Helper = {
-  init: function() {
+  init:    function() {
   }, _checks: function(tag, data) {
     var type   = $(tag)[0].type,
-        single = tag.indexOf(' />') !== -1;
+      single = tag.indexOf(' />') !== -1;
 
     if (data.checked) {
       if (type === 'checkbox') {
@@ -31,18 +27,18 @@ var Helper = {
     options = options || {};
 
     var times      = Helper._getTimes(options),
-        html       = Helper._getHtml(options),
-        checked    = Helper._getChecked(options),
-        selected   = Helper._getSelected(options),
-        opt        = Helper._normalize(options),
-        attributes = Helper._parameterize(opt);
+      html       = Helper._getHtml(options),
+      checked    = Helper._getChecked(options),
+      selected   = Helper._getSelected(options),
+      opt        = Helper._normalize(options),
+      attributes = Helper._parameterize(opt);
 
     return { attributes: attributes, html: html, checked: checked, selected: selected, times: times };
   }, _getChecked: function(options) {
     return options.checked || false;
   }, _getHtml: function(options) {
     var html    = options.html || '',
-        content = '';
+      content = '';
 
     if (typeof html === 'object') {
       for (var i = 0; i < html.length; i++) {
@@ -96,7 +92,7 @@ var Helper = {
     }
   }, double: function(options, name) {
     var data = Helper._data(options),
-        tag  = '<' + name + ' ' + data.attributes + '>' + data.html + '</' + name + '>';
+      tag  = '<' + name + ' ' + data.attributes + '>' + data.html + '</' + name + '>';
 
     return Helper._repeat(tag.replace(' >', '>'), data);
   }, fieldset: function(options) {
@@ -135,7 +131,7 @@ var Helper = {
     return Helper.double(options, 'select');
   }, single: function(options, name) {
     var data = Helper._data(options),
-        tag  = '<' + name + ' ' + data.attributes + ' />';
+      tag  = '<' + name + ' ' + data.attributes + ' />';
 
     return Helper._repeat(tag.replace('  />', ' />'), data);
   }, submit: function(options) {
