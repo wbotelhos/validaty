@@ -90,10 +90,6 @@ By default it comes with the following validators:
 + URL
 + Username
 
-## Licence
-
-[The MIT License](http://opensource.org/licenses/MIT)
-
 ## Donate
 
 You can do it via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=X8HEP2878NDEG&item_name=jQuery%20Validaty). Thanks! (:
