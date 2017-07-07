@@ -1,4 +1,4 @@
-# jQuery Validaty - A Validation Plugin - [wbotelhos.com/validaty](http://wbotelhos.com/validaty)
+# jQuery Validaty - A Validation Plugin
 
 [![Build Status](https://img.shields.io/travis/wbotelhos/validaty/master.svg)](https://travis-ci.org/wbotelhos/validaty)
 [![NPM Version](https://badge.fury.io/js/validaty.svg)](https://badge.fury.io/js/validaty)
