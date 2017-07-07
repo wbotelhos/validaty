@@ -2,7 +2,10 @@
 
 ## 0.5.1
 
-+ fields with no `data-validaty` will return empty `validators` and `actions` instead of `undefined`.
+### Changes
+
++ fields with no `data-validaty` will return empty `validators` and `actions` instead of `undefined`;
++ fields with no `data-validaty` will be processed too.
 
 ## 0.5.0
 

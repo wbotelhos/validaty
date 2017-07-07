@@ -25,7 +25,7 @@ describe('markup:fields', function() {
       Helper.append(Helper.form({ html: Helper.text() }));
     });
 
-    it ('does not receives a hash', function() {
+    it ('receives a hash too', function() {
       // given
       var self = $('form').validaty();
 
@@ -33,7 +33,7 @@ describe('markup:fields', function() {
       var hash = self.children('input:first')[0].hash;
 
       // then
-      expect(hash).toBeUndefined();
+      expect(hash).not.toBeUndefined();
     });
   });
 
