@@ -33,7 +33,7 @@
     "test": "spec"
   },
   "engines": {
-    "node": "0.10"
+    "node": "7.10"
   },
   "homepage": "https://github.com/wbotelhos/validaty",
   "keywords": [
