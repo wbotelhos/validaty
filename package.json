@@ -55,5 +55,5 @@
   "scripts": {
     "test": "node_modules/karma/bin/karma start karma.conf.js"
   },
-  "version": "0.5.1"
+  "version": "0.5.2"
 }

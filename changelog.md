@@ -1,5 +1,11 @@
 # jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
 
+## 0.5.2
+
+### Fixes
+
++ Removes class `valid` and `invalid` before each validation to avoid `invalid valid` class.
+
 ## 0.5.1
 
 ### Changes
