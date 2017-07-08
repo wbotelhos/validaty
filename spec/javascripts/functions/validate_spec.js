@@ -9,7 +9,7 @@ describe('functions#validate', function() {
 
   afterEach(function() { Helper.clear(); });
 
-  context ('with no given field', function() {
+  context('with no given field', function() {
     xit ('validates all fields', function() {
       // given
       var
@@ -25,7 +25,7 @@ describe('functions#validate', function() {
     });
   });
 
-  context ('with one field given', function() {
+  context('with one field given', function() {
     xit ('validates only the given field', function() {
       // given
       var
@@ -42,7 +42,7 @@ describe('functions#validate', function() {
     });
   });
 
-  context ('with more than one field given', function() {
+  context('with more than one field given', function() {
     xit ('validates all given fields', function() {
       // given
       var
@@ -59,24 +59,45 @@ describe('functions#validate', function() {
     });
   });
 
-  context ('with more than one radio field with the same name given', function() {
+  context('with more than one radio field with the same name given', function() {
     beforeEach(function() {
       Helper.append(Helper.form({
         html: Helper.radio({ name: 'name', 'data-validaty': 'required', times: 2 })
       }));
     });
 
-    it ('show only one invalid message', function() {
-      // given
-      var self = $('form').validaty();
+    context('when have error', function() {
+      xit ('show only one invalid message', function() {
+        // given
+        var self = $('form').validaty();
 
-      self.children(':text').val('valid');
+        self.children(':text').val('valid');
 
-      // when
-      self.validaty('validate', self.children(':radio'));
+        // when
+        self.validaty('validate', self.children(':radio'));
 
-      // then
-      expect(self.find('.validaty-balloon').length).toEqual(1);
+        // then
+        expect(self.find('.validaty-balloon').length).toEqual(1);
+      });
+    });
+
+    context('when have error but is is fixed', function() {
+      it ('removes the invalid class from all given fields', function() {
+        // given
+        var self = $('form').validaty();
+
+        self.children(':text').val('valid');
+
+        self.validaty('validate', self.find(':radio'));
+
+        // when
+        self.find(':radio').trigger('click');
+
+        self.validaty('validate', self.children(':radio'));
+
+        // then
+        expect(self.find(':radio')).not.toHaveClass('invalid');
+      });
     });
   });
 });
