@@ -1,13 +1,11 @@
-# jQuery Validaty - A Validation Plugin
+# Validaty - A Validation Plugin
 
-[![Build Status](https://img.shields.io/travis/wbotelhos/validaty/master.svg)](https://travis-ci.org/wbotelhos/validaty)
-[![NPM Version](https://badge.fury.io/js/validaty.svg)](https://badge.fury.io/js/validaty)
+[![Build Status](https://travis-ci.org/wbotelhos/validaty.svg)](https://travis-ci.org/wbotelhos/validaty)
+[![NPM Version](https://badge.fury.io/js/validaty-js.svg)](https://badge.fury.io/js/validaty-js)
 [![Dependency](https://david-dm.org/wbotelhos/validaty.svg)](https://david-dm.org/wbotelhos/validaty)
 [![Dev Dependency](https://david-dm.org/wbotelhos/validaty/dev-status.svg)](https://david-dm.org/wbotelhos/validaty#info=devDependencies)
 [![Code Climate](https://codeclimate.com/github/wbotelhos/validaty.png)](https://codeclimate.com/github/wbotelhos/validaty)
-[![Support](http://img.shields.io/gittip/wbotelhos.svg)](https://gratipay.com/~wbotelhos)
-
-jQuery Validaty is a form validation plugin.
+[![Patreon](https://img.shields.io/badge/donate-%3C3-brightgreen.svg)](https://www.patreon.com/wbotelhos)
 
 ## Required Files
 
@@ -17,19 +15,23 @@ jQuery Validaty is a form validation plugin.
 
 ## Options
 
-```js
-balloon:    true       // Enables the balloon message or list message style.
-fade:       true       // Enables the fade on balloons message.
-focus:      'first'    // Field to be focused when validation fails.
-errorTarget: undefined // Callback to intercept the errors.
-ignore:     ':submit'  // Fields to be ignored.
-speed:      200        // The speed of the fade option.
-validators: {}         // Object to hold the validators functions.
-```
+|Property   |value    |Description                                      |
+|-----------|---------|-------------------------------------------------|
+|balloon    |true     |Enables the balloon message or list message style|
+|errorTarget|undefined|Callback to intercept the errors                 |
+|fade       |true     |Enables the fade on balloons message             |
+|fadeSpeed  |200      |The speed of the fade option                     |
+|focus      |'first'  |Field to be focused when validation fails        |
+|ignore     |':submit'|Fields to be ignored                             |
+|onFail     |undefined|Callback run on faile                            |
+|onValid    |undefined|Callback run on valid                            |
+|validators |{}       |Object to hold the validators functions          |
 
 ## Usage
 
-Use the attribute `data-validaty` to declare the validation you want.
+### data-validaty
+
+The attribute `data-validaty` receives the validation name.
 
 ```html
 <form>
@@ -41,6 +43,16 @@ Use the attribute `data-validaty` to declare the validation you want.
 $('form').validaty();
 ```
 
+### data-validaty-ignore
+
+Used to ignore some validation included on `data-validaty`.
+
+```html
+<form>
+  <input type="text" data-validaty="required" data-validaty-ignore="required">
+</form>
+```
+
 ### Actions
 
 Add the key `on:` with the action you want to trigger the validation.
@@ -48,14 +60,6 @@ Add the key `on:` with the action you want to trigger the validation.
 ```html
 <form>
   <input type="text" data-validaty="required on:blur">
-</form>
-```
-
-Uses `data-validaty-ignore` to ignored some validation included on `data-validaty`.
-
-```html
-<form>
-  <input type="text" data-validaty="required" data-validaty-ignore="required">
 </form>
 ```
 
@@ -94,11 +98,3 @@ By default it comes with the following validators:
 + Required
 + URL
 + Username
-
-## Contributors
-
-[Check it out](http://github.com/wbotelhos/validaty/graphs/contributors)
-
-## Love it!
-
-Via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=X8HEP2878NDEG&item_name=validaty) or [Gratipay](https://gratipay.com/validaty). Thanks! (:
