@@ -33,7 +33,7 @@ Use the attribute `data-validaty` to declare the validation you want.
 
 ```html
 <form>
-  <input type="text" data-validaty="required" />
+  <input type="text" data-validaty="required">
 </form>
 ```
 
@@ -47,7 +47,15 @@ Add the key `on:` with the action you want to trigger the validation.
 
 ```html
 <form>
-  <input type="text" data-validaty="required on:blur" />
+  <input type="text" data-validaty="required on:blur">
+</form>
+```
+
+Uses `data-validaty-ignore` to ignored some validation included on `data-validaty`.
+
+```html
+<form>
+  <input type="text" data-validaty="required" data-validaty-ignore="required">
 </form>
 ```
 
