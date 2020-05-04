@@ -1,0 +1,13 @@
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../lib/jquery.validaty.js"></script>
+<script src="../../lib/jquery.validaty.validators.js"></script>
+
+<form>
+  <input data-validaty="validation-name" type="text">
+</form>
+
+<script>
+  $('form').validaty().on('submit', function(event) {
+    event.preventDefault();
+  });
+</script>
