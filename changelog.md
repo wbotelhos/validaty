@@ -1,4 +1,8 @@
-# jQuery Validaty - A Validation Plugin - http://wbotelhos.com/validaty
+## 0.6.0
+
+- Adds `onFail` option callback;
+- In some point option `speed` was renamed to `fadeSpeed`;
+- Adds `data-validaty-ignore` to ignore `data-validaty` validations.
 
 ## 0.5.2
 
