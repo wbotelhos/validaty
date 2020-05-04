@@ -1,7 +1,7 @@
 # Validaty - A Validation Plugin
 
 [![Build Status](https://travis-ci.org/wbotelhos/validaty.svg)](https://travis-ci.org/wbotelhos/validaty)
-[![NPM Version](https://badge.fury.io/js/validaty-js.svg)](https://badge.fury.io/js/validaty-js)
+[![NPM Version](https://badge.fury.io/js/validaty.svg)](https://badge.fury.io/js/validaty)
 [![Dependency](https://david-dm.org/wbotelhos/validaty.svg)](https://david-dm.org/wbotelhos/validaty)
 [![Dev Dependency](https://david-dm.org/wbotelhos/validaty/dev-status.svg)](https://david-dm.org/wbotelhos/validaty#info=devDependencies)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2df5d0746211fc302b92/maintainability)](https://codeclimate.com/github/wbotelhos/validaty/maintainability)
