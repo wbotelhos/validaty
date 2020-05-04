@@ -1,3 +1,10 @@
+## v0.6.1
+
+### Fixes
+
+- Put back hash logic used to search previous message and destroy to avoid duplication;
+- `isCheckable` method now is back on `helper` methods;
+
 ## v0.6.0
 
 ### News
