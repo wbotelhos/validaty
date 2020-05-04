@@ -1,0 +1,11 @@
+<form>
+  <input data-validaty="validation-name" type="text">
+
+  <div data-button>Validate</div>
+</form>
+
+<script>
+  $('[data-button]').on('click', function() {
+    $('form').validaty('validate');
+  });
+</script>
