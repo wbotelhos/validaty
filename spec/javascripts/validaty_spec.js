@@ -51,5 +51,39 @@ describe('data-validaty', function() {
 
       expect(form.data('valid')).toEqual(false);
     });
+
+    context('when becomes valid again', function() {
+      it('removes the invalid class', function() {
+        var form  = $('form').validaty();
+        var field = $('[data-validaty]');
+
+        field.val(false);
+
+        form.submit();
+
+        field.val(true);
+
+        form.submit();
+
+        expect(field[0].classList.contains('invalid')).toEqual(false);
+      });
+
+      it('removes the message', function() {
+        var form  = $('form').validaty();
+        var field = $('[data-validaty]');
+
+        field.val(false);
+
+        form.submit();
+
+        field.val(true);
+
+        form.submit();
+
+        var message = document.querySelector('.validaty-message');
+
+        expect(document.body.contains(message)).toEqual(false);
+      });
+    });
   });
 });
