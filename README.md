@@ -17,14 +17,12 @@
 
 |Property   |value    |Description                                      |
 |-----------|---------|-------------------------------------------------|
-|balloon    |true     |Enables the balloon message or list message style|
 |errorTarget|undefined|Callback to intercept the errors                 |
-|fade       |true     |Enables the fade on balloons message             |
-|fadeSpeed  |200      |The speed of the fade option                     |
 |focus      |'first'  |Field to be focused when validation fails        |
 |ignore     |':submit'|Fields to be ignored                             |
-|onFail     |undefined|Callback run on faile                            |
-|onValid    |undefined|Callback run on valid                            |
+|onInvalid  |undefined|Callback called when some field is invalid       |
+|onMessage  |undefined|Callback called when validation message is shown |
+|onValid    |undefined|Callback called when all fields is valid         |
 |validators |{}       |Object to hold the validators functions          |
 
 ## Usage
@@ -53,7 +51,7 @@ Used to ignore some validation included on `data-validaty`.
 </form>
 ```
 
-### Actions
+### on
 
 Add the key `on:` with the action you want to trigger the validation.
 
@@ -67,34 +65,18 @@ Add the key `on:` with the action you want to trigger the validation.
 
 ```js
 $('form').validaty('helper');              // Gives you the internal helpers.
-
 $('form').validaty('validator');           // Gives you a validator.
-
 $('form').validaty('destroy');             // Destroy the Validaty's bind.
-
 $('form').validaty('validate', selectors); // Execute the validation over the form or the given selectors.
 ```
 
 ## Validators.js
 
-This file contains all validators and you can include your own.
-It was separated from `jquery.validaty.js` to be more flexible and easy to edit and add more.
-By default it comes with the following validators:
+This file should contain all validators, just includes your validations calling `register`.
 
-+ Contain
-+ Date ISO
-+ Digits
-+ E-mail
-+ Equal
-+ Max Check
-+ Max Length
-+ Max Select
-+ Min Check
-+ Min Length
-+ Min Select
-+ Number
-+ Range Length
-+ Range Number
-+ Required
-+ URL
-+ Username
+|Property          |Description                                                      |
+|------------------|-----------------------------------------------------------------|
+|validation-name   |The name of your validation                                      |
+|validation-message|The message shown when you validation fails `return false`       |
+|form              |The validated form                                               |
+|word              |???                                                              |
