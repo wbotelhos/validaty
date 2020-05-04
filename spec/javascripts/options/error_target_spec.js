@@ -2,25 +2,31 @@ describe('errorTarget', function() {
   'use strict';
 
   beforeEach(function() {
-    this.field = Helper.text({ 'class': 'original', 'data-validaty': 'required' });
-
-    Helper.append(Helper.form({ html: this.field }));
+    fixture.load('error_target.html');
   });
 
-  it ('intercepts the error message creation', function() {
-    // given
-    var self = $('form').validaty({
-      errorTarget: function(field, message) {
-        $(this).data({ field: field, message: message });
+  it('receives message element to be manipulated', function(done) {
+    var form   = $('form');
+    var target = $('[data-error-target]');
+
+    form.validaty({
+      errorTarget: function(el, message) {
+        expect(el[0]).toEqual(document.querySelector('input'));
+
+        target.html(message);
+      },
+
+      onMessage: function() {
+        var element = document.querySelector('[data-error-target] .validaty-message');
+
+        expect(document.body.contains(element)).toEqual(true);
+
+        done();
       }
     });
 
-    // when
-    self.trigger('submit');
+    $('[data-validaty]').val(false);
 
-    // then
-    expect(self.children('input').next()).not.toHaveClass('validaty-balloon');
-    expect(self.data('field')).toHaveClass('original');
-    expect(self.data('message')).toHaveClass('validaty-balloon');
+    form.submit();
   });
 });

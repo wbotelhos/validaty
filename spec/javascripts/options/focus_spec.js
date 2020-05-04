@@ -1,75 +1,35 @@
-describe('options:focus', function() {
-  'user strict';
+describe('focus', function() {
+  'use strict';
 
-  afterEach(function() { Helper.clear(); });
-
-  context('with all fields visible', function() {
-    beforeEach(function() {
-      Helper.append(Helper.form({ html: Helper.text({ 'data-validaty': 'required', times: 2 }) }));
-    });
-
-    context('as "first"', function() {
-      it ('focus the first one', function() {
-        // given
-        var self = $('form').validaty({ focus: 'first' });
-
-        // when
-        self.submit();
-
-        // then
-        expect(self.children(':input:first')).toBeFocused();
-      });
-    });
-
-    context('as "last"', function() {
-      it ('focus the last one', function() {
-        // given
-        var self = $('form').validaty({ focus: 'last' });
-
-        // when
-        self.submit();
-
-        // then
-        expect(self.children(':input:last')).toBeFocused();
-      });
-    });
-
-    context('as "null"', function() {
-      it ('focus no one', function() {
-        // given
-        var self = $('form').validaty({ focus: null });
-
-        // when
-        self.submit();
-
-        // then
-        expect(self.children(':input:first')).not.toBeFocused();
-        expect(self.children(':input:last')).not.toBeFocused();
-      });
-    });
+  beforeEach(function() {
+    fixture.load('focus.html');
   });
 
-  context('with the first field hidden', function() {
-    beforeEach(function() {
-      Helper.append(Helper.form({
-        html: [
-          Helper.text({ 'data-validaty': 'required', style: 'display: none;' }),
-          Helper.text({ 'data-validaty': 'required', times: 2 }),
-        ]
-      }));
-    });
+  it('is focus the first invalid field', function() {
+    var form   = $('form');
+    var fields = $('[data-validaty]');
 
-    context('as "first"', function() {
-      it ('focus the first one', function() {
-        // given
-        var self = $('form').validaty({ focus: 'first' });
+    form.validaty({ focus: 'first' });
 
-        // when
-        self.submit();
+    fields.val(false);
 
-        // then
-        expect(self.children(':input:visible:first')).toBeFocused();
-      });
-    });
+    form.submit();
+
+    expect(fields[0] === document.activeElement).toEqual(true);
+    expect(fields[1] === document.activeElement).toEqual(false);
+  });
+
+  it('is focus the last invalid field', function() {
+    var form   = $('form');
+    var fields = $('[data-validaty]');
+
+    form.validaty({ focus: 'last' });
+
+    fields.val(false);
+
+    form.submit();
+
+    expect(fields[0] === document.activeElement).toEqual(false);
+    expect(fields[1] === document.activeElement).toEqual(true);
   });
 });

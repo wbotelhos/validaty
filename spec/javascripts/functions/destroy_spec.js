@@ -1,40 +1,18 @@
-describe('functions#destroy', function() {
+describe('validator', function() {
+  'use strict';
+
   beforeEach(function() {
-    Helper.append(Helper.form());
+    fixture.load('default.html');
   });
 
-  afterEach(function() { Helper.clear(); });
-
-  it ('is chainable', function() {
+  it('removes the main class', function() {
     // given
-    var self = $('form').validaty();
+    var form = $('form').validaty();
 
     // when
-    var ref = self.validaty('destroy');
+    form.validaty('destroy');
 
     // then
-    expect(ref).toEqual(self);
-  });
-
-  it ('removes the main class', function() {
-    // given
-    var self = $('form').validaty();
-
-    // when
-    self.validaty('destroy');
-
-    // then
-    expect(self).not.toHaveClass('validaty');
-  });
-
-  it ('removes prevent submit', function() {
-    // given
-    var self = $('form').validaty();
-
-    // when
-    self.validaty('destroy');
-
-    // then
-    //expect(self.data('mouseleave')).toBeFalsy();
+    expect(form[0].classList[0]).toEqual(undefined);
   });
 });

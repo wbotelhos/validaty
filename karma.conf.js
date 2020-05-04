@@ -9,10 +9,8 @@ module.exports = function(config) {
 
     files: [
       'node_modules/jquery/dist/jquery.min.js',
-      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-      'spec/lib/fixtury.js',
-
       'spec/fixtures/*.html',
+
 
       'lib/*.css',
       'lib/*.js',

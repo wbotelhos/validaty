@@ -1,28 +1,28 @@
-describe('functions#validator', function() {
+describe('validator', function() {
+  'use strict';
+
   beforeEach(function() {
-    Helper.append(Helper.form());
+    fixture.load('default.html');
   });
 
-  afterEach(function() { Helper.clear(); });
-
-  it ('returns the right validator', function() {
+  it('returns the right validator', function() {
     // given
-    var self = $('form').validaty();
+    var form = $('form').validaty();
 
     // when
-    var validator = self.validaty('validator', 'required');
+    var validator = form.validaty('validator', 'validation-name');
 
     // then
-    expect(validator).toBe($.fn.validaty.defaults.validators.required);
+    expect(validator).toBe($.fn.validaty.defaults.validators['validation-name']);
   });
 
-  context('not registered', function() {
-    it ('returns the right validator', function() {
+  context('when validator is not registered', function() {
+    it('returns the right validator', function() {
       // given
-      var self = $('form').validaty();
+      var form = $('form').validaty();
 
       // when
-      var lambda = function() { self.validaty('validator', 'notfound') };
+      var lambda = function() { form.validaty('validator', 'notfound') };
 
       // then
       expect(lambda).toThrow(new Error('Validator "notfound" not registered!'));

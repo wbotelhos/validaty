@@ -1,103 +1,63 @@
-describe('functions#validate', function() {
+describe('validate', function() {
   'use strict';
 
   beforeEach(function() {
-    Helper.append(Helper.form({
-      html: Helper.text({ 'data-validaty': 'required' }) + Helper.text({ 'data-validaty': 'required' })
-    }));
+    fixture.load('focus.html');
   });
 
-  afterEach(function() { Helper.clear(); });
+  it('is chainable', function() {
+    // given
+    var form = $('form').validaty();
 
-  context('with no given field', function() {
-    xit ('validates all fields', function() {
+    // when
+    var ref = form.validaty('validate');
+
+    // then
+    expect(ref).toEqual(form);
+  });
+
+  context('when no field is given', function() {
+    it('validates all fields', function() {
       // given
-      var
-        self  = $('form').validaty(),
-        input = self.children('input');
+      var form   = $('form').validaty();
+      var fields = $('[data-validaty]');
 
       // when
-      self.validaty('validate');
+      form.validaty('validate');
 
       // then
-      expect(input.length).toEqual(2);
-      expect(input).toHaveClass('invalid');
+      expect(fields[0].classList[0]).toEqual('invalid');
+      expect(fields[1].classList[0]).toEqual('invalid');
     });
   });
 
-  context('with one field given', function() {
-    xit ('validates only the given field', function() {
+  context('when some field is given', function() {
+    it('validates only the given field', function() {
       // given
-      var
-        self   = $('form').validaty(),
-        inputs = self.children('input');
+      var form   = $('form').validaty();
+      var fields = $('[data-validaty]');
 
       // when
-      self.validaty('validate', inputs.first());
+      form.validaty('validate', fields.first());
 
       // then
-      expect(inputs.length).toEqual(2);
-      expect(inputs.first()).toHaveClass('invalid');
-      expect(inputs.last()).not.toHaveClass('invalid');
+      expect(fields[0].classList[0]).toEqual('invalid');
+      expect(fields[1].classList[0]).toEqual(undefined);
     });
   });
 
-  context('with more than one field given', function() {
-    xit ('validates all given fields', function() {
+  context('when more than one field given', function() {
+    it('validates all given fields', function() {
       // given
-      var
-        self   = $('form').validaty(),
-        inputs = self.children('input');
+      var form   = $('form').validaty();
+      var fields = $('[data-validaty]');
 
       // when
-      self.validaty('validate', inputs);
+      form.validaty('validate', fields);
 
       // then
-      expect(inputs.length).toEqual(2);
-      expect(inputs.first()).toHaveClass('invalid');
-      expect(inputs.last()).toHaveClass('invalid');
-    });
-  });
-
-  context('with more than one radio field with the same name given', function() {
-    beforeEach(function() {
-      Helper.append(Helper.form({
-        html: Helper.radio({ name: 'name', 'data-validaty': 'required', times: 2 })
-      }));
-    });
-
-    context('when have error', function() {
-      xit ('show only one invalid message', function() {
-        // given
-        var self = $('form').validaty();
-
-        self.children(':text').val('valid');
-
-        // when
-        self.validaty('validate', self.children(':radio'));
-
-        // then
-        expect(self.find('.validaty-balloon').length).toEqual(1);
-      });
-    });
-
-    context('when have error but is is fixed', function() {
-      it ('removes the invalid class from all given fields', function() {
-        // given
-        var self = $('form').validaty();
-
-        self.children(':text').val('valid');
-
-        self.validaty('validate', self.find(':radio'));
-
-        // when
-        self.find(':radio').trigger('click');
-
-        self.validaty('validate', self.children(':radio'));
-
-        // then
-        expect(self.find(':radio')).not.toHaveClass('invalid');
-      });
+      expect(fields[0].classList[0]).toEqual('invalid');
+      expect(fields[1].classList[0]).toEqual('invalid');
     });
   });
 });
