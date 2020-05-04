@@ -9,7 +9,6 @@ describe('options', function() {
     var options = validaty.defaults
 
     // then
-    // expect(options.hash).toEqual(Function)
     expect(options.errorTarget).toEqual(undefined)
     expect(options.focus).toEqual('first')
     expect(options.ignore).toEqual(':submit, :reset, :image, :disabled')
