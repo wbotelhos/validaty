@@ -1,4 +1,6 @@
 context('actions:focus', function() {
+  'use strict';
+
   afterEach(function() { Helper.clear(); });
 
   context('with one field inside the same form', function() {
