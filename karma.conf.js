@@ -2,13 +2,9 @@ module.exports = function(config) {
   'use strict';
 
   config.set({
-    autoWatch:  true,
-    debug:      true,
     browsers:   ['Chrome', 'Firefox'],
+    debug:      true,
     frameworks: ['jasmine', 'fixture'],
-    logLevel:   config.LOG_ERROR,
-    port:       9876,
-    reporters:  ['dots'],
     singleRun:  true,
 
     files: [

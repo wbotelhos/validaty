@@ -4,36 +4,28 @@
     "url": "https://github.com/wbotelhos/validaty/issues"
   },
   "contributors": [
-    "Washington Botelho <wbotelhos@gmail.com> (http://wbotelhos.com)"
+    "Washington Botelho <wbotelhos@gmail.com> (https://www.danca.com)"
   ],
   "demos": [
     "index.html"
   ],
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.5.0"
   },
   "description": "jQuery Validaty - A Validation Plugin",
   "devDependencies": {
-    "jasmine-core": "^2.6.1",
+    "jasmine-core": "^3.5.0",
     "jasmine-jquery": "^2.1.1",
-    "jquery-validation": "^1.16.0",
-    "karma": "^1.7.0",
-    "karma-chrome-launcher": "^2.1.1",
-    "karma-firefox-launcher": "^1.0.1",
+    "karma": "^5.0.4",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-firefox-launcher": "^1.3.0",
     "karma-fixture": "^0.2.6",
     "karma-html2js-preprocessor": "^1.1.0",
-    "karma-ie-launcher": "^1.0.0",
-    "karma-jasmine": "^1.1.0",
-    "karma-opera-launcher": "^1.0.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-safari-launcher": "^1.0.0"
+    "karma-jasmine": "^3.1.1"
   },
   "directories": {
     "lib": "lib",
     "test": "spec"
-  },
-  "engines": {
-    "node": "7.10"
   },
   "homepage": "https://github.com/wbotelhos/validaty",
   "keywords": [
@@ -45,7 +37,7 @@
   "license": "MIT",
   "main": "lib/jquery.validaty.js",
   "maintainers": [
-    "Washington Botelho <wbotelhos@gmail.com> (http://wbotelhos.com)"
+    "Washington Botelho <wbotelhos@gmail.com> (https://www.danca.com)"
   ],
   "name": "validaty",
   "repository": {
