@@ -1,50 +1,57 @@
-## 0.6.0
+## v0.6.0
 
-- Adds `onFail` option callback;
-- In some point option `speed` was renamed to `fadeSpeed`;
+### News
+
 - Adds `data-validaty-ignore` to ignore `data-validaty` validations.
+- Adds `onInvalid` option callback that is executed when some field is invalid;
+- Adds `onMessage` execute when invalid messages is shown;
 
-## 0.5.2
+### Updates
+
+- Removes all validations example and keeps just one as example;
+- Removes `fade` and `fadeSpeed`, before `speed` options;
+
+## v0.5.2
 
 ### Fixes
 
 + Removes class `valid` and `invalid` before each validation to avoid `invalid valid` class.
 
-## 0.5.1
+## v0.5.1
 
-### Changes
+### Updates
 
 + fields with no `data-validaty` will return empty `validators` and `actions` instead of `undefined`;
 + fields with no `data-validaty` will be processed too.
 
-## 0.5.0
+## v0.5.0
 
 ### News
 
 + Added callback options `errorTarget` where you receive the field and message and decide what to do with that;
 + Now the public `validate` method can receive the fields you want to validate.
 
-## 0.4.1
+## v0.4.1
 
 ### Fixes
 
 + Replace `startsWith` with Regex, since IE does not support it.
 
-## 0.4.0
+## v0.4.0
 
 ## News
 
 + Added callback option `onValid` that runs when all fields are valid.
 + Added function `valid` to check if all fields is valid.
 
-## 0.3.0
+## v0.3.0
 
 ### Fixes
 
 + The fade effect was being applied even when not enabled;
 + The fade was not binding to the list style message.
 
-## 0.2.0
+## v0.2.0
 
 ### News
 
@@ -54,7 +61,7 @@
 
 + The `equal` validator was accepting blank value.
 
-## 0.1.0
+## v0.1.0
 
 ### News
 
