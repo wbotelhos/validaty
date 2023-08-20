@@ -10,17 +10,17 @@
     "index.html"
   ],
   "dependencies": {
-    "jquery": "^3.5.0"
+    "jquery": "^3.7.0"
   },
   "description": "jQuery Validaty - A Validation Plugin",
   "devDependencies": {
-    "jasmine-core": "^3.5.0",
+    "jasmine-core": "^5.1.0",
     "jasmine-jquery": "^2.1.1",
-    "karma": "^5.0.4",
-    "karma-chrome-launcher": "^3.1.0",
+    "karma": "^6.4.2",
+    "karma-chrome-launcher": "^3.2.0",
     "karma-fixture": "^0.2.6",
     "karma-html2js-preprocessor": "^1.1.0",
-    "karma-jasmine": "^3.1.1"
+    "karma-jasmine": "^5.1.0"
   },
   "directories": {
     "lib": "lib",
