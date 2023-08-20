@@ -23,7 +23,7 @@
     "karma-jasmine": "^5.1.0"
   },
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "__tests__"
   },
   "homepage": "https://github.com/wbotelhos/validaty",
@@ -34,7 +34,7 @@
     "validation"
   ],
   "license": "MIT",
-  "main": "lib/jquery.validaty.js",
+  "main": "src/jquery.validaty.js",
   "maintainers": [
     "Washington Botelho <wbotelhos@gmail.com> (https://www.danca.com)"
   ],
