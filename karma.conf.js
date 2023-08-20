@@ -9,9 +9,9 @@ module.exports = function(config) {
       "node_modules/jquery/dist/jquery.min.js",
       "lib/*.css",
       "lib/*.js",
-      "spec/fixtures/*.html",
-      "spec/spec_helper.js",
-      "spec/javascripts/**/*.js",
+      "__tests__/fixtures/*.html",
+      "__tests__/spec_helper.js",
+      "__tests__/javascripts/**/*.js",
     ],
 
     frameworks: ["jasmine", "fixture"],
