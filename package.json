@@ -6,9 +6,6 @@
   "contributors": [
     "Washington Botelho <wbotelhos@gmail.com> (https://www.danca.com)"
   ],
-  "demos": [
-    "index.html"
-  ],
   "dependencies": {
     "jquery": "^3.7.0"
   },
