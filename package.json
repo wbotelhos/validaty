@@ -14,6 +14,11 @@
   },
   "description": "jQuery Validaty - A Validation Plugin",
   "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
     "jasmine-core": "^5.1.0",
     "jasmine-jquery": "^2.1.1",
     "karma": "^6.4.2",
@@ -44,7 +49,9 @@
     "url": "https://github.com/wbotelhos/validaty"
   },
   "scripts": {
-    "test": "node_modules/karma/bin/karma start karma.conf.js"
+    "build": "gulp build",
+    "test": "node_modules/karma/bin/karma start karma.conf.js",
+    "watch": "gulp watch"
   },
   "version": "0.6.1"
 }
