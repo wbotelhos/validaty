@@ -1,11 +1,9 @@
 # Validaty - A Validation Plugin
 
-[![Build Status](https://travis-ci.org/wbotelhos/validaty.svg)](https://travis-ci.org/wbotelhos/validaty)
+[![Tests](https://github.com/wbotelhos/validaty/workflows/Tests/badge.svg)](https://github.com/wbotelhos/validaty/actions/workflows/tests.yml)
 [![NPM Version](https://badge.fury.io/js/validaty.svg)](https://badge.fury.io/js/validaty)
-[![Dependency](https://david-dm.org/wbotelhos/validaty.svg)](https://david-dm.org/wbotelhos/validaty)
-[![Dev Dependency](https://david-dm.org/wbotelhos/validaty/dev-status.svg)](https://david-dm.org/wbotelhos/validaty#info=devDependencies)
-[![Maintainability](https://api.codeclimate.com/v1/badges/2df5d0746211fc302b92/maintainability)](https://codeclimate.com/github/wbotelhos/validaty/maintainability)
-[![Patreon](https://img.shields.io/badge/donate-%3C3-brightgreen.svg)](https://www.patreon.com/wbotelhos)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e152fa0075358ae855f1/maintainability)](https://codeclimate.com/github/wbotelhos/validaty/maintainability)
+[![Sponsor](https://img.shields.io/badge/sponsor-%3C3-green)](https://github.com/sponsors/wbotelhos)
 
 ## Required Files
 
